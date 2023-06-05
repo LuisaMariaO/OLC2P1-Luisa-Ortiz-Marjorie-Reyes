@@ -29,7 +29,7 @@ function Index(){
                 </li>
 
                 <li class="nav-item">
-                <a class="nav-link " aria-current="page" href="" onClick={()=>navigate('/code')}>Editor</a>
+                <a class="nav-link " aria-current="page" href="" onClick={()=>navigate('/code')}>Análisis</a>
                 </li>
 
                 <li class="nav-item">

@@ -96,7 +96,7 @@ function Code(){
                 </li>
 
                 <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="" onClick={()=>navigate('/code')}>Editor</a>
+                <a class="nav-link active" aria-current="page" href="" onClick={()=>navigate('/code')}>Análisis</a>
                 </li>
 
                 <li class="nav-item">
