@@ -1,0 +1,2032 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> init
+Rule 1     init -> instrucciones
+Rule 2     instrucciones -> instrucciones instruccion
+Rule 3     instrucciones -> instruccion
+Rule 4     instruccion -> CONSOLE PTO LOG PARABRE expresion PARCIERRA PTOCOMA
+Rule 5     instruccion -> LET ID DOSPTOS tipo IGUAL expresion PTOCOMA
+Rule 6     instruccion -> LET ID IGUAL expresion PTOCOMA
+Rule 7     expresion -> expresion AND expresion
+Rule 8     expresion -> expresion OR expresion
+Rule 9     expresion -> NOT expresion
+Rule 10    expresion -> expresion MAYOR expresion
+Rule 11    expresion -> expresion MENOR expresion
+Rule 12    expresion -> expresion IGUALACION expresion
+Rule 13    expresion -> expresion DIFERENTE expresion
+Rule 14    expresion -> expresion MAYORIGUAL expresion
+Rule 15    expresion -> expresion MENORIGUAL expresion
+Rule 16    expresion -> expresion POTENCIA expresion
+Rule 17    expresion -> expresion MODULO expresion
+Rule 18    expresion -> expresion SUMA expresion
+Rule 19    expresion -> expresion RESTA expresion
+Rule 20    expresion -> expresion MULTIPLICACION expresion
+Rule 21    expresion -> expresion DIVISION expresion
+Rule 22    expresion -> ENTERO
+Rule 23    expresion -> DECIMAL
+Rule 24    expresion -> CADENA
+Rule 25    expresion -> FALSO
+Rule 26    expresion -> VERDADERO
+Rule 27    expresion -> ID
+Rule 28    expresion -> INTERFACE ID LLAVEABRE LLAVECIERRA PTOCOMA
+Rule 29    expresion -> NULL
+Rule 30    tipo -> STRING
+Rule 31    tipo -> NUMBER
+Rule 32    tipo -> BOOLEAN
+
+Terminals, with rules where they appear
+
+AND                  : 7
+BOOLEAN              : 32
+CADENA               : 24
+CONSOLE              : 4
+DECIMAL              : 23
+DIFERENTE            : 13
+DIVISION             : 21
+DOSPTOS              : 5
+ENTERO               : 22
+FALSO                : 25
+ID                   : 5 6 27 28
+IGUAL                : 5 6
+IGUALACION           : 12
+INTERFACE            : 28
+LET                  : 5 6
+LLAVEABRE            : 28
+LLAVECIERRA          : 28
+LOG                  : 4
+MAYOR                : 10
+MAYORIGUAL           : 14
+MENOR                : 11
+MENORIGUAL           : 15
+MODULO               : 17
+MULTIPLICACION       : 20
+NOT                  : 9
+NULL                 : 29
+NUMBER               : 31
+OR                   : 8
+PARABRE              : 4
+PARCIERRA            : 4
+POTENCIA             : 16
+PTO                  : 4
+PTOCOMA              : 4 5 6 28
+RESTA                : 19
+STRING               : 30
+SUMA                 : 18
+VERDADERO            : 26
+error                : 
+
+Nonterminals, with rules where they appear
+
+expresion            : 4 5 6 7 7 8 8 9 10 10 11 11 12 12 13 13 14 14 15 15 16 16 17 17 18 18 19 19 20 20 21 21
+init                 : 0
+instruccion          : 2 3
+instrucciones        : 1 2
+tipo                 : 5
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . init
+    (1) init -> . instrucciones
+    (2) instrucciones -> . instrucciones instruccion
+    (3) instrucciones -> . instruccion
+    (4) instruccion -> . CONSOLE PTO LOG PARABRE expresion PARCIERRA PTOCOMA
+    (5) instruccion -> . LET ID DOSPTOS tipo IGUAL expresion PTOCOMA
+    (6) instruccion -> . LET ID IGUAL expresion PTOCOMA
+
+    CONSOLE         shift and go to state 4
+    LET             shift and go to state 5
+
+    init                           shift and go to state 1
+    instrucciones                  shift and go to state 2
+    instruccion                    shift and go to state 3
+
+state 1
+
+    (0) S' -> init .
+
+
+
+state 2
+
+    (1) init -> instrucciones .
+    (2) instrucciones -> instrucciones . instruccion
+    (4) instruccion -> . CONSOLE PTO LOG PARABRE expresion PARCIERRA PTOCOMA
+    (5) instruccion -> . LET ID DOSPTOS tipo IGUAL expresion PTOCOMA
+    (6) instruccion -> . LET ID IGUAL expresion PTOCOMA
+
+    $end            reduce using rule 1 (init -> instrucciones .)
+    CONSOLE         shift and go to state 4
+    LET             shift and go to state 5
+
+    instruccion                    shift and go to state 6
+
+state 3
+
+    (3) instrucciones -> instruccion .
+
+    CONSOLE         reduce using rule 3 (instrucciones -> instruccion .)
+    LET             reduce using rule 3 (instrucciones -> instruccion .)
+    $end            reduce using rule 3 (instrucciones -> instruccion .)
+
+
+state 4
+
+    (4) instruccion -> CONSOLE . PTO LOG PARABRE expresion PARCIERRA PTOCOMA
+
+    PTO             shift and go to state 7
+
+
+state 5
+
+    (5) instruccion -> LET . ID DOSPTOS tipo IGUAL expresion PTOCOMA
+    (6) instruccion -> LET . ID IGUAL expresion PTOCOMA
+
+    ID              shift and go to state 8
+
+
+state 6
+
+    (2) instrucciones -> instrucciones instruccion .
+
+    CONSOLE         reduce using rule 2 (instrucciones -> instrucciones instruccion .)
+    LET             reduce using rule 2 (instrucciones -> instrucciones instruccion .)
+    $end            reduce using rule 2 (instrucciones -> instrucciones instruccion .)
+
+
+state 7
+
+    (4) instruccion -> CONSOLE PTO . LOG PARABRE expresion PARCIERRA PTOCOMA
+
+    LOG             shift and go to state 9
+
+
+state 8
+
+    (5) instruccion -> LET ID . DOSPTOS tipo IGUAL expresion PTOCOMA
+    (6) instruccion -> LET ID . IGUAL expresion PTOCOMA
+
+    DOSPTOS         shift and go to state 10
+    IGUAL           shift and go to state 11
+
+
+state 9
+
+    (4) instruccion -> CONSOLE PTO LOG . PARABRE expresion PARCIERRA PTOCOMA
+
+    PARABRE         shift and go to state 12
+
+
+state 10
+
+    (5) instruccion -> LET ID DOSPTOS . tipo IGUAL expresion PTOCOMA
+    (30) tipo -> . STRING
+    (31) tipo -> . NUMBER
+    (32) tipo -> . BOOLEAN
+
+    STRING          shift and go to state 14
+    NUMBER          shift and go to state 15
+    BOOLEAN         shift and go to state 16
+
+    tipo                           shift and go to state 13
+
+state 11
+
+    (6) instruccion -> LET ID IGUAL . expresion PTOCOMA
+    (7) expresion -> . expresion AND expresion
+    (8) expresion -> . expresion OR expresion
+    (9) expresion -> . NOT expresion
+    (10) expresion -> . expresion MAYOR expresion
+    (11) expresion -> . expresion MENOR expresion
+    (12) expresion -> . expresion IGUALACION expresion
+    (13) expresion -> . expresion DIFERENTE expresion
+    (14) expresion -> . expresion MAYORIGUAL expresion
+    (15) expresion -> . expresion MENORIGUAL expresion
+    (16) expresion -> . expresion POTENCIA expresion
+    (17) expresion -> . expresion MODULO expresion
+    (18) expresion -> . expresion SUMA expresion
+    (19) expresion -> . expresion RESTA expresion
+    (20) expresion -> . expresion MULTIPLICACION expresion
+    (21) expresion -> . expresion DIVISION expresion
+    (22) expresion -> . ENTERO
+    (23) expresion -> . DECIMAL
+    (24) expresion -> . CADENA
+    (25) expresion -> . FALSO
+    (26) expresion -> . VERDADERO
+    (27) expresion -> . ID
+    (28) expresion -> . INTERFACE ID LLAVEABRE LLAVECIERRA PTOCOMA
+    (29) expresion -> . NULL
+
+    NOT             shift and go to state 19
+    ENTERO          shift and go to state 20
+    DECIMAL         shift and go to state 21
+    CADENA          shift and go to state 22
+    FALSO           shift and go to state 23
+    VERDADERO       shift and go to state 24
+    ID              shift and go to state 17
+    INTERFACE       shift and go to state 25
+    NULL            shift and go to state 26
+
+    expresion                      shift and go to state 18
+
+state 12
+
+    (4) instruccion -> CONSOLE PTO LOG PARABRE . expresion PARCIERRA PTOCOMA
+    (7) expresion -> . expresion AND expresion
+    (8) expresion -> . expresion OR expresion
+    (9) expresion -> . NOT expresion
+    (10) expresion -> . expresion MAYOR expresion
+    (11) expresion -> . expresion MENOR expresion
+    (12) expresion -> . expresion IGUALACION expresion
+    (13) expresion -> . expresion DIFERENTE expresion
+    (14) expresion -> . expresion MAYORIGUAL expresion
+    (15) expresion -> . expresion MENORIGUAL expresion
+    (16) expresion -> . expresion POTENCIA expresion
+    (17) expresion -> . expresion MODULO expresion
+    (18) expresion -> . expresion SUMA expresion
+    (19) expresion -> . expresion RESTA expresion
+    (20) expresion -> . expresion MULTIPLICACION expresion
+    (21) expresion -> . expresion DIVISION expresion
+    (22) expresion -> . ENTERO
+    (23) expresion -> . DECIMAL
+    (24) expresion -> . CADENA
+    (25) expresion -> . FALSO
+    (26) expresion -> . VERDADERO
+    (27) expresion -> . ID
+    (28) expresion -> . INTERFACE ID LLAVEABRE LLAVECIERRA PTOCOMA
+    (29) expresion -> . NULL
+
+    NOT             shift and go to state 19
+    ENTERO          shift and go to state 20
+    DECIMAL         shift and go to state 21
+    CADENA          shift and go to state 22
+    FALSO           shift and go to state 23
+    VERDADERO       shift and go to state 24
+    ID              shift and go to state 17
+    INTERFACE       shift and go to state 25
+    NULL            shift and go to state 26
+
+    expresion                      shift and go to state 27
+
+state 13
+
+    (5) instruccion -> LET ID DOSPTOS tipo . IGUAL expresion PTOCOMA
+
+    IGUAL           shift and go to state 28
+
+
+state 14
+
+    (30) tipo -> STRING .
+
+    IGUAL           reduce using rule 30 (tipo -> STRING .)
+
+
+state 15
+
+    (31) tipo -> NUMBER .
+
+    IGUAL           reduce using rule 31 (tipo -> NUMBER .)
+
+
+state 16
+
+    (32) tipo -> BOOLEAN .
+
+    IGUAL           reduce using rule 32 (tipo -> BOOLEAN .)
+
+
+state 17
+
+    (27) expresion -> ID .
+
+    PTOCOMA         reduce using rule 27 (expresion -> ID .)
+    AND             reduce using rule 27 (expresion -> ID .)
+    OR              reduce using rule 27 (expresion -> ID .)
+    MAYOR           reduce using rule 27 (expresion -> ID .)
+    MENOR           reduce using rule 27 (expresion -> ID .)
+    IGUALACION      reduce using rule 27 (expresion -> ID .)
+    DIFERENTE       reduce using rule 27 (expresion -> ID .)
+    MAYORIGUAL      reduce using rule 27 (expresion -> ID .)
+    MENORIGUAL      reduce using rule 27 (expresion -> ID .)
+    POTENCIA        reduce using rule 27 (expresion -> ID .)
+    MODULO          reduce using rule 27 (expresion -> ID .)
+    SUMA            reduce using rule 27 (expresion -> ID .)
+    RESTA           reduce using rule 27 (expresion -> ID .)
+    MULTIPLICACION  reduce using rule 27 (expresion -> ID .)
+    DIVISION        reduce using rule 27 (expresion -> ID .)
+    PARCIERRA       reduce using rule 27 (expresion -> ID .)
+
+
+state 18
+
+    (6) instruccion -> LET ID IGUAL expresion . PTOCOMA
+    (7) expresion -> expresion . AND expresion
+    (8) expresion -> expresion . OR expresion
+    (10) expresion -> expresion . MAYOR expresion
+    (11) expresion -> expresion . MENOR expresion
+    (12) expresion -> expresion . IGUALACION expresion
+    (13) expresion -> expresion . DIFERENTE expresion
+    (14) expresion -> expresion . MAYORIGUAL expresion
+    (15) expresion -> expresion . MENORIGUAL expresion
+    (16) expresion -> expresion . POTENCIA expresion
+    (17) expresion -> expresion . MODULO expresion
+    (18) expresion -> expresion . SUMA expresion
+    (19) expresion -> expresion . RESTA expresion
+    (20) expresion -> expresion . MULTIPLICACION expresion
+    (21) expresion -> expresion . DIVISION expresion
+
+    PTOCOMA         shift and go to state 29
+    AND             shift and go to state 30
+    OR              shift and go to state 31
+    MAYOR           shift and go to state 32
+    MENOR           shift and go to state 33
+    IGUALACION      shift and go to state 34
+    DIFERENTE       shift and go to state 35
+    MAYORIGUAL      shift and go to state 36
+    MENORIGUAL      shift and go to state 37
+    POTENCIA        shift and go to state 38
+    MODULO          shift and go to state 39
+    SUMA            shift and go to state 40
+    RESTA           shift and go to state 41
+    MULTIPLICACION  shift and go to state 42
+    DIVISION        shift and go to state 43
+
+
+state 19
+
+    (9) expresion -> NOT . expresion
+    (7) expresion -> . expresion AND expresion
+    (8) expresion -> . expresion OR expresion
+    (9) expresion -> . NOT expresion
+    (10) expresion -> . expresion MAYOR expresion
+    (11) expresion -> . expresion MENOR expresion
+    (12) expresion -> . expresion IGUALACION expresion
+    (13) expresion -> . expresion DIFERENTE expresion
+    (14) expresion -> . expresion MAYORIGUAL expresion
+    (15) expresion -> . expresion MENORIGUAL expresion
+    (16) expresion -> . expresion POTENCIA expresion
+    (17) expresion -> . expresion MODULO expresion
+    (18) expresion -> . expresion SUMA expresion
+    (19) expresion -> . expresion RESTA expresion
+    (20) expresion -> . expresion MULTIPLICACION expresion
+    (21) expresion -> . expresion DIVISION expresion
+    (22) expresion -> . ENTERO
+    (23) expresion -> . DECIMAL
+    (24) expresion -> . CADENA
+    (25) expresion -> . FALSO
+    (26) expresion -> . VERDADERO
+    (27) expresion -> . ID
+    (28) expresion -> . INTERFACE ID LLAVEABRE LLAVECIERRA PTOCOMA
+    (29) expresion -> . NULL
+
+    NOT             shift and go to state 19
+    ENTERO          shift and go to state 20
+    DECIMAL         shift and go to state 21
+    CADENA          shift and go to state 22
+    FALSO           shift and go to state 23
+    VERDADERO       shift and go to state 24
+    ID              shift and go to state 17
+    INTERFACE       shift and go to state 25
+    NULL            shift and go to state 26
+
+    expresion                      shift and go to state 44
+
+state 20
+
+    (22) expresion -> ENTERO .
+
+    PTOCOMA         reduce using rule 22 (expresion -> ENTERO .)
+    AND             reduce using rule 22 (expresion -> ENTERO .)
+    OR              reduce using rule 22 (expresion -> ENTERO .)
+    MAYOR           reduce using rule 22 (expresion -> ENTERO .)
+    MENOR           reduce using rule 22 (expresion -> ENTERO .)
+    IGUALACION      reduce using rule 22 (expresion -> ENTERO .)
+    DIFERENTE       reduce using rule 22 (expresion -> ENTERO .)
+    MAYORIGUAL      reduce using rule 22 (expresion -> ENTERO .)
+    MENORIGUAL      reduce using rule 22 (expresion -> ENTERO .)
+    POTENCIA        reduce using rule 22 (expresion -> ENTERO .)
+    MODULO          reduce using rule 22 (expresion -> ENTERO .)
+    SUMA            reduce using rule 22 (expresion -> ENTERO .)
+    RESTA           reduce using rule 22 (expresion -> ENTERO .)
+    MULTIPLICACION  reduce using rule 22 (expresion -> ENTERO .)
+    DIVISION        reduce using rule 22 (expresion -> ENTERO .)
+    PARCIERRA       reduce using rule 22 (expresion -> ENTERO .)
+
+
+state 21
+
+    (23) expresion -> DECIMAL .
+
+    PTOCOMA         reduce using rule 23 (expresion -> DECIMAL .)
+    AND             reduce using rule 23 (expresion -> DECIMAL .)
+    OR              reduce using rule 23 (expresion -> DECIMAL .)
+    MAYOR           reduce using rule 23 (expresion -> DECIMAL .)
+    MENOR           reduce using rule 23 (expresion -> DECIMAL .)
+    IGUALACION      reduce using rule 23 (expresion -> DECIMAL .)
+    DIFERENTE       reduce using rule 23 (expresion -> DECIMAL .)
+    MAYORIGUAL      reduce using rule 23 (expresion -> DECIMAL .)
+    MENORIGUAL      reduce using rule 23 (expresion -> DECIMAL .)
+    POTENCIA        reduce using rule 23 (expresion -> DECIMAL .)
+    MODULO          reduce using rule 23 (expresion -> DECIMAL .)
+    SUMA            reduce using rule 23 (expresion -> DECIMAL .)
+    RESTA           reduce using rule 23 (expresion -> DECIMAL .)
+    MULTIPLICACION  reduce using rule 23 (expresion -> DECIMAL .)
+    DIVISION        reduce using rule 23 (expresion -> DECIMAL .)
+    PARCIERRA       reduce using rule 23 (expresion -> DECIMAL .)
+
+
+state 22
+
+    (24) expresion -> CADENA .
+
+    PTOCOMA         reduce using rule 24 (expresion -> CADENA .)
+    AND             reduce using rule 24 (expresion -> CADENA .)
+    OR              reduce using rule 24 (expresion -> CADENA .)
+    MAYOR           reduce using rule 24 (expresion -> CADENA .)
+    MENOR           reduce using rule 24 (expresion -> CADENA .)
+    IGUALACION      reduce using rule 24 (expresion -> CADENA .)
+    DIFERENTE       reduce using rule 24 (expresion -> CADENA .)
+    MAYORIGUAL      reduce using rule 24 (expresion -> CADENA .)
+    MENORIGUAL      reduce using rule 24 (expresion -> CADENA .)
+    POTENCIA        reduce using rule 24 (expresion -> CADENA .)
+    MODULO          reduce using rule 24 (expresion -> CADENA .)
+    SUMA            reduce using rule 24 (expresion -> CADENA .)
+    RESTA           reduce using rule 24 (expresion -> CADENA .)
+    MULTIPLICACION  reduce using rule 24 (expresion -> CADENA .)
+    DIVISION        reduce using rule 24 (expresion -> CADENA .)
+    PARCIERRA       reduce using rule 24 (expresion -> CADENA .)
+
+
+state 23
+
+    (25) expresion -> FALSO .
+
+    PTOCOMA         reduce using rule 25 (expresion -> FALSO .)
+    AND             reduce using rule 25 (expresion -> FALSO .)
+    OR              reduce using rule 25 (expresion -> FALSO .)
+    MAYOR           reduce using rule 25 (expresion -> FALSO .)
+    MENOR           reduce using rule 25 (expresion -> FALSO .)
+    IGUALACION      reduce using rule 25 (expresion -> FALSO .)
+    DIFERENTE       reduce using rule 25 (expresion -> FALSO .)
+    MAYORIGUAL      reduce using rule 25 (expresion -> FALSO .)
+    MENORIGUAL      reduce using rule 25 (expresion -> FALSO .)
+    POTENCIA        reduce using rule 25 (expresion -> FALSO .)
+    MODULO          reduce using rule 25 (expresion -> FALSO .)
+    SUMA            reduce using rule 25 (expresion -> FALSO .)
+    RESTA           reduce using rule 25 (expresion -> FALSO .)
+    MULTIPLICACION  reduce using rule 25 (expresion -> FALSO .)
+    DIVISION        reduce using rule 25 (expresion -> FALSO .)
+    PARCIERRA       reduce using rule 25 (expresion -> FALSO .)
+
+
+state 24
+
+    (26) expresion -> VERDADERO .
+
+    PTOCOMA         reduce using rule 26 (expresion -> VERDADERO .)
+    AND             reduce using rule 26 (expresion -> VERDADERO .)
+    OR              reduce using rule 26 (expresion -> VERDADERO .)
+    MAYOR           reduce using rule 26 (expresion -> VERDADERO .)
+    MENOR           reduce using rule 26 (expresion -> VERDADERO .)
+    IGUALACION      reduce using rule 26 (expresion -> VERDADERO .)
+    DIFERENTE       reduce using rule 26 (expresion -> VERDADERO .)
+    MAYORIGUAL      reduce using rule 26 (expresion -> VERDADERO .)
+    MENORIGUAL      reduce using rule 26 (expresion -> VERDADERO .)
+    POTENCIA        reduce using rule 26 (expresion -> VERDADERO .)
+    MODULO          reduce using rule 26 (expresion -> VERDADERO .)
+    SUMA            reduce using rule 26 (expresion -> VERDADERO .)
+    RESTA           reduce using rule 26 (expresion -> VERDADERO .)
+    MULTIPLICACION  reduce using rule 26 (expresion -> VERDADERO .)
+    DIVISION        reduce using rule 26 (expresion -> VERDADERO .)
+    PARCIERRA       reduce using rule 26 (expresion -> VERDADERO .)
+
+
+state 25
+
+    (28) expresion -> INTERFACE . ID LLAVEABRE LLAVECIERRA PTOCOMA
+
+    ID              shift and go to state 45
+
+
+state 26
+
+    (29) expresion -> NULL .
+
+    PTOCOMA         reduce using rule 29 (expresion -> NULL .)
+    AND             reduce using rule 29 (expresion -> NULL .)
+    OR              reduce using rule 29 (expresion -> NULL .)
+    MAYOR           reduce using rule 29 (expresion -> NULL .)
+    MENOR           reduce using rule 29 (expresion -> NULL .)
+    IGUALACION      reduce using rule 29 (expresion -> NULL .)
+    DIFERENTE       reduce using rule 29 (expresion -> NULL .)
+    MAYORIGUAL      reduce using rule 29 (expresion -> NULL .)
+    MENORIGUAL      reduce using rule 29 (expresion -> NULL .)
+    POTENCIA        reduce using rule 29 (expresion -> NULL .)
+    MODULO          reduce using rule 29 (expresion -> NULL .)
+    SUMA            reduce using rule 29 (expresion -> NULL .)
+    RESTA           reduce using rule 29 (expresion -> NULL .)
+    MULTIPLICACION  reduce using rule 29 (expresion -> NULL .)
+    DIVISION        reduce using rule 29 (expresion -> NULL .)
+    PARCIERRA       reduce using rule 29 (expresion -> NULL .)
+
+
+state 27
+
+    (4) instruccion -> CONSOLE PTO LOG PARABRE expresion . PARCIERRA PTOCOMA
+    (7) expresion -> expresion . AND expresion
+    (8) expresion -> expresion . OR expresion
+    (10) expresion -> expresion . MAYOR expresion
+    (11) expresion -> expresion . MENOR expresion
+    (12) expresion -> expresion . IGUALACION expresion
+    (13) expresion -> expresion . DIFERENTE expresion
+    (14) expresion -> expresion . MAYORIGUAL expresion
+    (15) expresion -> expresion . MENORIGUAL expresion
+    (16) expresion -> expresion . POTENCIA expresion
+    (17) expresion -> expresion . MODULO expresion
+    (18) expresion -> expresion . SUMA expresion
+    (19) expresion -> expresion . RESTA expresion
+    (20) expresion -> expresion . MULTIPLICACION expresion
+    (21) expresion -> expresion . DIVISION expresion
+
+    PARCIERRA       shift and go to state 46
+    AND             shift and go to state 30
+    OR              shift and go to state 31
+    MAYOR           shift and go to state 32
+    MENOR           shift and go to state 33
+    IGUALACION      shift and go to state 34
+    DIFERENTE       shift and go to state 35
+    MAYORIGUAL      shift and go to state 36
+    MENORIGUAL      shift and go to state 37
+    POTENCIA        shift and go to state 38
+    MODULO          shift and go to state 39
+    SUMA            shift and go to state 40
+    RESTA           shift and go to state 41
+    MULTIPLICACION  shift and go to state 42
+    DIVISION        shift and go to state 43
+
+
+state 28
+
+    (5) instruccion -> LET ID DOSPTOS tipo IGUAL . expresion PTOCOMA
+    (7) expresion -> . expresion AND expresion
+    (8) expresion -> . expresion OR expresion
+    (9) expresion -> . NOT expresion
+    (10) expresion -> . expresion MAYOR expresion
+    (11) expresion -> . expresion MENOR expresion
+    (12) expresion -> . expresion IGUALACION expresion
+    (13) expresion -> . expresion DIFERENTE expresion
+    (14) expresion -> . expresion MAYORIGUAL expresion
+    (15) expresion -> . expresion MENORIGUAL expresion
+    (16) expresion -> . expresion POTENCIA expresion
+    (17) expresion -> . expresion MODULO expresion
+    (18) expresion -> . expresion SUMA expresion
+    (19) expresion -> . expresion RESTA expresion
+    (20) expresion -> . expresion MULTIPLICACION expresion
+    (21) expresion -> . expresion DIVISION expresion
+    (22) expresion -> . ENTERO
+    (23) expresion -> . DECIMAL
+    (24) expresion -> . CADENA
+    (25) expresion -> . FALSO
+    (26) expresion -> . VERDADERO
+    (27) expresion -> . ID
+    (28) expresion -> . INTERFACE ID LLAVEABRE LLAVECIERRA PTOCOMA
+    (29) expresion -> . NULL
+
+    NOT             shift and go to state 19
+    ENTERO          shift and go to state 20
+    DECIMAL         shift and go to state 21
+    CADENA          shift and go to state 22
+    FALSO           shift and go to state 23
+    VERDADERO       shift and go to state 24
+    ID              shift and go to state 17
+    INTERFACE       shift and go to state 25
+    NULL            shift and go to state 26
+
+    expresion                      shift and go to state 47
+
+state 29
+
+    (6) instruccion -> LET ID IGUAL expresion PTOCOMA .
+
+    CONSOLE         reduce using rule 6 (instruccion -> LET ID IGUAL expresion PTOCOMA .)
+    LET             reduce using rule 6 (instruccion -> LET ID IGUAL expresion PTOCOMA .)
+    $end            reduce using rule 6 (instruccion -> LET ID IGUAL expresion PTOCOMA .)
+
+
+state 30
+
+    (7) expresion -> expresion AND . expresion
+    (7) expresion -> . expresion AND expresion
+    (8) expresion -> . expresion OR expresion
+    (9) expresion -> . NOT expresion
+    (10) expresion -> . expresion MAYOR expresion
+    (11) expresion -> . expresion MENOR expresion
+    (12) expresion -> . expresion IGUALACION expresion
+    (13) expresion -> . expresion DIFERENTE expresion
+    (14) expresion -> . expresion MAYORIGUAL expresion
+    (15) expresion -> . expresion MENORIGUAL expresion
+    (16) expresion -> . expresion POTENCIA expresion
+    (17) expresion -> . expresion MODULO expresion
+    (18) expresion -> . expresion SUMA expresion
+    (19) expresion -> . expresion RESTA expresion
+    (20) expresion -> . expresion MULTIPLICACION expresion
+    (21) expresion -> . expresion DIVISION expresion
+    (22) expresion -> . ENTERO
+    (23) expresion -> . DECIMAL
+    (24) expresion -> . CADENA
+    (25) expresion -> . FALSO
+    (26) expresion -> . VERDADERO
+    (27) expresion -> . ID
+    (28) expresion -> . INTERFACE ID LLAVEABRE LLAVECIERRA PTOCOMA
+    (29) expresion -> . NULL
+
+    NOT             shift and go to state 19
+    ENTERO          shift and go to state 20
+    DECIMAL         shift and go to state 21
+    CADENA          shift and go to state 22
+    FALSO           shift and go to state 23
+    VERDADERO       shift and go to state 24
+    ID              shift and go to state 17
+    INTERFACE       shift and go to state 25
+    NULL            shift and go to state 26
+
+    expresion                      shift and go to state 48
+
+state 31
+
+    (8) expresion -> expresion OR . expresion
+    (7) expresion -> . expresion AND expresion
+    (8) expresion -> . expresion OR expresion
+    (9) expresion -> . NOT expresion
+    (10) expresion -> . expresion MAYOR expresion
+    (11) expresion -> . expresion MENOR expresion
+    (12) expresion -> . expresion IGUALACION expresion
+    (13) expresion -> . expresion DIFERENTE expresion
+    (14) expresion -> . expresion MAYORIGUAL expresion
+    (15) expresion -> . expresion MENORIGUAL expresion
+    (16) expresion -> . expresion POTENCIA expresion
+    (17) expresion -> . expresion MODULO expresion
+    (18) expresion -> . expresion SUMA expresion
+    (19) expresion -> . expresion RESTA expresion
+    (20) expresion -> . expresion MULTIPLICACION expresion
+    (21) expresion -> . expresion DIVISION expresion
+    (22) expresion -> . ENTERO
+    (23) expresion -> . DECIMAL
+    (24) expresion -> . CADENA
+    (25) expresion -> . FALSO
+    (26) expresion -> . VERDADERO
+    (27) expresion -> . ID
+    (28) expresion -> . INTERFACE ID LLAVEABRE LLAVECIERRA PTOCOMA
+    (29) expresion -> . NULL
+
+    NOT             shift and go to state 19
+    ENTERO          shift and go to state 20
+    DECIMAL         shift and go to state 21
+    CADENA          shift and go to state 22
+    FALSO           shift and go to state 23
+    VERDADERO       shift and go to state 24
+    ID              shift and go to state 17
+    INTERFACE       shift and go to state 25
+    NULL            shift and go to state 26
+
+    expresion                      shift and go to state 49
+
+state 32
+
+    (10) expresion -> expresion MAYOR . expresion
+    (7) expresion -> . expresion AND expresion
+    (8) expresion -> . expresion OR expresion
+    (9) expresion -> . NOT expresion
+    (10) expresion -> . expresion MAYOR expresion
+    (11) expresion -> . expresion MENOR expresion
+    (12) expresion -> . expresion IGUALACION expresion
+    (13) expresion -> . expresion DIFERENTE expresion
+    (14) expresion -> . expresion MAYORIGUAL expresion
+    (15) expresion -> . expresion MENORIGUAL expresion
+    (16) expresion -> . expresion POTENCIA expresion
+    (17) expresion -> . expresion MODULO expresion
+    (18) expresion -> . expresion SUMA expresion
+    (19) expresion -> . expresion RESTA expresion
+    (20) expresion -> . expresion MULTIPLICACION expresion
+    (21) expresion -> . expresion DIVISION expresion
+    (22) expresion -> . ENTERO
+    (23) expresion -> . DECIMAL
+    (24) expresion -> . CADENA
+    (25) expresion -> . FALSO
+    (26) expresion -> . VERDADERO
+    (27) expresion -> . ID
+    (28) expresion -> . INTERFACE ID LLAVEABRE LLAVECIERRA PTOCOMA
+    (29) expresion -> . NULL
+
+    NOT             shift and go to state 19
+    ENTERO          shift and go to state 20
+    DECIMAL         shift and go to state 21
+    CADENA          shift and go to state 22
+    FALSO           shift and go to state 23
+    VERDADERO       shift and go to state 24
+    ID              shift and go to state 17
+    INTERFACE       shift and go to state 25
+    NULL            shift and go to state 26
+
+    expresion                      shift and go to state 50
+
+state 33
+
+    (11) expresion -> expresion MENOR . expresion
+    (7) expresion -> . expresion AND expresion
+    (8) expresion -> . expresion OR expresion
+    (9) expresion -> . NOT expresion
+    (10) expresion -> . expresion MAYOR expresion
+    (11) expresion -> . expresion MENOR expresion
+    (12) expresion -> . expresion IGUALACION expresion
+    (13) expresion -> . expresion DIFERENTE expresion
+    (14) expresion -> . expresion MAYORIGUAL expresion
+    (15) expresion -> . expresion MENORIGUAL expresion
+    (16) expresion -> . expresion POTENCIA expresion
+    (17) expresion -> . expresion MODULO expresion
+    (18) expresion -> . expresion SUMA expresion
+    (19) expresion -> . expresion RESTA expresion
+    (20) expresion -> . expresion MULTIPLICACION expresion
+    (21) expresion -> . expresion DIVISION expresion
+    (22) expresion -> . ENTERO
+    (23) expresion -> . DECIMAL
+    (24) expresion -> . CADENA
+    (25) expresion -> . FALSO
+    (26) expresion -> . VERDADERO
+    (27) expresion -> . ID
+    (28) expresion -> . INTERFACE ID LLAVEABRE LLAVECIERRA PTOCOMA
+    (29) expresion -> . NULL
+
+    NOT             shift and go to state 19
+    ENTERO          shift and go to state 20
+    DECIMAL         shift and go to state 21
+    CADENA          shift and go to state 22
+    FALSO           shift and go to state 23
+    VERDADERO       shift and go to state 24
+    ID              shift and go to state 17
+    INTERFACE       shift and go to state 25
+    NULL            shift and go to state 26
+
+    expresion                      shift and go to state 51
+
+state 34
+
+    (12) expresion -> expresion IGUALACION . expresion
+    (7) expresion -> . expresion AND expresion
+    (8) expresion -> . expresion OR expresion
+    (9) expresion -> . NOT expresion
+    (10) expresion -> . expresion MAYOR expresion
+    (11) expresion -> . expresion MENOR expresion
+    (12) expresion -> . expresion IGUALACION expresion
+    (13) expresion -> . expresion DIFERENTE expresion
+    (14) expresion -> . expresion MAYORIGUAL expresion
+    (15) expresion -> . expresion MENORIGUAL expresion
+    (16) expresion -> . expresion POTENCIA expresion
+    (17) expresion -> . expresion MODULO expresion
+    (18) expresion -> . expresion SUMA expresion
+    (19) expresion -> . expresion RESTA expresion
+    (20) expresion -> . expresion MULTIPLICACION expresion
+    (21) expresion -> . expresion DIVISION expresion
+    (22) expresion -> . ENTERO
+    (23) expresion -> . DECIMAL
+    (24) expresion -> . CADENA
+    (25) expresion -> . FALSO
+    (26) expresion -> . VERDADERO
+    (27) expresion -> . ID
+    (28) expresion -> . INTERFACE ID LLAVEABRE LLAVECIERRA PTOCOMA
+    (29) expresion -> . NULL
+
+    NOT             shift and go to state 19
+    ENTERO          shift and go to state 20
+    DECIMAL         shift and go to state 21
+    CADENA          shift and go to state 22
+    FALSO           shift and go to state 23
+    VERDADERO       shift and go to state 24
+    ID              shift and go to state 17
+    INTERFACE       shift and go to state 25
+    NULL            shift and go to state 26
+
+    expresion                      shift and go to state 52
+
+state 35
+
+    (13) expresion -> expresion DIFERENTE . expresion
+    (7) expresion -> . expresion AND expresion
+    (8) expresion -> . expresion OR expresion
+    (9) expresion -> . NOT expresion
+    (10) expresion -> . expresion MAYOR expresion
+    (11) expresion -> . expresion MENOR expresion
+    (12) expresion -> . expresion IGUALACION expresion
+    (13) expresion -> . expresion DIFERENTE expresion
+    (14) expresion -> . expresion MAYORIGUAL expresion
+    (15) expresion -> . expresion MENORIGUAL expresion
+    (16) expresion -> . expresion POTENCIA expresion
+    (17) expresion -> . expresion MODULO expresion
+    (18) expresion -> . expresion SUMA expresion
+    (19) expresion -> . expresion RESTA expresion
+    (20) expresion -> . expresion MULTIPLICACION expresion
+    (21) expresion -> . expresion DIVISION expresion
+    (22) expresion -> . ENTERO
+    (23) expresion -> . DECIMAL
+    (24) expresion -> . CADENA
+    (25) expresion -> . FALSO
+    (26) expresion -> . VERDADERO
+    (27) expresion -> . ID
+    (28) expresion -> . INTERFACE ID LLAVEABRE LLAVECIERRA PTOCOMA
+    (29) expresion -> . NULL
+
+    NOT             shift and go to state 19
+    ENTERO          shift and go to state 20
+    DECIMAL         shift and go to state 21
+    CADENA          shift and go to state 22
+    FALSO           shift and go to state 23
+    VERDADERO       shift and go to state 24
+    ID              shift and go to state 17
+    INTERFACE       shift and go to state 25
+    NULL            shift and go to state 26
+
+    expresion                      shift and go to state 53
+
+state 36
+
+    (14) expresion -> expresion MAYORIGUAL . expresion
+    (7) expresion -> . expresion AND expresion
+    (8) expresion -> . expresion OR expresion
+    (9) expresion -> . NOT expresion
+    (10) expresion -> . expresion MAYOR expresion
+    (11) expresion -> . expresion MENOR expresion
+    (12) expresion -> . expresion IGUALACION expresion
+    (13) expresion -> . expresion DIFERENTE expresion
+    (14) expresion -> . expresion MAYORIGUAL expresion
+    (15) expresion -> . expresion MENORIGUAL expresion
+    (16) expresion -> . expresion POTENCIA expresion
+    (17) expresion -> . expresion MODULO expresion
+    (18) expresion -> . expresion SUMA expresion
+    (19) expresion -> . expresion RESTA expresion
+    (20) expresion -> . expresion MULTIPLICACION expresion
+    (21) expresion -> . expresion DIVISION expresion
+    (22) expresion -> . ENTERO
+    (23) expresion -> . DECIMAL
+    (24) expresion -> . CADENA
+    (25) expresion -> . FALSO
+    (26) expresion -> . VERDADERO
+    (27) expresion -> . ID
+    (28) expresion -> . INTERFACE ID LLAVEABRE LLAVECIERRA PTOCOMA
+    (29) expresion -> . NULL
+
+    NOT             shift and go to state 19
+    ENTERO          shift and go to state 20
+    DECIMAL         shift and go to state 21
+    CADENA          shift and go to state 22
+    FALSO           shift and go to state 23
+    VERDADERO       shift and go to state 24
+    ID              shift and go to state 17
+    INTERFACE       shift and go to state 25
+    NULL            shift and go to state 26
+
+    expresion                      shift and go to state 54
+
+state 37
+
+    (15) expresion -> expresion MENORIGUAL . expresion
+    (7) expresion -> . expresion AND expresion
+    (8) expresion -> . expresion OR expresion
+    (9) expresion -> . NOT expresion
+    (10) expresion -> . expresion MAYOR expresion
+    (11) expresion -> . expresion MENOR expresion
+    (12) expresion -> . expresion IGUALACION expresion
+    (13) expresion -> . expresion DIFERENTE expresion
+    (14) expresion -> . expresion MAYORIGUAL expresion
+    (15) expresion -> . expresion MENORIGUAL expresion
+    (16) expresion -> . expresion POTENCIA expresion
+    (17) expresion -> . expresion MODULO expresion
+    (18) expresion -> . expresion SUMA expresion
+    (19) expresion -> . expresion RESTA expresion
+    (20) expresion -> . expresion MULTIPLICACION expresion
+    (21) expresion -> . expresion DIVISION expresion
+    (22) expresion -> . ENTERO
+    (23) expresion -> . DECIMAL
+    (24) expresion -> . CADENA
+    (25) expresion -> . FALSO
+    (26) expresion -> . VERDADERO
+    (27) expresion -> . ID
+    (28) expresion -> . INTERFACE ID LLAVEABRE LLAVECIERRA PTOCOMA
+    (29) expresion -> . NULL
+
+    NOT             shift and go to state 19
+    ENTERO          shift and go to state 20
+    DECIMAL         shift and go to state 21
+    CADENA          shift and go to state 22
+    FALSO           shift and go to state 23
+    VERDADERO       shift and go to state 24
+    ID              shift and go to state 17
+    INTERFACE       shift and go to state 25
+    NULL            shift and go to state 26
+
+    expresion                      shift and go to state 55
+
+state 38
+
+    (16) expresion -> expresion POTENCIA . expresion
+    (7) expresion -> . expresion AND expresion
+    (8) expresion -> . expresion OR expresion
+    (9) expresion -> . NOT expresion
+    (10) expresion -> . expresion MAYOR expresion
+    (11) expresion -> . expresion MENOR expresion
+    (12) expresion -> . expresion IGUALACION expresion
+    (13) expresion -> . expresion DIFERENTE expresion
+    (14) expresion -> . expresion MAYORIGUAL expresion
+    (15) expresion -> . expresion MENORIGUAL expresion
+    (16) expresion -> . expresion POTENCIA expresion
+    (17) expresion -> . expresion MODULO expresion
+    (18) expresion -> . expresion SUMA expresion
+    (19) expresion -> . expresion RESTA expresion
+    (20) expresion -> . expresion MULTIPLICACION expresion
+    (21) expresion -> . expresion DIVISION expresion
+    (22) expresion -> . ENTERO
+    (23) expresion -> . DECIMAL
+    (24) expresion -> . CADENA
+    (25) expresion -> . FALSO
+    (26) expresion -> . VERDADERO
+    (27) expresion -> . ID
+    (28) expresion -> . INTERFACE ID LLAVEABRE LLAVECIERRA PTOCOMA
+    (29) expresion -> . NULL
+
+    NOT             shift and go to state 19
+    ENTERO          shift and go to state 20
+    DECIMAL         shift and go to state 21
+    CADENA          shift and go to state 22
+    FALSO           shift and go to state 23
+    VERDADERO       shift and go to state 24
+    ID              shift and go to state 17
+    INTERFACE       shift and go to state 25
+    NULL            shift and go to state 26
+
+    expresion                      shift and go to state 56
+
+state 39
+
+    (17) expresion -> expresion MODULO . expresion
+    (7) expresion -> . expresion AND expresion
+    (8) expresion -> . expresion OR expresion
+    (9) expresion -> . NOT expresion
+    (10) expresion -> . expresion MAYOR expresion
+    (11) expresion -> . expresion MENOR expresion
+    (12) expresion -> . expresion IGUALACION expresion
+    (13) expresion -> . expresion DIFERENTE expresion
+    (14) expresion -> . expresion MAYORIGUAL expresion
+    (15) expresion -> . expresion MENORIGUAL expresion
+    (16) expresion -> . expresion POTENCIA expresion
+    (17) expresion -> . expresion MODULO expresion
+    (18) expresion -> . expresion SUMA expresion
+    (19) expresion -> . expresion RESTA expresion
+    (20) expresion -> . expresion MULTIPLICACION expresion
+    (21) expresion -> . expresion DIVISION expresion
+    (22) expresion -> . ENTERO
+    (23) expresion -> . DECIMAL
+    (24) expresion -> . CADENA
+    (25) expresion -> . FALSO
+    (26) expresion -> . VERDADERO
+    (27) expresion -> . ID
+    (28) expresion -> . INTERFACE ID LLAVEABRE LLAVECIERRA PTOCOMA
+    (29) expresion -> . NULL
+
+    NOT             shift and go to state 19
+    ENTERO          shift and go to state 20
+    DECIMAL         shift and go to state 21
+    CADENA          shift and go to state 22
+    FALSO           shift and go to state 23
+    VERDADERO       shift and go to state 24
+    ID              shift and go to state 17
+    INTERFACE       shift and go to state 25
+    NULL            shift and go to state 26
+
+    expresion                      shift and go to state 57
+
+state 40
+
+    (18) expresion -> expresion SUMA . expresion
+    (7) expresion -> . expresion AND expresion
+    (8) expresion -> . expresion OR expresion
+    (9) expresion -> . NOT expresion
+    (10) expresion -> . expresion MAYOR expresion
+    (11) expresion -> . expresion MENOR expresion
+    (12) expresion -> . expresion IGUALACION expresion
+    (13) expresion -> . expresion DIFERENTE expresion
+    (14) expresion -> . expresion MAYORIGUAL expresion
+    (15) expresion -> . expresion MENORIGUAL expresion
+    (16) expresion -> . expresion POTENCIA expresion
+    (17) expresion -> . expresion MODULO expresion
+    (18) expresion -> . expresion SUMA expresion
+    (19) expresion -> . expresion RESTA expresion
+    (20) expresion -> . expresion MULTIPLICACION expresion
+    (21) expresion -> . expresion DIVISION expresion
+    (22) expresion -> . ENTERO
+    (23) expresion -> . DECIMAL
+    (24) expresion -> . CADENA
+    (25) expresion -> . FALSO
+    (26) expresion -> . VERDADERO
+    (27) expresion -> . ID
+    (28) expresion -> . INTERFACE ID LLAVEABRE LLAVECIERRA PTOCOMA
+    (29) expresion -> . NULL
+
+    NOT             shift and go to state 19
+    ENTERO          shift and go to state 20
+    DECIMAL         shift and go to state 21
+    CADENA          shift and go to state 22
+    FALSO           shift and go to state 23
+    VERDADERO       shift and go to state 24
+    ID              shift and go to state 17
+    INTERFACE       shift and go to state 25
+    NULL            shift and go to state 26
+
+    expresion                      shift and go to state 58
+
+state 41
+
+    (19) expresion -> expresion RESTA . expresion
+    (7) expresion -> . expresion AND expresion
+    (8) expresion -> . expresion OR expresion
+    (9) expresion -> . NOT expresion
+    (10) expresion -> . expresion MAYOR expresion
+    (11) expresion -> . expresion MENOR expresion
+    (12) expresion -> . expresion IGUALACION expresion
+    (13) expresion -> . expresion DIFERENTE expresion
+    (14) expresion -> . expresion MAYORIGUAL expresion
+    (15) expresion -> . expresion MENORIGUAL expresion
+    (16) expresion -> . expresion POTENCIA expresion
+    (17) expresion -> . expresion MODULO expresion
+    (18) expresion -> . expresion SUMA expresion
+    (19) expresion -> . expresion RESTA expresion
+    (20) expresion -> . expresion MULTIPLICACION expresion
+    (21) expresion -> . expresion DIVISION expresion
+    (22) expresion -> . ENTERO
+    (23) expresion -> . DECIMAL
+    (24) expresion -> . CADENA
+    (25) expresion -> . FALSO
+    (26) expresion -> . VERDADERO
+    (27) expresion -> . ID
+    (28) expresion -> . INTERFACE ID LLAVEABRE LLAVECIERRA PTOCOMA
+    (29) expresion -> . NULL
+
+    NOT             shift and go to state 19
+    ENTERO          shift and go to state 20
+    DECIMAL         shift and go to state 21
+    CADENA          shift and go to state 22
+    FALSO           shift and go to state 23
+    VERDADERO       shift and go to state 24
+    ID              shift and go to state 17
+    INTERFACE       shift and go to state 25
+    NULL            shift and go to state 26
+
+    expresion                      shift and go to state 59
+
+state 42
+
+    (20) expresion -> expresion MULTIPLICACION . expresion
+    (7) expresion -> . expresion AND expresion
+    (8) expresion -> . expresion OR expresion
+    (9) expresion -> . NOT expresion
+    (10) expresion -> . expresion MAYOR expresion
+    (11) expresion -> . expresion MENOR expresion
+    (12) expresion -> . expresion IGUALACION expresion
+    (13) expresion -> . expresion DIFERENTE expresion
+    (14) expresion -> . expresion MAYORIGUAL expresion
+    (15) expresion -> . expresion MENORIGUAL expresion
+    (16) expresion -> . expresion POTENCIA expresion
+    (17) expresion -> . expresion MODULO expresion
+    (18) expresion -> . expresion SUMA expresion
+    (19) expresion -> . expresion RESTA expresion
+    (20) expresion -> . expresion MULTIPLICACION expresion
+    (21) expresion -> . expresion DIVISION expresion
+    (22) expresion -> . ENTERO
+    (23) expresion -> . DECIMAL
+    (24) expresion -> . CADENA
+    (25) expresion -> . FALSO
+    (26) expresion -> . VERDADERO
+    (27) expresion -> . ID
+    (28) expresion -> . INTERFACE ID LLAVEABRE LLAVECIERRA PTOCOMA
+    (29) expresion -> . NULL
+
+    NOT             shift and go to state 19
+    ENTERO          shift and go to state 20
+    DECIMAL         shift and go to state 21
+    CADENA          shift and go to state 22
+    FALSO           shift and go to state 23
+    VERDADERO       shift and go to state 24
+    ID              shift and go to state 17
+    INTERFACE       shift and go to state 25
+    NULL            shift and go to state 26
+
+    expresion                      shift and go to state 60
+
+state 43
+
+    (21) expresion -> expresion DIVISION . expresion
+    (7) expresion -> . expresion AND expresion
+    (8) expresion -> . expresion OR expresion
+    (9) expresion -> . NOT expresion
+    (10) expresion -> . expresion MAYOR expresion
+    (11) expresion -> . expresion MENOR expresion
+    (12) expresion -> . expresion IGUALACION expresion
+    (13) expresion -> . expresion DIFERENTE expresion
+    (14) expresion -> . expresion MAYORIGUAL expresion
+    (15) expresion -> . expresion MENORIGUAL expresion
+    (16) expresion -> . expresion POTENCIA expresion
+    (17) expresion -> . expresion MODULO expresion
+    (18) expresion -> . expresion SUMA expresion
+    (19) expresion -> . expresion RESTA expresion
+    (20) expresion -> . expresion MULTIPLICACION expresion
+    (21) expresion -> . expresion DIVISION expresion
+    (22) expresion -> . ENTERO
+    (23) expresion -> . DECIMAL
+    (24) expresion -> . CADENA
+    (25) expresion -> . FALSO
+    (26) expresion -> . VERDADERO
+    (27) expresion -> . ID
+    (28) expresion -> . INTERFACE ID LLAVEABRE LLAVECIERRA PTOCOMA
+    (29) expresion -> . NULL
+
+    NOT             shift and go to state 19
+    ENTERO          shift and go to state 20
+    DECIMAL         shift and go to state 21
+    CADENA          shift and go to state 22
+    FALSO           shift and go to state 23
+    VERDADERO       shift and go to state 24
+    ID              shift and go to state 17
+    INTERFACE       shift and go to state 25
+    NULL            shift and go to state 26
+
+    expresion                      shift and go to state 61
+
+state 44
+
+    (9) expresion -> NOT expresion .
+    (7) expresion -> expresion . AND expresion
+    (8) expresion -> expresion . OR expresion
+    (10) expresion -> expresion . MAYOR expresion
+    (11) expresion -> expresion . MENOR expresion
+    (12) expresion -> expresion . IGUALACION expresion
+    (13) expresion -> expresion . DIFERENTE expresion
+    (14) expresion -> expresion . MAYORIGUAL expresion
+    (15) expresion -> expresion . MENORIGUAL expresion
+    (16) expresion -> expresion . POTENCIA expresion
+    (17) expresion -> expresion . MODULO expresion
+    (18) expresion -> expresion . SUMA expresion
+    (19) expresion -> expresion . RESTA expresion
+    (20) expresion -> expresion . MULTIPLICACION expresion
+    (21) expresion -> expresion . DIVISION expresion
+
+    PTOCOMA         reduce using rule 9 (expresion -> NOT expresion .)
+    AND             reduce using rule 9 (expresion -> NOT expresion .)
+    OR              reduce using rule 9 (expresion -> NOT expresion .)
+    MAYOR           reduce using rule 9 (expresion -> NOT expresion .)
+    MENOR           reduce using rule 9 (expresion -> NOT expresion .)
+    IGUALACION      reduce using rule 9 (expresion -> NOT expresion .)
+    DIFERENTE       reduce using rule 9 (expresion -> NOT expresion .)
+    MAYORIGUAL      reduce using rule 9 (expresion -> NOT expresion .)
+    MENORIGUAL      reduce using rule 9 (expresion -> NOT expresion .)
+    MODULO          reduce using rule 9 (expresion -> NOT expresion .)
+    SUMA            reduce using rule 9 (expresion -> NOT expresion .)
+    RESTA           reduce using rule 9 (expresion -> NOT expresion .)
+    MULTIPLICACION  reduce using rule 9 (expresion -> NOT expresion .)
+    DIVISION        reduce using rule 9 (expresion -> NOT expresion .)
+    PARCIERRA       reduce using rule 9 (expresion -> NOT expresion .)
+    POTENCIA        shift and go to state 38
+
+  ! POTENCIA        [ reduce using rule 9 (expresion -> NOT expresion .) ]
+  ! AND             [ shift and go to state 30 ]
+  ! OR              [ shift and go to state 31 ]
+  ! MAYOR           [ shift and go to state 32 ]
+  ! MENOR           [ shift and go to state 33 ]
+  ! IGUALACION      [ shift and go to state 34 ]
+  ! DIFERENTE       [ shift and go to state 35 ]
+  ! MAYORIGUAL      [ shift and go to state 36 ]
+  ! MENORIGUAL      [ shift and go to state 37 ]
+  ! MODULO          [ shift and go to state 39 ]
+  ! SUMA            [ shift and go to state 40 ]
+  ! RESTA           [ shift and go to state 41 ]
+  ! MULTIPLICACION  [ shift and go to state 42 ]
+  ! DIVISION        [ shift and go to state 43 ]
+
+
+state 45
+
+    (28) expresion -> INTERFACE ID . LLAVEABRE LLAVECIERRA PTOCOMA
+
+    LLAVEABRE       shift and go to state 62
+
+
+state 46
+
+    (4) instruccion -> CONSOLE PTO LOG PARABRE expresion PARCIERRA . PTOCOMA
+
+    PTOCOMA         shift and go to state 63
+
+
+state 47
+
+    (5) instruccion -> LET ID DOSPTOS tipo IGUAL expresion . PTOCOMA
+    (7) expresion -> expresion . AND expresion
+    (8) expresion -> expresion . OR expresion
+    (10) expresion -> expresion . MAYOR expresion
+    (11) expresion -> expresion . MENOR expresion
+    (12) expresion -> expresion . IGUALACION expresion
+    (13) expresion -> expresion . DIFERENTE expresion
+    (14) expresion -> expresion . MAYORIGUAL expresion
+    (15) expresion -> expresion . MENORIGUAL expresion
+    (16) expresion -> expresion . POTENCIA expresion
+    (17) expresion -> expresion . MODULO expresion
+    (18) expresion -> expresion . SUMA expresion
+    (19) expresion -> expresion . RESTA expresion
+    (20) expresion -> expresion . MULTIPLICACION expresion
+    (21) expresion -> expresion . DIVISION expresion
+
+    PTOCOMA         shift and go to state 64
+    AND             shift and go to state 30
+    OR              shift and go to state 31
+    MAYOR           shift and go to state 32
+    MENOR           shift and go to state 33
+    IGUALACION      shift and go to state 34
+    DIFERENTE       shift and go to state 35
+    MAYORIGUAL      shift and go to state 36
+    MENORIGUAL      shift and go to state 37
+    POTENCIA        shift and go to state 38
+    MODULO          shift and go to state 39
+    SUMA            shift and go to state 40
+    RESTA           shift and go to state 41
+    MULTIPLICACION  shift and go to state 42
+    DIVISION        shift and go to state 43
+
+
+state 48
+
+    (7) expresion -> expresion AND expresion .
+    (7) expresion -> expresion . AND expresion
+    (8) expresion -> expresion . OR expresion
+    (10) expresion -> expresion . MAYOR expresion
+    (11) expresion -> expresion . MENOR expresion
+    (12) expresion -> expresion . IGUALACION expresion
+    (13) expresion -> expresion . DIFERENTE expresion
+    (14) expresion -> expresion . MAYORIGUAL expresion
+    (15) expresion -> expresion . MENORIGUAL expresion
+    (16) expresion -> expresion . POTENCIA expresion
+    (17) expresion -> expresion . MODULO expresion
+    (18) expresion -> expresion . SUMA expresion
+    (19) expresion -> expresion . RESTA expresion
+    (20) expresion -> expresion . MULTIPLICACION expresion
+    (21) expresion -> expresion . DIVISION expresion
+
+    PTOCOMA         reduce using rule 7 (expresion -> expresion AND expresion .)
+    AND             reduce using rule 7 (expresion -> expresion AND expresion .)
+    OR              reduce using rule 7 (expresion -> expresion AND expresion .)
+    PARCIERRA       reduce using rule 7 (expresion -> expresion AND expresion .)
+    MAYOR           shift and go to state 32
+    MENOR           shift and go to state 33
+    IGUALACION      shift and go to state 34
+    DIFERENTE       shift and go to state 35
+    MAYORIGUAL      shift and go to state 36
+    MENORIGUAL      shift and go to state 37
+    POTENCIA        shift and go to state 38
+    MODULO          shift and go to state 39
+    SUMA            shift and go to state 40
+    RESTA           shift and go to state 41
+    MULTIPLICACION  shift and go to state 42
+    DIVISION        shift and go to state 43
+
+  ! MAYOR           [ reduce using rule 7 (expresion -> expresion AND expresion .) ]
+  ! MENOR           [ reduce using rule 7 (expresion -> expresion AND expresion .) ]
+  ! IGUALACION      [ reduce using rule 7 (expresion -> expresion AND expresion .) ]
+  ! DIFERENTE       [ reduce using rule 7 (expresion -> expresion AND expresion .) ]
+  ! MAYORIGUAL      [ reduce using rule 7 (expresion -> expresion AND expresion .) ]
+  ! MENORIGUAL      [ reduce using rule 7 (expresion -> expresion AND expresion .) ]
+  ! POTENCIA        [ reduce using rule 7 (expresion -> expresion AND expresion .) ]
+  ! MODULO          [ reduce using rule 7 (expresion -> expresion AND expresion .) ]
+  ! SUMA            [ reduce using rule 7 (expresion -> expresion AND expresion .) ]
+  ! RESTA           [ reduce using rule 7 (expresion -> expresion AND expresion .) ]
+  ! MULTIPLICACION  [ reduce using rule 7 (expresion -> expresion AND expresion .) ]
+  ! DIVISION        [ reduce using rule 7 (expresion -> expresion AND expresion .) ]
+  ! AND             [ shift and go to state 30 ]
+  ! OR              [ shift and go to state 31 ]
+
+
+state 49
+
+    (8) expresion -> expresion OR expresion .
+    (7) expresion -> expresion . AND expresion
+    (8) expresion -> expresion . OR expresion
+    (10) expresion -> expresion . MAYOR expresion
+    (11) expresion -> expresion . MENOR expresion
+    (12) expresion -> expresion . IGUALACION expresion
+    (13) expresion -> expresion . DIFERENTE expresion
+    (14) expresion -> expresion . MAYORIGUAL expresion
+    (15) expresion -> expresion . MENORIGUAL expresion
+    (16) expresion -> expresion . POTENCIA expresion
+    (17) expresion -> expresion . MODULO expresion
+    (18) expresion -> expresion . SUMA expresion
+    (19) expresion -> expresion . RESTA expresion
+    (20) expresion -> expresion . MULTIPLICACION expresion
+    (21) expresion -> expresion . DIVISION expresion
+
+    PTOCOMA         reduce using rule 8 (expresion -> expresion OR expresion .)
+    OR              reduce using rule 8 (expresion -> expresion OR expresion .)
+    PARCIERRA       reduce using rule 8 (expresion -> expresion OR expresion .)
+    AND             shift and go to state 30
+    MAYOR           shift and go to state 32
+    MENOR           shift and go to state 33
+    IGUALACION      shift and go to state 34
+    DIFERENTE       shift and go to state 35
+    MAYORIGUAL      shift and go to state 36
+    MENORIGUAL      shift and go to state 37
+    POTENCIA        shift and go to state 38
+    MODULO          shift and go to state 39
+    SUMA            shift and go to state 40
+    RESTA           shift and go to state 41
+    MULTIPLICACION  shift and go to state 42
+    DIVISION        shift and go to state 43
+
+  ! AND             [ reduce using rule 8 (expresion -> expresion OR expresion .) ]
+  ! MAYOR           [ reduce using rule 8 (expresion -> expresion OR expresion .) ]
+  ! MENOR           [ reduce using rule 8 (expresion -> expresion OR expresion .) ]
+  ! IGUALACION      [ reduce using rule 8 (expresion -> expresion OR expresion .) ]
+  ! DIFERENTE       [ reduce using rule 8 (expresion -> expresion OR expresion .) ]
+  ! MAYORIGUAL      [ reduce using rule 8 (expresion -> expresion OR expresion .) ]
+  ! MENORIGUAL      [ reduce using rule 8 (expresion -> expresion OR expresion .) ]
+  ! POTENCIA        [ reduce using rule 8 (expresion -> expresion OR expresion .) ]
+  ! MODULO          [ reduce using rule 8 (expresion -> expresion OR expresion .) ]
+  ! SUMA            [ reduce using rule 8 (expresion -> expresion OR expresion .) ]
+  ! RESTA           [ reduce using rule 8 (expresion -> expresion OR expresion .) ]
+  ! MULTIPLICACION  [ reduce using rule 8 (expresion -> expresion OR expresion .) ]
+  ! DIVISION        [ reduce using rule 8 (expresion -> expresion OR expresion .) ]
+  ! OR              [ shift and go to state 31 ]
+
+
+state 50
+
+    (10) expresion -> expresion MAYOR expresion .
+    (7) expresion -> expresion . AND expresion
+    (8) expresion -> expresion . OR expresion
+    (10) expresion -> expresion . MAYOR expresion
+    (11) expresion -> expresion . MENOR expresion
+    (12) expresion -> expresion . IGUALACION expresion
+    (13) expresion -> expresion . DIFERENTE expresion
+    (14) expresion -> expresion . MAYORIGUAL expresion
+    (15) expresion -> expresion . MENORIGUAL expresion
+    (16) expresion -> expresion . POTENCIA expresion
+    (17) expresion -> expresion . MODULO expresion
+    (18) expresion -> expresion . SUMA expresion
+    (19) expresion -> expresion . RESTA expresion
+    (20) expresion -> expresion . MULTIPLICACION expresion
+    (21) expresion -> expresion . DIVISION expresion
+
+    PTOCOMA         reduce using rule 10 (expresion -> expresion MAYOR expresion .)
+    AND             reduce using rule 10 (expresion -> expresion MAYOR expresion .)
+    OR              reduce using rule 10 (expresion -> expresion MAYOR expresion .)
+    MAYOR           reduce using rule 10 (expresion -> expresion MAYOR expresion .)
+    MENOR           reduce using rule 10 (expresion -> expresion MAYOR expresion .)
+    IGUALACION      reduce using rule 10 (expresion -> expresion MAYOR expresion .)
+    DIFERENTE       reduce using rule 10 (expresion -> expresion MAYOR expresion .)
+    MAYORIGUAL      reduce using rule 10 (expresion -> expresion MAYOR expresion .)
+    MENORIGUAL      reduce using rule 10 (expresion -> expresion MAYOR expresion .)
+    PARCIERRA       reduce using rule 10 (expresion -> expresion MAYOR expresion .)
+    POTENCIA        shift and go to state 38
+    MODULO          shift and go to state 39
+    SUMA            shift and go to state 40
+    RESTA           shift and go to state 41
+    MULTIPLICACION  shift and go to state 42
+    DIVISION        shift and go to state 43
+
+  ! POTENCIA        [ reduce using rule 10 (expresion -> expresion MAYOR expresion .) ]
+  ! MODULO          [ reduce using rule 10 (expresion -> expresion MAYOR expresion .) ]
+  ! SUMA            [ reduce using rule 10 (expresion -> expresion MAYOR expresion .) ]
+  ! RESTA           [ reduce using rule 10 (expresion -> expresion MAYOR expresion .) ]
+  ! MULTIPLICACION  [ reduce using rule 10 (expresion -> expresion MAYOR expresion .) ]
+  ! DIVISION        [ reduce using rule 10 (expresion -> expresion MAYOR expresion .) ]
+  ! AND             [ shift and go to state 30 ]
+  ! OR              [ shift and go to state 31 ]
+  ! MAYOR           [ shift and go to state 32 ]
+  ! MENOR           [ shift and go to state 33 ]
+  ! IGUALACION      [ shift and go to state 34 ]
+  ! DIFERENTE       [ shift and go to state 35 ]
+  ! MAYORIGUAL      [ shift and go to state 36 ]
+  ! MENORIGUAL      [ shift and go to state 37 ]
+
+
+state 51
+
+    (11) expresion -> expresion MENOR expresion .
+    (7) expresion -> expresion . AND expresion
+    (8) expresion -> expresion . OR expresion
+    (10) expresion -> expresion . MAYOR expresion
+    (11) expresion -> expresion . MENOR expresion
+    (12) expresion -> expresion . IGUALACION expresion
+    (13) expresion -> expresion . DIFERENTE expresion
+    (14) expresion -> expresion . MAYORIGUAL expresion
+    (15) expresion -> expresion . MENORIGUAL expresion
+    (16) expresion -> expresion . POTENCIA expresion
+    (17) expresion -> expresion . MODULO expresion
+    (18) expresion -> expresion . SUMA expresion
+    (19) expresion -> expresion . RESTA expresion
+    (20) expresion -> expresion . MULTIPLICACION expresion
+    (21) expresion -> expresion . DIVISION expresion
+
+    PTOCOMA         reduce using rule 11 (expresion -> expresion MENOR expresion .)
+    AND             reduce using rule 11 (expresion -> expresion MENOR expresion .)
+    OR              reduce using rule 11 (expresion -> expresion MENOR expresion .)
+    MAYOR           reduce using rule 11 (expresion -> expresion MENOR expresion .)
+    MENOR           reduce using rule 11 (expresion -> expresion MENOR expresion .)
+    IGUALACION      reduce using rule 11 (expresion -> expresion MENOR expresion .)
+    DIFERENTE       reduce using rule 11 (expresion -> expresion MENOR expresion .)
+    MAYORIGUAL      reduce using rule 11 (expresion -> expresion MENOR expresion .)
+    MENORIGUAL      reduce using rule 11 (expresion -> expresion MENOR expresion .)
+    PARCIERRA       reduce using rule 11 (expresion -> expresion MENOR expresion .)
+    POTENCIA        shift and go to state 38
+    MODULO          shift and go to state 39
+    SUMA            shift and go to state 40
+    RESTA           shift and go to state 41
+    MULTIPLICACION  shift and go to state 42
+    DIVISION        shift and go to state 43
+
+  ! POTENCIA        [ reduce using rule 11 (expresion -> expresion MENOR expresion .) ]
+  ! MODULO          [ reduce using rule 11 (expresion -> expresion MENOR expresion .) ]
+  ! SUMA            [ reduce using rule 11 (expresion -> expresion MENOR expresion .) ]
+  ! RESTA           [ reduce using rule 11 (expresion -> expresion MENOR expresion .) ]
+  ! MULTIPLICACION  [ reduce using rule 11 (expresion -> expresion MENOR expresion .) ]
+  ! DIVISION        [ reduce using rule 11 (expresion -> expresion MENOR expresion .) ]
+  ! AND             [ shift and go to state 30 ]
+  ! OR              [ shift and go to state 31 ]
+  ! MAYOR           [ shift and go to state 32 ]
+  ! MENOR           [ shift and go to state 33 ]
+  ! IGUALACION      [ shift and go to state 34 ]
+  ! DIFERENTE       [ shift and go to state 35 ]
+  ! MAYORIGUAL      [ shift and go to state 36 ]
+  ! MENORIGUAL      [ shift and go to state 37 ]
+
+
+state 52
+
+    (12) expresion -> expresion IGUALACION expresion .
+    (7) expresion -> expresion . AND expresion
+    (8) expresion -> expresion . OR expresion
+    (10) expresion -> expresion . MAYOR expresion
+    (11) expresion -> expresion . MENOR expresion
+    (12) expresion -> expresion . IGUALACION expresion
+    (13) expresion -> expresion . DIFERENTE expresion
+    (14) expresion -> expresion . MAYORIGUAL expresion
+    (15) expresion -> expresion . MENORIGUAL expresion
+    (16) expresion -> expresion . POTENCIA expresion
+    (17) expresion -> expresion . MODULO expresion
+    (18) expresion -> expresion . SUMA expresion
+    (19) expresion -> expresion . RESTA expresion
+    (20) expresion -> expresion . MULTIPLICACION expresion
+    (21) expresion -> expresion . DIVISION expresion
+
+    PTOCOMA         reduce using rule 12 (expresion -> expresion IGUALACION expresion .)
+    AND             reduce using rule 12 (expresion -> expresion IGUALACION expresion .)
+    OR              reduce using rule 12 (expresion -> expresion IGUALACION expresion .)
+    IGUALACION      reduce using rule 12 (expresion -> expresion IGUALACION expresion .)
+    DIFERENTE       reduce using rule 12 (expresion -> expresion IGUALACION expresion .)
+    PARCIERRA       reduce using rule 12 (expresion -> expresion IGUALACION expresion .)
+    MAYOR           shift and go to state 32
+    MENOR           shift and go to state 33
+    MAYORIGUAL      shift and go to state 36
+    MENORIGUAL      shift and go to state 37
+    POTENCIA        shift and go to state 38
+    MODULO          shift and go to state 39
+    SUMA            shift and go to state 40
+    RESTA           shift and go to state 41
+    MULTIPLICACION  shift and go to state 42
+    DIVISION        shift and go to state 43
+
+  ! MAYOR           [ reduce using rule 12 (expresion -> expresion IGUALACION expresion .) ]
+  ! MENOR           [ reduce using rule 12 (expresion -> expresion IGUALACION expresion .) ]
+  ! MAYORIGUAL      [ reduce using rule 12 (expresion -> expresion IGUALACION expresion .) ]
+  ! MENORIGUAL      [ reduce using rule 12 (expresion -> expresion IGUALACION expresion .) ]
+  ! POTENCIA        [ reduce using rule 12 (expresion -> expresion IGUALACION expresion .) ]
+  ! MODULO          [ reduce using rule 12 (expresion -> expresion IGUALACION expresion .) ]
+  ! SUMA            [ reduce using rule 12 (expresion -> expresion IGUALACION expresion .) ]
+  ! RESTA           [ reduce using rule 12 (expresion -> expresion IGUALACION expresion .) ]
+  ! MULTIPLICACION  [ reduce using rule 12 (expresion -> expresion IGUALACION expresion .) ]
+  ! DIVISION        [ reduce using rule 12 (expresion -> expresion IGUALACION expresion .) ]
+  ! AND             [ shift and go to state 30 ]
+  ! OR              [ shift and go to state 31 ]
+  ! IGUALACION      [ shift and go to state 34 ]
+  ! DIFERENTE       [ shift and go to state 35 ]
+
+
+state 53
+
+    (13) expresion -> expresion DIFERENTE expresion .
+    (7) expresion -> expresion . AND expresion
+    (8) expresion -> expresion . OR expresion
+    (10) expresion -> expresion . MAYOR expresion
+    (11) expresion -> expresion . MENOR expresion
+    (12) expresion -> expresion . IGUALACION expresion
+    (13) expresion -> expresion . DIFERENTE expresion
+    (14) expresion -> expresion . MAYORIGUAL expresion
+    (15) expresion -> expresion . MENORIGUAL expresion
+    (16) expresion -> expresion . POTENCIA expresion
+    (17) expresion -> expresion . MODULO expresion
+    (18) expresion -> expresion . SUMA expresion
+    (19) expresion -> expresion . RESTA expresion
+    (20) expresion -> expresion . MULTIPLICACION expresion
+    (21) expresion -> expresion . DIVISION expresion
+
+    PTOCOMA         reduce using rule 13 (expresion -> expresion DIFERENTE expresion .)
+    AND             reduce using rule 13 (expresion -> expresion DIFERENTE expresion .)
+    OR              reduce using rule 13 (expresion -> expresion DIFERENTE expresion .)
+    IGUALACION      reduce using rule 13 (expresion -> expresion DIFERENTE expresion .)
+    DIFERENTE       reduce using rule 13 (expresion -> expresion DIFERENTE expresion .)
+    PARCIERRA       reduce using rule 13 (expresion -> expresion DIFERENTE expresion .)
+    MAYOR           shift and go to state 32
+    MENOR           shift and go to state 33
+    MAYORIGUAL      shift and go to state 36
+    MENORIGUAL      shift and go to state 37
+    POTENCIA        shift and go to state 38
+    MODULO          shift and go to state 39
+    SUMA            shift and go to state 40
+    RESTA           shift and go to state 41
+    MULTIPLICACION  shift and go to state 42
+    DIVISION        shift and go to state 43
+
+  ! MAYOR           [ reduce using rule 13 (expresion -> expresion DIFERENTE expresion .) ]
+  ! MENOR           [ reduce using rule 13 (expresion -> expresion DIFERENTE expresion .) ]
+  ! MAYORIGUAL      [ reduce using rule 13 (expresion -> expresion DIFERENTE expresion .) ]
+  ! MENORIGUAL      [ reduce using rule 13 (expresion -> expresion DIFERENTE expresion .) ]
+  ! POTENCIA        [ reduce using rule 13 (expresion -> expresion DIFERENTE expresion .) ]
+  ! MODULO          [ reduce using rule 13 (expresion -> expresion DIFERENTE expresion .) ]
+  ! SUMA            [ reduce using rule 13 (expresion -> expresion DIFERENTE expresion .) ]
+  ! RESTA           [ reduce using rule 13 (expresion -> expresion DIFERENTE expresion .) ]
+  ! MULTIPLICACION  [ reduce using rule 13 (expresion -> expresion DIFERENTE expresion .) ]
+  ! DIVISION        [ reduce using rule 13 (expresion -> expresion DIFERENTE expresion .) ]
+  ! AND             [ shift and go to state 30 ]
+  ! OR              [ shift and go to state 31 ]
+  ! IGUALACION      [ shift and go to state 34 ]
+  ! DIFERENTE       [ shift and go to state 35 ]
+
+
+state 54
+
+    (14) expresion -> expresion MAYORIGUAL expresion .
+    (7) expresion -> expresion . AND expresion
+    (8) expresion -> expresion . OR expresion
+    (10) expresion -> expresion . MAYOR expresion
+    (11) expresion -> expresion . MENOR expresion
+    (12) expresion -> expresion . IGUALACION expresion
+    (13) expresion -> expresion . DIFERENTE expresion
+    (14) expresion -> expresion . MAYORIGUAL expresion
+    (15) expresion -> expresion . MENORIGUAL expresion
+    (16) expresion -> expresion . POTENCIA expresion
+    (17) expresion -> expresion . MODULO expresion
+    (18) expresion -> expresion . SUMA expresion
+    (19) expresion -> expresion . RESTA expresion
+    (20) expresion -> expresion . MULTIPLICACION expresion
+    (21) expresion -> expresion . DIVISION expresion
+
+    PTOCOMA         reduce using rule 14 (expresion -> expresion MAYORIGUAL expresion .)
+    AND             reduce using rule 14 (expresion -> expresion MAYORIGUAL expresion .)
+    OR              reduce using rule 14 (expresion -> expresion MAYORIGUAL expresion .)
+    MAYOR           reduce using rule 14 (expresion -> expresion MAYORIGUAL expresion .)
+    MENOR           reduce using rule 14 (expresion -> expresion MAYORIGUAL expresion .)
+    IGUALACION      reduce using rule 14 (expresion -> expresion MAYORIGUAL expresion .)
+    DIFERENTE       reduce using rule 14 (expresion -> expresion MAYORIGUAL expresion .)
+    MAYORIGUAL      reduce using rule 14 (expresion -> expresion MAYORIGUAL expresion .)
+    MENORIGUAL      reduce using rule 14 (expresion -> expresion MAYORIGUAL expresion .)
+    PARCIERRA       reduce using rule 14 (expresion -> expresion MAYORIGUAL expresion .)
+    POTENCIA        shift and go to state 38
+    MODULO          shift and go to state 39
+    SUMA            shift and go to state 40
+    RESTA           shift and go to state 41
+    MULTIPLICACION  shift and go to state 42
+    DIVISION        shift and go to state 43
+
+  ! POTENCIA        [ reduce using rule 14 (expresion -> expresion MAYORIGUAL expresion .) ]
+  ! MODULO          [ reduce using rule 14 (expresion -> expresion MAYORIGUAL expresion .) ]
+  ! SUMA            [ reduce using rule 14 (expresion -> expresion MAYORIGUAL expresion .) ]
+  ! RESTA           [ reduce using rule 14 (expresion -> expresion MAYORIGUAL expresion .) ]
+  ! MULTIPLICACION  [ reduce using rule 14 (expresion -> expresion MAYORIGUAL expresion .) ]
+  ! DIVISION        [ reduce using rule 14 (expresion -> expresion MAYORIGUAL expresion .) ]
+  ! AND             [ shift and go to state 30 ]
+  ! OR              [ shift and go to state 31 ]
+  ! MAYOR           [ shift and go to state 32 ]
+  ! MENOR           [ shift and go to state 33 ]
+  ! IGUALACION      [ shift and go to state 34 ]
+  ! DIFERENTE       [ shift and go to state 35 ]
+  ! MAYORIGUAL      [ shift and go to state 36 ]
+  ! MENORIGUAL      [ shift and go to state 37 ]
+
+
+state 55
+
+    (15) expresion -> expresion MENORIGUAL expresion .
+    (7) expresion -> expresion . AND expresion
+    (8) expresion -> expresion . OR expresion
+    (10) expresion -> expresion . MAYOR expresion
+    (11) expresion -> expresion . MENOR expresion
+    (12) expresion -> expresion . IGUALACION expresion
+    (13) expresion -> expresion . DIFERENTE expresion
+    (14) expresion -> expresion . MAYORIGUAL expresion
+    (15) expresion -> expresion . MENORIGUAL expresion
+    (16) expresion -> expresion . POTENCIA expresion
+    (17) expresion -> expresion . MODULO expresion
+    (18) expresion -> expresion . SUMA expresion
+    (19) expresion -> expresion . RESTA expresion
+    (20) expresion -> expresion . MULTIPLICACION expresion
+    (21) expresion -> expresion . DIVISION expresion
+
+    PTOCOMA         reduce using rule 15 (expresion -> expresion MENORIGUAL expresion .)
+    AND             reduce using rule 15 (expresion -> expresion MENORIGUAL expresion .)
+    OR              reduce using rule 15 (expresion -> expresion MENORIGUAL expresion .)
+    MAYOR           reduce using rule 15 (expresion -> expresion MENORIGUAL expresion .)
+    MENOR           reduce using rule 15 (expresion -> expresion MENORIGUAL expresion .)
+    IGUALACION      reduce using rule 15 (expresion -> expresion MENORIGUAL expresion .)
+    DIFERENTE       reduce using rule 15 (expresion -> expresion MENORIGUAL expresion .)
+    MAYORIGUAL      reduce using rule 15 (expresion -> expresion MENORIGUAL expresion .)
+    MENORIGUAL      reduce using rule 15 (expresion -> expresion MENORIGUAL expresion .)
+    PARCIERRA       reduce using rule 15 (expresion -> expresion MENORIGUAL expresion .)
+    POTENCIA        shift and go to state 38
+    MODULO          shift and go to state 39
+    SUMA            shift and go to state 40
+    RESTA           shift and go to state 41
+    MULTIPLICACION  shift and go to state 42
+    DIVISION        shift and go to state 43
+
+  ! POTENCIA        [ reduce using rule 15 (expresion -> expresion MENORIGUAL expresion .) ]
+  ! MODULO          [ reduce using rule 15 (expresion -> expresion MENORIGUAL expresion .) ]
+  ! SUMA            [ reduce using rule 15 (expresion -> expresion MENORIGUAL expresion .) ]
+  ! RESTA           [ reduce using rule 15 (expresion -> expresion MENORIGUAL expresion .) ]
+  ! MULTIPLICACION  [ reduce using rule 15 (expresion -> expresion MENORIGUAL expresion .) ]
+  ! DIVISION        [ reduce using rule 15 (expresion -> expresion MENORIGUAL expresion .) ]
+  ! AND             [ shift and go to state 30 ]
+  ! OR              [ shift and go to state 31 ]
+  ! MAYOR           [ shift and go to state 32 ]
+  ! MENOR           [ shift and go to state 33 ]
+  ! IGUALACION      [ shift and go to state 34 ]
+  ! DIFERENTE       [ shift and go to state 35 ]
+  ! MAYORIGUAL      [ shift and go to state 36 ]
+  ! MENORIGUAL      [ shift and go to state 37 ]
+
+
+state 56
+
+    (16) expresion -> expresion POTENCIA expresion .
+    (7) expresion -> expresion . AND expresion
+    (8) expresion -> expresion . OR expresion
+    (10) expresion -> expresion . MAYOR expresion
+    (11) expresion -> expresion . MENOR expresion
+    (12) expresion -> expresion . IGUALACION expresion
+    (13) expresion -> expresion . DIFERENTE expresion
+    (14) expresion -> expresion . MAYORIGUAL expresion
+    (15) expresion -> expresion . MENORIGUAL expresion
+    (16) expresion -> expresion . POTENCIA expresion
+    (17) expresion -> expresion . MODULO expresion
+    (18) expresion -> expresion . SUMA expresion
+    (19) expresion -> expresion . RESTA expresion
+    (20) expresion -> expresion . MULTIPLICACION expresion
+    (21) expresion -> expresion . DIVISION expresion
+
+    PTOCOMA         reduce using rule 16 (expresion -> expresion POTENCIA expresion .)
+    AND             reduce using rule 16 (expresion -> expresion POTENCIA expresion .)
+    OR              reduce using rule 16 (expresion -> expresion POTENCIA expresion .)
+    MAYOR           reduce using rule 16 (expresion -> expresion POTENCIA expresion .)
+    MENOR           reduce using rule 16 (expresion -> expresion POTENCIA expresion .)
+    IGUALACION      reduce using rule 16 (expresion -> expresion POTENCIA expresion .)
+    DIFERENTE       reduce using rule 16 (expresion -> expresion POTENCIA expresion .)
+    MAYORIGUAL      reduce using rule 16 (expresion -> expresion POTENCIA expresion .)
+    MENORIGUAL      reduce using rule 16 (expresion -> expresion POTENCIA expresion .)
+    MODULO          reduce using rule 16 (expresion -> expresion POTENCIA expresion .)
+    SUMA            reduce using rule 16 (expresion -> expresion POTENCIA expresion .)
+    RESTA           reduce using rule 16 (expresion -> expresion POTENCIA expresion .)
+    MULTIPLICACION  reduce using rule 16 (expresion -> expresion POTENCIA expresion .)
+    DIVISION        reduce using rule 16 (expresion -> expresion POTENCIA expresion .)
+    PARCIERRA       reduce using rule 16 (expresion -> expresion POTENCIA expresion .)
+    POTENCIA        shift and go to state 38
+
+  ! POTENCIA        [ reduce using rule 16 (expresion -> expresion POTENCIA expresion .) ]
+  ! AND             [ shift and go to state 30 ]
+  ! OR              [ shift and go to state 31 ]
+  ! MAYOR           [ shift and go to state 32 ]
+  ! MENOR           [ shift and go to state 33 ]
+  ! IGUALACION      [ shift and go to state 34 ]
+  ! DIFERENTE       [ shift and go to state 35 ]
+  ! MAYORIGUAL      [ shift and go to state 36 ]
+  ! MENORIGUAL      [ shift and go to state 37 ]
+  ! MODULO          [ shift and go to state 39 ]
+  ! SUMA            [ shift and go to state 40 ]
+  ! RESTA           [ shift and go to state 41 ]
+  ! MULTIPLICACION  [ shift and go to state 42 ]
+  ! DIVISION        [ shift and go to state 43 ]
+
+
+state 57
+
+    (17) expresion -> expresion MODULO expresion .
+    (7) expresion -> expresion . AND expresion
+    (8) expresion -> expresion . OR expresion
+    (10) expresion -> expresion . MAYOR expresion
+    (11) expresion -> expresion . MENOR expresion
+    (12) expresion -> expresion . IGUALACION expresion
+    (13) expresion -> expresion . DIFERENTE expresion
+    (14) expresion -> expresion . MAYORIGUAL expresion
+    (15) expresion -> expresion . MENORIGUAL expresion
+    (16) expresion -> expresion . POTENCIA expresion
+    (17) expresion -> expresion . MODULO expresion
+    (18) expresion -> expresion . SUMA expresion
+    (19) expresion -> expresion . RESTA expresion
+    (20) expresion -> expresion . MULTIPLICACION expresion
+    (21) expresion -> expresion . DIVISION expresion
+
+    PTOCOMA         reduce using rule 17 (expresion -> expresion MODULO expresion .)
+    AND             reduce using rule 17 (expresion -> expresion MODULO expresion .)
+    OR              reduce using rule 17 (expresion -> expresion MODULO expresion .)
+    MAYOR           reduce using rule 17 (expresion -> expresion MODULO expresion .)
+    MENOR           reduce using rule 17 (expresion -> expresion MODULO expresion .)
+    IGUALACION      reduce using rule 17 (expresion -> expresion MODULO expresion .)
+    DIFERENTE       reduce using rule 17 (expresion -> expresion MODULO expresion .)
+    MAYORIGUAL      reduce using rule 17 (expresion -> expresion MODULO expresion .)
+    MENORIGUAL      reduce using rule 17 (expresion -> expresion MODULO expresion .)
+    MODULO          reduce using rule 17 (expresion -> expresion MODULO expresion .)
+    SUMA            reduce using rule 17 (expresion -> expresion MODULO expresion .)
+    RESTA           reduce using rule 17 (expresion -> expresion MODULO expresion .)
+    MULTIPLICACION  reduce using rule 17 (expresion -> expresion MODULO expresion .)
+    DIVISION        reduce using rule 17 (expresion -> expresion MODULO expresion .)
+    PARCIERRA       reduce using rule 17 (expresion -> expresion MODULO expresion .)
+    POTENCIA        shift and go to state 38
+
+  ! POTENCIA        [ reduce using rule 17 (expresion -> expresion MODULO expresion .) ]
+  ! AND             [ shift and go to state 30 ]
+  ! OR              [ shift and go to state 31 ]
+  ! MAYOR           [ shift and go to state 32 ]
+  ! MENOR           [ shift and go to state 33 ]
+  ! IGUALACION      [ shift and go to state 34 ]
+  ! DIFERENTE       [ shift and go to state 35 ]
+  ! MAYORIGUAL      [ shift and go to state 36 ]
+  ! MENORIGUAL      [ shift and go to state 37 ]
+  ! MODULO          [ shift and go to state 39 ]
+  ! SUMA            [ shift and go to state 40 ]
+  ! RESTA           [ shift and go to state 41 ]
+  ! MULTIPLICACION  [ shift and go to state 42 ]
+  ! DIVISION        [ shift and go to state 43 ]
+
+
+state 58
+
+    (18) expresion -> expresion SUMA expresion .
+    (7) expresion -> expresion . AND expresion
+    (8) expresion -> expresion . OR expresion
+    (10) expresion -> expresion . MAYOR expresion
+    (11) expresion -> expresion . MENOR expresion
+    (12) expresion -> expresion . IGUALACION expresion
+    (13) expresion -> expresion . DIFERENTE expresion
+    (14) expresion -> expresion . MAYORIGUAL expresion
+    (15) expresion -> expresion . MENORIGUAL expresion
+    (16) expresion -> expresion . POTENCIA expresion
+    (17) expresion -> expresion . MODULO expresion
+    (18) expresion -> expresion . SUMA expresion
+    (19) expresion -> expresion . RESTA expresion
+    (20) expresion -> expresion . MULTIPLICACION expresion
+    (21) expresion -> expresion . DIVISION expresion
+
+    PTOCOMA         reduce using rule 18 (expresion -> expresion SUMA expresion .)
+    AND             reduce using rule 18 (expresion -> expresion SUMA expresion .)
+    OR              reduce using rule 18 (expresion -> expresion SUMA expresion .)
+    MAYOR           reduce using rule 18 (expresion -> expresion SUMA expresion .)
+    MENOR           reduce using rule 18 (expresion -> expresion SUMA expresion .)
+    IGUALACION      reduce using rule 18 (expresion -> expresion SUMA expresion .)
+    DIFERENTE       reduce using rule 18 (expresion -> expresion SUMA expresion .)
+    MAYORIGUAL      reduce using rule 18 (expresion -> expresion SUMA expresion .)
+    MENORIGUAL      reduce using rule 18 (expresion -> expresion SUMA expresion .)
+    SUMA            reduce using rule 18 (expresion -> expresion SUMA expresion .)
+    RESTA           reduce using rule 18 (expresion -> expresion SUMA expresion .)
+    PARCIERRA       reduce using rule 18 (expresion -> expresion SUMA expresion .)
+    POTENCIA        shift and go to state 38
+    MODULO          shift and go to state 39
+    MULTIPLICACION  shift and go to state 42
+    DIVISION        shift and go to state 43
+
+  ! POTENCIA        [ reduce using rule 18 (expresion -> expresion SUMA expresion .) ]
+  ! MODULO          [ reduce using rule 18 (expresion -> expresion SUMA expresion .) ]
+  ! MULTIPLICACION  [ reduce using rule 18 (expresion -> expresion SUMA expresion .) ]
+  ! DIVISION        [ reduce using rule 18 (expresion -> expresion SUMA expresion .) ]
+  ! AND             [ shift and go to state 30 ]
+  ! OR              [ shift and go to state 31 ]
+  ! MAYOR           [ shift and go to state 32 ]
+  ! MENOR           [ shift and go to state 33 ]
+  ! IGUALACION      [ shift and go to state 34 ]
+  ! DIFERENTE       [ shift and go to state 35 ]
+  ! MAYORIGUAL      [ shift and go to state 36 ]
+  ! MENORIGUAL      [ shift and go to state 37 ]
+  ! SUMA            [ shift and go to state 40 ]
+  ! RESTA           [ shift and go to state 41 ]
+
+
+state 59
+
+    (19) expresion -> expresion RESTA expresion .
+    (7) expresion -> expresion . AND expresion
+    (8) expresion -> expresion . OR expresion
+    (10) expresion -> expresion . MAYOR expresion
+    (11) expresion -> expresion . MENOR expresion
+    (12) expresion -> expresion . IGUALACION expresion
+    (13) expresion -> expresion . DIFERENTE expresion
+    (14) expresion -> expresion . MAYORIGUAL expresion
+    (15) expresion -> expresion . MENORIGUAL expresion
+    (16) expresion -> expresion . POTENCIA expresion
+    (17) expresion -> expresion . MODULO expresion
+    (18) expresion -> expresion . SUMA expresion
+    (19) expresion -> expresion . RESTA expresion
+    (20) expresion -> expresion . MULTIPLICACION expresion
+    (21) expresion -> expresion . DIVISION expresion
+
+    PTOCOMA         reduce using rule 19 (expresion -> expresion RESTA expresion .)
+    AND             reduce using rule 19 (expresion -> expresion RESTA expresion .)
+    OR              reduce using rule 19 (expresion -> expresion RESTA expresion .)
+    MAYOR           reduce using rule 19 (expresion -> expresion RESTA expresion .)
+    MENOR           reduce using rule 19 (expresion -> expresion RESTA expresion .)
+    IGUALACION      reduce using rule 19 (expresion -> expresion RESTA expresion .)
+    DIFERENTE       reduce using rule 19 (expresion -> expresion RESTA expresion .)
+    MAYORIGUAL      reduce using rule 19 (expresion -> expresion RESTA expresion .)
+    MENORIGUAL      reduce using rule 19 (expresion -> expresion RESTA expresion .)
+    SUMA            reduce using rule 19 (expresion -> expresion RESTA expresion .)
+    RESTA           reduce using rule 19 (expresion -> expresion RESTA expresion .)
+    PARCIERRA       reduce using rule 19 (expresion -> expresion RESTA expresion .)
+    POTENCIA        shift and go to state 38
+    MODULO          shift and go to state 39
+    MULTIPLICACION  shift and go to state 42
+    DIVISION        shift and go to state 43
+
+  ! POTENCIA        [ reduce using rule 19 (expresion -> expresion RESTA expresion .) ]
+  ! MODULO          [ reduce using rule 19 (expresion -> expresion RESTA expresion .) ]
+  ! MULTIPLICACION  [ reduce using rule 19 (expresion -> expresion RESTA expresion .) ]
+  ! DIVISION        [ reduce using rule 19 (expresion -> expresion RESTA expresion .) ]
+  ! AND             [ shift and go to state 30 ]
+  ! OR              [ shift and go to state 31 ]
+  ! MAYOR           [ shift and go to state 32 ]
+  ! MENOR           [ shift and go to state 33 ]
+  ! IGUALACION      [ shift and go to state 34 ]
+  ! DIFERENTE       [ shift and go to state 35 ]
+  ! MAYORIGUAL      [ shift and go to state 36 ]
+  ! MENORIGUAL      [ shift and go to state 37 ]
+  ! SUMA            [ shift and go to state 40 ]
+  ! RESTA           [ shift and go to state 41 ]
+
+
+state 60
+
+    (20) expresion -> expresion MULTIPLICACION expresion .
+    (7) expresion -> expresion . AND expresion
+    (8) expresion -> expresion . OR expresion
+    (10) expresion -> expresion . MAYOR expresion
+    (11) expresion -> expresion . MENOR expresion
+    (12) expresion -> expresion . IGUALACION expresion
+    (13) expresion -> expresion . DIFERENTE expresion
+    (14) expresion -> expresion . MAYORIGUAL expresion
+    (15) expresion -> expresion . MENORIGUAL expresion
+    (16) expresion -> expresion . POTENCIA expresion
+    (17) expresion -> expresion . MODULO expresion
+    (18) expresion -> expresion . SUMA expresion
+    (19) expresion -> expresion . RESTA expresion
+    (20) expresion -> expresion . MULTIPLICACION expresion
+    (21) expresion -> expresion . DIVISION expresion
+
+    PTOCOMA         reduce using rule 20 (expresion -> expresion MULTIPLICACION expresion .)
+    AND             reduce using rule 20 (expresion -> expresion MULTIPLICACION expresion .)
+    OR              reduce using rule 20 (expresion -> expresion MULTIPLICACION expresion .)
+    MAYOR           reduce using rule 20 (expresion -> expresion MULTIPLICACION expresion .)
+    MENOR           reduce using rule 20 (expresion -> expresion MULTIPLICACION expresion .)
+    IGUALACION      reduce using rule 20 (expresion -> expresion MULTIPLICACION expresion .)
+    DIFERENTE       reduce using rule 20 (expresion -> expresion MULTIPLICACION expresion .)
+    MAYORIGUAL      reduce using rule 20 (expresion -> expresion MULTIPLICACION expresion .)
+    MENORIGUAL      reduce using rule 20 (expresion -> expresion MULTIPLICACION expresion .)
+    MODULO          reduce using rule 20 (expresion -> expresion MULTIPLICACION expresion .)
+    SUMA            reduce using rule 20 (expresion -> expresion MULTIPLICACION expresion .)
+    RESTA           reduce using rule 20 (expresion -> expresion MULTIPLICACION expresion .)
+    MULTIPLICACION  reduce using rule 20 (expresion -> expresion MULTIPLICACION expresion .)
+    DIVISION        reduce using rule 20 (expresion -> expresion MULTIPLICACION expresion .)
+    PARCIERRA       reduce using rule 20 (expresion -> expresion MULTIPLICACION expresion .)
+    POTENCIA        shift and go to state 38
+
+  ! POTENCIA        [ reduce using rule 20 (expresion -> expresion MULTIPLICACION expresion .) ]
+  ! AND             [ shift and go to state 30 ]
+  ! OR              [ shift and go to state 31 ]
+  ! MAYOR           [ shift and go to state 32 ]
+  ! MENOR           [ shift and go to state 33 ]
+  ! IGUALACION      [ shift and go to state 34 ]
+  ! DIFERENTE       [ shift and go to state 35 ]
+  ! MAYORIGUAL      [ shift and go to state 36 ]
+  ! MENORIGUAL      [ shift and go to state 37 ]
+  ! MODULO          [ shift and go to state 39 ]
+  ! SUMA            [ shift and go to state 40 ]
+  ! RESTA           [ shift and go to state 41 ]
+  ! MULTIPLICACION  [ shift and go to state 42 ]
+  ! DIVISION        [ shift and go to state 43 ]
+
+
+state 61
+
+    (21) expresion -> expresion DIVISION expresion .
+    (7) expresion -> expresion . AND expresion
+    (8) expresion -> expresion . OR expresion
+    (10) expresion -> expresion . MAYOR expresion
+    (11) expresion -> expresion . MENOR expresion
+    (12) expresion -> expresion . IGUALACION expresion
+    (13) expresion -> expresion . DIFERENTE expresion
+    (14) expresion -> expresion . MAYORIGUAL expresion
+    (15) expresion -> expresion . MENORIGUAL expresion
+    (16) expresion -> expresion . POTENCIA expresion
+    (17) expresion -> expresion . MODULO expresion
+    (18) expresion -> expresion . SUMA expresion
+    (19) expresion -> expresion . RESTA expresion
+    (20) expresion -> expresion . MULTIPLICACION expresion
+    (21) expresion -> expresion . DIVISION expresion
+
+    PTOCOMA         reduce using rule 21 (expresion -> expresion DIVISION expresion .)
+    AND             reduce using rule 21 (expresion -> expresion DIVISION expresion .)
+    OR              reduce using rule 21 (expresion -> expresion DIVISION expresion .)
+    MAYOR           reduce using rule 21 (expresion -> expresion DIVISION expresion .)
+    MENOR           reduce using rule 21 (expresion -> expresion DIVISION expresion .)
+    IGUALACION      reduce using rule 21 (expresion -> expresion DIVISION expresion .)
+    DIFERENTE       reduce using rule 21 (expresion -> expresion DIVISION expresion .)
+    MAYORIGUAL      reduce using rule 21 (expresion -> expresion DIVISION expresion .)
+    MENORIGUAL      reduce using rule 21 (expresion -> expresion DIVISION expresion .)
+    MODULO          reduce using rule 21 (expresion -> expresion DIVISION expresion .)
+    SUMA            reduce using rule 21 (expresion -> expresion DIVISION expresion .)
+    RESTA           reduce using rule 21 (expresion -> expresion DIVISION expresion .)
+    MULTIPLICACION  reduce using rule 21 (expresion -> expresion DIVISION expresion .)
+    DIVISION        reduce using rule 21 (expresion -> expresion DIVISION expresion .)
+    PARCIERRA       reduce using rule 21 (expresion -> expresion DIVISION expresion .)
+    POTENCIA        shift and go to state 38
+
+  ! POTENCIA        [ reduce using rule 21 (expresion -> expresion DIVISION expresion .) ]
+  ! AND             [ shift and go to state 30 ]
+  ! OR              [ shift and go to state 31 ]
+  ! MAYOR           [ shift and go to state 32 ]
+  ! MENOR           [ shift and go to state 33 ]
+  ! IGUALACION      [ shift and go to state 34 ]
+  ! DIFERENTE       [ shift and go to state 35 ]
+  ! MAYORIGUAL      [ shift and go to state 36 ]
+  ! MENORIGUAL      [ shift and go to state 37 ]
+  ! MODULO          [ shift and go to state 39 ]
+  ! SUMA            [ shift and go to state 40 ]
+  ! RESTA           [ shift and go to state 41 ]
+  ! MULTIPLICACION  [ shift and go to state 42 ]
+  ! DIVISION        [ shift and go to state 43 ]
+
+
+state 62
+
+    (28) expresion -> INTERFACE ID LLAVEABRE . LLAVECIERRA PTOCOMA
+
+    LLAVECIERRA     shift and go to state 65
+
+
+state 63
+
+    (4) instruccion -> CONSOLE PTO LOG PARABRE expresion PARCIERRA PTOCOMA .
+
+    CONSOLE         reduce using rule 4 (instruccion -> CONSOLE PTO LOG PARABRE expresion PARCIERRA PTOCOMA .)
+    LET             reduce using rule 4 (instruccion -> CONSOLE PTO LOG PARABRE expresion PARCIERRA PTOCOMA .)
+    $end            reduce using rule 4 (instruccion -> CONSOLE PTO LOG PARABRE expresion PARCIERRA PTOCOMA .)
+
+
+state 64
+
+    (5) instruccion -> LET ID DOSPTOS tipo IGUAL expresion PTOCOMA .
+
+    CONSOLE         reduce using rule 5 (instruccion -> LET ID DOSPTOS tipo IGUAL expresion PTOCOMA .)
+    LET             reduce using rule 5 (instruccion -> LET ID DOSPTOS tipo IGUAL expresion PTOCOMA .)
+    $end            reduce using rule 5 (instruccion -> LET ID DOSPTOS tipo IGUAL expresion PTOCOMA .)
+
+
+state 65
+
+    (28) expresion -> INTERFACE ID LLAVEABRE LLAVECIERRA . PTOCOMA
+
+    PTOCOMA         shift and go to state 66
+
+
+state 66
+
+    (28) expresion -> INTERFACE ID LLAVEABRE LLAVECIERRA PTOCOMA .
+
+    PTOCOMA         reduce using rule 28 (expresion -> INTERFACE ID LLAVEABRE LLAVECIERRA PTOCOMA .)
+    AND             reduce using rule 28 (expresion -> INTERFACE ID LLAVEABRE LLAVECIERRA PTOCOMA .)
+    OR              reduce using rule 28 (expresion -> INTERFACE ID LLAVEABRE LLAVECIERRA PTOCOMA .)
+    MAYOR           reduce using rule 28 (expresion -> INTERFACE ID LLAVEABRE LLAVECIERRA PTOCOMA .)
+    MENOR           reduce using rule 28 (expresion -> INTERFACE ID LLAVEABRE LLAVECIERRA PTOCOMA .)
+    IGUALACION      reduce using rule 28 (expresion -> INTERFACE ID LLAVEABRE LLAVECIERRA PTOCOMA .)
+    DIFERENTE       reduce using rule 28 (expresion -> INTERFACE ID LLAVEABRE LLAVECIERRA PTOCOMA .)
+    MAYORIGUAL      reduce using rule 28 (expresion -> INTERFACE ID LLAVEABRE LLAVECIERRA PTOCOMA .)
+    MENORIGUAL      reduce using rule 28 (expresion -> INTERFACE ID LLAVEABRE LLAVECIERRA PTOCOMA .)
+    POTENCIA        reduce using rule 28 (expresion -> INTERFACE ID LLAVEABRE LLAVECIERRA PTOCOMA .)
+    MODULO          reduce using rule 28 (expresion -> INTERFACE ID LLAVEABRE LLAVECIERRA PTOCOMA .)
+    SUMA            reduce using rule 28 (expresion -> INTERFACE ID LLAVEABRE LLAVECIERRA PTOCOMA .)
+    RESTA           reduce using rule 28 (expresion -> INTERFACE ID LLAVEABRE LLAVECIERRA PTOCOMA .)
+    MULTIPLICACION  reduce using rule 28 (expresion -> INTERFACE ID LLAVEABRE LLAVECIERRA PTOCOMA .)
+    DIVISION        reduce using rule 28 (expresion -> INTERFACE ID LLAVEABRE LLAVECIERRA PTOCOMA .)
+    PARCIERRA       reduce using rule 28 (expresion -> INTERFACE ID LLAVEABRE LLAVECIERRA PTOCOMA .)
+

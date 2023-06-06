@@ -6,10 +6,7 @@ from datetime import datetime
 import xmltodict
 import json
 from flask_cors import CORS
-
-
-
-
+import Sintactic
 
 app = Flask(__name__)
 CORS(app)
@@ -26,8 +23,9 @@ def parse():
     
     print(data.get('code'))
     try:
-       
-        return jsonify({'ok':True, 'msg':'Data recibida', 'consola':'Resultado obtenido :D'}),200
+        instrucciones = Sintactic.parsear(data.get('code'))
+        listToStr = ' '.join([str(elem) for elem in instrucciones])
+        return jsonify({'ok':True, 'msg':'Data recibida', 'consola':listToStr}),200
     except:
         return jsonify({'ok':False, 'msg':'No es posible analizar la entrada', 'consola':'Error en el servidor :('}), 409
  

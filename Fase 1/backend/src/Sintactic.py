@@ -146,15 +146,5 @@ def parsear(input):
     parser = yacc.yacc()
     entrada = input
     lexer.lineno = 1
-    return parser.parse(input)
-
-def test_lexer(lexer):
-    while True:
-        token = lexer.token()
-        if not token:
-            break
-        print(token)
-
-entrada = '''/**/ console.log(3*5-4*2); console.log(9>=5); console.log(false||true);
-//Variables\n let _hola1_ : string = "Hola1"; let _hola2_ = "hola2";'''
-instrucciones = parsear(entrada)
+    result = parser.parse(input)
+    return result
