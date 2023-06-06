@@ -17,60 +17,6 @@ function Reports(){
    
     const navigate = useNavigate();
     
-    const miEditor = useRef();
-    const miConsola = useRef();
-   
-    const [file, setFile] = useState()
-    let fileReader
-
-    function handleChange(event) {
-      setFile(event.target.files[0])
-     
-    }
-
-    
-    const handleFileRead =(e) =>{
-        const content = fileReader.result
-        
-       
-        miEditor.current.editor.setValue(content)
-        miEditor.current.editor.clearSelection()
-    };
-   
-    const handleSubmit = (event) =>{
-        event.preventDefault()
-        fileReader = new FileReader()
-        fileReader.onloadend = handleFileRead;
-        fileReader.readAsText(file)
-
-    };
-    
-    const changeEditor = (valueA) => {
-        alert("hola")
-    }
-
-    const postParse = () =>{
-        /*
-        Service.parse(miEditor.current.editor.getValue())
-        .then(({consola}) => {
-            miConsola.current.editor.setValue(consola)
-            miConsola.current.editor.clearSelection()
-        })
-        */
-        alert(miEditor.current.editor.getValue())
-        miConsola.current.editor.setValue("Resultado de la ejecución")
-        miConsola.current.editor.clearSelection()
-    }
-    const clean = () =>{
-        miEditor.current.editor.setValue("")
-        miConsola.current.editor.setValue("")
-    }
-
-    
-
-   
-
-  
     
     return(
         <>
