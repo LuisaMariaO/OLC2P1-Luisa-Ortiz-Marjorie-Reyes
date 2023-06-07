@@ -14,7 +14,8 @@ reservedWords = {
     'string'    : 'STRING',
     'number'    : 'NUMBER',
     'boolean'   : 'BOOLEAN',
-    'function'  : 'FUNCTION'
+    'function'  : 'FUNCTION',
+    'return'    : 'RETURN'
 }
 
 tokens = [
@@ -78,7 +79,7 @@ t_MENOR         = r'\<'
 t_AND           = r'&&'
 t_OR            = r'\|\|'
 t_NOT           = r'\!'
-t_COMA          = r','
+t_COMA          = r'\,'
 
 def t_DECIMAL(token):
     r'\d+\.\d+'

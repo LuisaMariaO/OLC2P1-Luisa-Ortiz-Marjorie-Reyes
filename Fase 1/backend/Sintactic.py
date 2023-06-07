@@ -32,25 +32,98 @@ def p_instruccion(t):
     else:
         t[0] = [t[1]]
 
+def p_instruccion_global(t):
+    '''instruccion : imprimir
+                | declaracion
+                | asignacion
+                | funcion'''
+    t[0] = t[1]
+#Las instrucciones pueden venir con o sin punto y coma al final
 def p_puntoycoma(t):
     '''puntoycoma : PTOCOMA
                 |'''
-
+#*************************************INSTRUCCIONES**********************************************
 def p_imprimir(t):
-    'instruccion : CONSOLE PTO LOG PARABRE expresion PARCIERRA'
+    'imprimir : CONSOLE PTO LOG PARABRE expresion PARCIERRA'
     print(t[5])
     t[0] = t[5]
 
 def p_declaraciones(t):
-    'instruccion : LET ID DOSPTOS tipo IGUAL expresion'
+    'declaracion : LET ID DOSPTOS tipo IGUAL expresion'
     print("Declaracion variable ", t[2], t[4], t[6])
     t[0] = t[6]
 
 def p_asignaciones(t):
-    'instruccion : LET ID IGUAL expresion'
+    'asignacion : LET ID IGUAL expresion'
     print("Asignación variable ", t[2], t[4])
     t[0] = t[4]
 
+def p_funciones(t): 
+    'funcion : FUNCTION ID PARABRE lista_parametros PARCIERRA LLAVEABRE lista_instrucciones retorno LLAVECIERRA puntoycoma'
+    #'funcion : FUNCTION ID PARABRE lista_parametros PARCIERRA LLAVEABRE lista_instrucciones #LLAVECIERRA retorno puntoycoma'
+    print("Declaracion de funcion ",t[2])
+    t[0] = t[2]
+
+
+def p_lista_parametros(t):
+    'lista_parametros : lista_parametros COMA expresion'
+    if t[3]!="":
+        t[1].append(t[3])
+    t[0] = t[1]
+
+def p_parametro(t):
+    'lista_parametros : expresion'
+    if t[1]=="":
+        t[0] = []
+    else:
+        t[0] = [t[1]]
+
+def p_parametro_vacio(t):
+    'lista_parametros :'
+    t[0] = None
+
+
+def p_lista_instrucciones_f(t):
+    'lista_instrucciones : lista_instrucciones instruccion_f puntoycoma'
+    if t[2] != "":
+        t[1].append(t[2])
+    t[0] = t[1]
+
+def p_instruccion_f(t):
+    'lista_instrucciones : instruccion_f puntoycoma'
+    if t[1] == "":
+        t[0] = []
+    else:
+        t[0] = [t[1]]
+
+
+
+def p_instruccion_funcion(t):
+    '''instruccion_f : imprimir
+                | declaracion
+                | asignacion'''
+    t[0] = t[1]
+
+
+
+def p_retorno(t):
+    '''retorno : RETURN valor_retorno puntoycoma'''
+    t[0] = t[2]
+
+def p_retorno_vacio(t):
+    'retorno :'
+    t[0] = None
+    
+
+def p_valor_retorno(t):
+    '''valor_retorno : expresion'''
+    t[0] = t[1]
+
+def p_valor_retorno_vacio(t):
+    'valor_retorno :'
+    t[0]=None
+ 
+#**********************************************EXPRESIONES***************************************
 def p_expresiones_logicas(t):
     '''expresion : expresion AND expresion
                 | expresion OR expresion
