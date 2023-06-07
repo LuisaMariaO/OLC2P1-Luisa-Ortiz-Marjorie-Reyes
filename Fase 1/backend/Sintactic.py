@@ -49,16 +49,20 @@ def p_imprimir(t):
     print(t[5])
     t[0] = t[5]
 
-def p_declaraciones(t):
-    'declaracion : LET ID tipar IGUAL expresion'
-    print("Declaracion variable ", t[2], t[4], t[6])
-    t[0] = t[6]
-
 def p_tipar(t):
     'tipar : DOSPTOS tipo'
+    t[0] = t[2]
+
+def p_declaraciones(t):
+    'declaracion : LET ID tipar IGUAL expresion'
+    print("Declaracion variable ", t[2], t[3], t[5])
+    t[0] = t[5]
+
+
 
 def p_no_tipar(t):
     'tipar :'
+    t[0] = None
 
 def p_asignaciones(t):
     'asignacion : ID IGUAL expresion'
