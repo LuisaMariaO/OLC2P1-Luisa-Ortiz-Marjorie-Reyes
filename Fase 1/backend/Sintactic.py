@@ -36,7 +36,8 @@ def p_instruccion_global(t):
     '''instruccion : imprimir
                 | declaracion
                 | asignacion
-                | funcion'''
+                | funcion
+                | llamada'''
     t[0] = t[1]
 #Las instrucciones pueden venir con o sin punto y coma al final
 def p_puntoycoma(t):
@@ -49,14 +50,20 @@ def p_imprimir(t):
     t[0] = t[5]
 
 def p_declaraciones(t):
-    'declaracion : LET ID DOSPTOS tipo IGUAL expresion'
+    'declaracion : LET ID tipar IGUAL expresion'
     print("Declaracion variable ", t[2], t[4], t[6])
     t[0] = t[6]
 
+def p_tipar(t):
+    'tipar : DOSPTOS tipo'
+
+def p_no_tipar(t):
+    'tipar :'
+
 def p_asignaciones(t):
-    'asignacion : LET ID IGUAL expresion'
-    print("Asignación variable ", t[2], t[4])
-    t[0] = t[4]
+    'asignacion : ID IGUAL expresion'
+    print("Asignación variable ", t[1], t[3])
+    t[0] = t[3]
 
 def p_funciones(t): 
     'funcion : FUNCTION ID PARABRE lista_parametros PARCIERRA LLAVEABRE lista_instrucciones retorno LLAVECIERRA puntoycoma'
@@ -66,13 +73,15 @@ def p_funciones(t):
 
 
 def p_lista_parametros(t):
-    'lista_parametros : lista_parametros COMA ID DOSPTOS tipo'
+    'lista_parametros : lista_parametros COMA ID tipar'
     if t[3]!="":
         t[1].append(t[3])
     t[0] = t[1]
 
+
+
 def p_parametro(t):
-    'lista_parametros : ID DOSPTOS tipo'
+    'lista_parametros : ID tipar'
     if t[1]=="":
         t[0] = []
     else:
@@ -101,7 +110,8 @@ def p_instruccion_f(t):
 def p_instruccion_funcion(t):
     '''instruccion_f : imprimir
                 | declaracion
-                | asignacion'''
+                | asignacion
+                | llamada'''
     t[0] = t[1]
 
 
@@ -122,7 +132,18 @@ def p_valor_retorno(t):
 def p_valor_retorno_vacio(t):
     'valor_retorno :'
     t[0]=None
- 
+
+def p_llamada_funcion(t):
+    'llamada : ID PARABRE lista_parametros_l PARCIERRA'
+
+def p_lista_parametros_l (t):
+    'lista_parametros_l : lista_parametros_l COMA expresion'
+
+def p_parametro_l(t):
+    'lista_parametros_l : expresion'
+
+def p_parametro_l_vacio(t):
+    'lista_parametros_l :'
 #**********************************************EXPRESIONES***************************************
 def p_expresiones_logicas(t):
     '''expresion : expresion AND expresion
