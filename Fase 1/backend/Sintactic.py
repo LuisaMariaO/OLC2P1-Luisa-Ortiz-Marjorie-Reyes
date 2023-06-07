@@ -66,13 +66,13 @@ def p_funciones(t):
 
 
 def p_lista_parametros(t):
-    'lista_parametros : lista_parametros COMA expresion'
+    'lista_parametros : lista_parametros COMA ID DOSPTOS tipo'
     if t[3]!="":
         t[1].append(t[3])
     t[0] = t[1]
 
 def p_parametro(t):
-    'lista_parametros : expresion'
+    'lista_parametros : ID DOSPTOS tipo'
     if t[1]=="":
         t[0] = []
     else:
