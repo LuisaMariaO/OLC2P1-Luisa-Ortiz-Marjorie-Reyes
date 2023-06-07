@@ -1,10 +1,6 @@
 from flask import Flask, request
 from flask.json import jsonify
-from xml.etree import ElementTree as ET
-import re
-from datetime import datetime
-import xmltodict
-import json
+
 from flask_cors import CORS
 import Sintactic
 

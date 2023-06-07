@@ -20,30 +20,34 @@ def p_Inicio(t):
     t[0] = t[1]
 
 def p_lista_instrucciones(t):
-    'instrucciones : instrucciones instruccion'
+    'instrucciones : instrucciones instruccion puntoycoma'
     if t[2] != "":
         t[1].append(t[2])
     t[0] = t[1]
 
 def p_instruccion(t):
-    'instrucciones : instruccion'
+    'instrucciones : instruccion puntoycoma'
     if t[1] == "":
         t[0] = []
     else:
         t[0] = [t[1]]
 
+def p_puntoycoma(t):
+    '''puntoycoma : PTOCOMA
+                |'''
+
 def p_imprimir(t):
-    'instruccion : CONSOLE PTO LOG PARABRE expresion PARCIERRA PTOCOMA'
+    'instruccion : CONSOLE PTO LOG PARABRE expresion PARCIERRA'
     print(t[5])
     t[0] = t[5]
 
 def p_declaraciones(t):
-    'instruccion : LET ID DOSPTOS tipo IGUAL expresion PTOCOMA'
+    'instruccion : LET ID DOSPTOS tipo IGUAL expresion'
     print("Declaracion variable ", t[2], t[4], t[6])
     t[0] = t[6]
 
 def p_asignaciones(t):
-    'instruccion : LET ID IGUAL expresion PTOCOMA'
+    'instruccion : LET ID IGUAL expresion'
     print("Asignación variable ", t[2], t[4])
     t[0] = t[4]
 
@@ -123,7 +127,7 @@ def p_identificador(t):
     t[0] = t[1]
 
 def p_interface(t):
-    'expresion : INTERFACE ID LLAVEABRE LLAVECIERRA PTOCOMA'    
+    'expresion : INTERFACE ID LLAVEABRE LLAVECIERRA'    
 
 def p_null(t):
     'expresion : NULL'

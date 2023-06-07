@@ -13,7 +13,8 @@ reservedWords = {
     'false'     : 'FALSO',
     'string'    : 'STRING',
     'number'    : 'NUMBER',
-    'boolean'   : 'BOOLEAN'
+    'boolean'   : 'BOOLEAN',
+    'function'  : 'FUNCTION'
 }
 
 tokens = [
@@ -26,6 +27,7 @@ tokens = [
     'PARCIERRA',
     'LLAVEABRE',
     'LLAVECIERRA',
+    'COMA',
     #Operaciones aritméticas
     'SUMA',
     'RESTA',
@@ -76,6 +78,7 @@ t_MENOR         = r'\<'
 t_AND           = r'&&'
 t_OR            = r'\|\|'
 t_NOT           = r'\!'
+t_COMA          = r','
 
 def t_DECIMAL(token):
     r'\d+\.\d+'
@@ -120,6 +123,11 @@ def t_UNILINEA(token):
 def t_MULTILINEA(token):
     r'\/\*(.|\n)*\*\/'
     token.lexer.lineno += token.value.count('\n')
+
+#Nueva Linea
+def t_newline(t):
+    r'\n+'
+    t.lexer.lineno += len(t.value)
 
 t_ignore = " \t"
 
