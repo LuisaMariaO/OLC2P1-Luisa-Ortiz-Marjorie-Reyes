@@ -149,6 +149,10 @@ t_ignore = " \t"
 def t_error(token):
     token.lexer.skip(1)
 
+def find_column(inp, tk):
+    line_start = inp.rfind('\n', 0, tk.lexpos) + 1
+    return (tk.lexpos - line_start) + 1
+
 def test_lexer(lexema):
     while True:
         token = lexer.tokens()

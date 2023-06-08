@@ -3,6 +3,10 @@ import ply.lex as lex
 from Lexic import tokens
 from Lexic import lexer, errors
 
+from src.Interpreter.Expresions.nativo import Nativo
+from src.Interpreter.Instructions.imprimir import Imprimir
+from src.Interpreter.Symbol.type import *
+
 precedence = (
     ('left', 'OR'),
     ('left', 'AND'),
@@ -55,8 +59,8 @@ def p_puntoycoma(t):
 #*************************************INSTRUCCIONES**********************************************
 def p_imprimir(t):
     'imprimir : CONSOLE PTO LOG PARABRE expresion PARCIERRA'
-    print(t[5])
-    t[0] = t[5]
+   
+    t[0] = Imprimir(DataType.INDEFINIDO,t[5],t.lineno(1),9)
 
 def p_tipar(t):
     'tipar : DOSPTOS tipo'
@@ -245,7 +249,7 @@ def p_decimal(t):
 
 def p_cadena(t):
     'expresion : CADENA'
-    t[0] = t[1]
+    t[0] = Nativo(Type(DataType.STRING),t[1],t.lineno(1),9)
 
 def p_booleano(t):
     '''expresion : FALSO
@@ -296,7 +300,7 @@ def p_null(t):
     t[0] = None
 
 def p_tipos(t):
-    '''tipo : STRING
+    '''tipo : STRING 
             | NUMBER
             | BOOLEAN
             | ID
@@ -306,6 +310,8 @@ def p_tipos(t):
             | BOOLEAN CORABRE CORCIERRA
             | ANY CORABRE CORCIERRA
             | ID CORABRE CORCIERRA''' #Cuando el tipo es el nombre de un struct
+
+
     t[0] = t[1]
 
 def p_error(t):
