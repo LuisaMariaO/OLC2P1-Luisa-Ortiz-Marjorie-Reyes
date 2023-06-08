@@ -37,7 +37,16 @@ def p_instruccion_global(t):
                 | declaracion
                 | asignacion
                 | funcion
-                | llamada'''
+                | llamada
+                | if
+                | while
+                | for
+                | BREAK
+                | CONTINUE
+                | retorno
+                | asignacion_arreglo
+                | struct
+                | asignacion_atributo'''
     t[0] = t[1]
 #Las instrucciones pueden venir con o sin punto y coma al final
 def p_puntoycoma(t):
@@ -70,7 +79,7 @@ def p_asignaciones(t):
     t[0] = t[3]
 
 def p_funciones(t): 
-    'funcion : FUNCTION ID PARABRE lista_parametros PARCIERRA LLAVEABRE lista_instrucciones retorno LLAVECIERRA puntoycoma'
+    'funcion : FUNCTION ID PARABRE lista_parametros PARCIERRA LLAVEABRE instrucciones LLAVECIERRA puntoycoma'
     #'funcion : FUNCTION ID PARABRE lista_parametros PARCIERRA LLAVEABRE lista_instrucciones #LLAVECIERRA retorno puntoycoma'
     print("Declaracion de funcion ",t[2])
     t[0] = t[2]
@@ -96,39 +105,12 @@ def p_parametro_vacio(t):
     t[0] = None
 
 
-def p_lista_instrucciones_f(t):
-    'lista_instrucciones : lista_instrucciones instruccion_f puntoycoma'
-    if t[2] != "":
-        t[1].append(t[2])
-    t[0] = t[1]
-
-def p_instruccion_f(t):
-    'lista_instrucciones : instruccion_f puntoycoma'
-    if t[1] == "":
-        t[0] = []
-    else:
-        t[0] = [t[1]]
-
-
-
-def p_instruccion_funcion(t):
-    '''instruccion_f : imprimir
-                | declaracion
-                | asignacion
-                | llamada'''
-    t[0] = t[1]
-
-
-
 def p_retorno(t):
     '''retorno : RETURN valor_retorno puntoycoma'''
     t[0] = t[2]
 
-def p_retorno_vacio(t):
-    'retorno :'
-    t[0] = None
-    
 
+    
 def p_valor_retorno(t):
     '''valor_retorno : expresion'''
     t[0] = t[1]
@@ -148,6 +130,59 @@ def p_parametro_l(t):
 
 def p_parametro_l_vacio(t):
     'lista_parametros_l :'
+
+def p_if(t):
+    'if : IF PARABRE expresion PARCIERRA LLAVEABRE instrucciones LLAVECIERRA elseif else'
+
+def p_elseif_list(t):
+    'elseif : elseif ELSEIF PARABRE expresion PARCIERRA LLAVEABRE instrucciones LLAVECIERRA'
+
+def p_elseif(t):
+    'elseif : ELSEIF PARABRE expresion PARCIERRA LLAVEABRE instrucciones LLAVECIERRA'
+
+def p_elseif_none(t):
+    'elseif :'
+
+def p_else(t):
+    'else : ELSE LLAVEABRE instrucciones LLAVECIERRA'
+
+def p_else_none(t):
+    'else :'
+
+def p_while(t):
+    'while : WHILE PARABRE expresion PARCIERRA LLAVEABRE instrucciones LLAVECIERRA'
+
+def p_for(t):
+    'for : FOR PARABRE LET ID rango PARCIERRA LLAVEABRE instrucciones LLAVECIERRA'
+
+def p_rango(t):
+    'rango : IGUAL expresion PTOCOMA expresion PTOCOMA ID incremental'
+
+def p_in_of(t):
+    'rango : in_of expresion'
+
+def p_incremental_mas(t):
+    '''incremental : SUMA SUMA
+                | RESTA RESTA'''
+    
+def p_in_of_t(t):
+    '''in_of : IN
+            | OF'''
+
+def p_asignacion_arreglo(t):
+    'asignacion_arreglo : ID dimensiones IGUAL expresion'
+
+def p_dimensiones(t):
+    'dimensiones : dimensiones CORABRE expresion CORCIERRA'
+
+def p_dimension(t):
+    'dimensiones : CORABRE expresion CORCIERRA'
+
+def p_interface(t):
+    'struct : INTERFACE ID LLAVEABRE atributos LLAVECIERRA'
+
+def p_asignacion_atributo(t):
+    'asignacion_atributo : ID PTO ID IGUAL expresion'
 #**********************************************EXPRESIONES***************************************
 def p_expresiones_logicas(t):
     '''expresion : expresion AND expresion
@@ -170,9 +205,9 @@ def p_expresiones_relacionales(t):
                 | expresion POTENCIA expresion
                 | expresion MODULO expresion'''
     if t[2] == '>':
-        t[0] = t[1] > t[3]
+        t[0] = True
     elif t[2] == '<':
-        t[0] = t[1] < t[3]
+        t[0] = True
     elif t[2] == '===':
         t[0] = t[1] == t[3]
     elif t[2] == '!==':
@@ -224,8 +259,37 @@ def p_identificador(t):
     'expresion : ID'
     t[0] = t[1]
 
-def p_interface(t):
-    'expresion : INTERFACE ID LLAVEABRE LLAVECIERRA'    
+def p_exp_acceso(t):
+    'expresion : ID dimensiones'
+
+def p_interface_expr(t):
+    'expresion : LLAVEABRE atributos_valor LLAVECIERRA'
+
+def p_atributos_valor(t):
+    'atributos_valor : atributos_valor COMA ID DOSPTOS expresion'
+
+def p_atributo_valor(t):
+    'atributos_valor : ID DOSPTOS expresion'
+
+def p_atributos(t):
+    'atributos : atributos ID tipar PTOCOMA'
+
+def p_atributo(t):
+    'atributos : ID tipar PTOCOMA'
+
+def p_valor_atributo(t):
+    'expresion : ID PTO ID'
+def p_arreglo(t):
+    'expresion : CORABRE lista_valores CORCIERRA'    
+
+def p_lista_valores(t):
+    'lista_valores : lista_valores COMA expresion'
+
+def p_valor(t):
+    'lista_valores : expresion'
+
+def p_valor_none(t):
+    'lista_valores :'
 
 def p_null(t):
     'expresion : NULL'
@@ -234,7 +298,8 @@ def p_null(t):
 def p_tipos(t):
     '''tipo : STRING
             | NUMBER
-            | BOOLEAN'''
+            | BOOLEAN
+            | ID''' #Cuando el tipo es el nombre de un struct
     t[0] = t[1]
 
 def p_error(t):

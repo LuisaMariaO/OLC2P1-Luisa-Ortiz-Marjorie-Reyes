@@ -55,12 +55,15 @@ function Code(){
         event.preventDefault();
       //  alert(miEditor.current.editor.getValue())
         Service.parse(miEditor.current.editor.getValue())
-        .then(({consola}) => {
+        .then(({consola,ok}) => {
+            
             miConsola.current.editor.setValue(consola)
             miConsola.current.editor.clearSelection()
+           
         })
-        
-        
+        .catch((error) => {
+           alert("Errores léxicos o sintácticos encontrados :c")
+        })
        // miConsola.current.editor.setValue("Resultado de la ejecución")
         //miConsola.current.editor.clearSelection()
     }

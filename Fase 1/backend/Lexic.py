@@ -15,7 +15,16 @@ reservedWords = {
     'number'    : 'NUMBER',
     'boolean'   : 'BOOLEAN',
     'function'  : 'FUNCTION',
-    'return'    : 'RETURN'
+    'return'    : 'RETURN',
+    'if'        : 'IF',
+    'else'      : 'ELSE',
+    'else if'   : 'ELSEIF',
+    'while'     : 'WHILE',  
+    'for'       : 'FOR',
+    'in'        : 'IN',
+    'of'        : 'OF',
+    'break'     : 'BREAK',
+    'continue'  : 'CONTINUE'
 }
 
 tokens = [
@@ -29,6 +38,8 @@ tokens = [
     'LLAVEABRE',
     'LLAVECIERRA',
     'COMA',
+    'CORABRE',
+    'CORCIERRA',
     #Operaciones aritméticas
     'SUMA',
     'RESTA',
@@ -64,6 +75,8 @@ t_PARABRE       = r'\('
 t_PARCIERRA     = r'\)'
 t_LLAVEABRE     = r'\{'
 t_LLAVECIERRA   = r'\}'
+t_CORABRE       = r'\['
+t_CORCIERRA     = r'\]'
 t_SUMA          = r'\+'
 t_RESTA         = r'\-'
 t_MULTIPLICACION = r'\*'
