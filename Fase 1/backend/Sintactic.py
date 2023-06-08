@@ -299,7 +299,13 @@ def p_tipos(t):
     '''tipo : STRING
             | NUMBER
             | BOOLEAN
-            | ID''' #Cuando el tipo es el nombre de un struct
+            | ID
+            | ANY 
+            | NUMBER CORABRE CORCIERRA
+            | STRING CORABRE CORCIERRA
+            | BOOLEAN CORABRE CORCIERRA
+            | ANY CORABRE CORCIERRA
+            | ID CORABRE CORCIERRA''' #Cuando el tipo es el nombre de un struct
     t[0] = t[1]
 
 def p_error(t):

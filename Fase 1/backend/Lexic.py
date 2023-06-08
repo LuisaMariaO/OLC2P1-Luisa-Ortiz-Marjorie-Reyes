@@ -5,6 +5,7 @@ errors = []
 
 reservedWords = {
     'null'      : 'NULL',
+    'any'       : 'ANY',
     'let'       : 'LET',
     'console'   : 'CONSOLE',
     'log'       : 'LOG',
