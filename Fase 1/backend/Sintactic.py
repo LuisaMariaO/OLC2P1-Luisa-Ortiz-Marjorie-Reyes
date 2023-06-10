@@ -6,6 +6,9 @@ from Lexic import lexer, errors
 from src.Interpreter.Expresions.nativo import Nativo
 from src.Interpreter.Instructions.imprimir import Imprimir
 from src.Interpreter.Symbol.type import *
+from src.Interpreter.Expresions.aritmeticas import *
+from src.Interpreter.Expresions.logicas import *
+from src.Interpreter.Expresions.relacionales import *
 
 precedence = (
     ('left', 'OR'),
@@ -193,11 +196,11 @@ def p_expresiones_logicas(t):
                 | expresion OR expresion
                 | NOT expresion'''
     if t[2] == '&&':
-        t[0] = t[1] and t[3]
+        t[0] = Logica(t[1], t[3], Logic(LogicType.AND), t.lineno(1), 9)
     elif t[2] == '||':
-        t[0] = t[1] or  t[3]
+        t[0] = Logica(t[1], t[3], Logic(LogicType.OR), t.lineno(1), 9)
     elif t[1] == '!':
-        t[0] = not t[2]
+       t[0] = Logica(t[2], t[2], Logic(LogicType.NOT), t.lineno(1), 9)
 
 def p_expresiones_relacionales(t):
     '''expresion : expresion MAYOR expresion
@@ -205,63 +208,90 @@ def p_expresiones_relacionales(t):
                 | expresion IGUALACION expresion
                 | expresion DIFERENTE expresion
                 | expresion MAYORIGUAL expresion
-                | expresion MENORIGUAL expresion
-                | expresion POTENCIA expresion
-                | expresion MODULO expresion'''
+                | expresion MENORIGUAL expresion'''
     if t[2] == '>':
-        t[0] = True
+        t[0] = Relacional(t[1], t[3], Relational(RelationalType.MAYOR), t.lineno(1), 9)
     elif t[2] == '<':
-        t[0] = True
+        t[0] = Relacional(t[1], t[3], Relational(RelationalType.MENOR), t.lineno(1), 9)
     elif t[2] == '===':
-        t[0] = t[1] == t[3]
+        t[0] = Relacional(t[1], t[3], Relational(RelationalType.IGUAL), t.lineno(1), 9)
     elif t[2] == '!==':
-        t[0] = t[1] != t[3]
+        t[0] = Relacional(t[1], t[3], Relational(RelationalType.DIFERENTE), t.lineno(1), 9)
     elif t[2] == '>=':
-        t[0] = t[1] >= t[3]
+        t[0] = Relacional(t[1], t[3], Relational(RelationalType.MAYORIGUAL), t.lineno(1), 9)
     elif t[2] == '<=':
-        t[0] = t[1] <= t[3]
-    elif t[2] == '^':
-        t[0] = pow(t[1], t[3])
-    elif t[2] == '%':
-        t[0] = t[1] % t[3]
+        t[0] = Relacional(t[1], t[3], Relational(RelationalType.MENORIGUAL), t.lineno(1), 9)
 
 def p_expresiones_aritmeticas(t):
     '''expresion : expresion SUMA expresion
                 | expresion RESTA expresion
                 | expresion MULTIPLICACION expresion
-                | expresion DIVISION expresion'''
+                | expresion DIVISION expresion
+                | expresion POTENCIA expresion
+                | expresion MODULO expresion
+                | PARABRE expresion PARCIERRA'''
     if t[2] == '+':
-        t[0] = t[1] + t[3]
+        t[0] = Aritmetica(t[1], t[3], Aritmetic(AritmeticType.SUMA), t.lineno(1), 9)
     elif t[2] == '-':
-        t[0] = t[1] - t[3]
+        t[0] = Aritmetica(t[1], t[3], Aritmetic(AritmeticType.RESTA), t.lineno(1), 9)
     elif t[2] == '*':
-        t[0] = t[1] * t[3]
+        t[0] = Aritmetica(t[1], t[3], Aritmetic(AritmeticType.MULTIPLICACION), t.lineno(1), 9)
     elif t[2] == '/':
-        t[0] = t[1] / t[3]
+        t[0] = Aritmetica(t[1], t[3], Aritmetic(AritmeticType.DIVISION), t.lineno(1), 9)
+    elif t[2] == '^':
+        t[0] = Aritmetica(t[1], t[3], Aritmetic(AritmeticType.POTENCIA), t.lineno(1), 9)
+    elif t[2] == '%':
+        t[0] = Aritmetica(t[1], t[3], Aritmetic(AritmeticType.MODULO), t.lineno(1), 9)
+    elif t[1] == "(" and t[3] == ")":
+        t[0] = t[2]
+
+def p_expresiones_nativas(t):
+    '''expresion : ID PTO nativas PARABRE parametro_nativa PARCIERRA'''
+    if t[5] == None:
+        t[0] = None
+        print("Nativa sin parámetro")
+    else: 
+        t[0] = t[5]
+        print("Nativa con parámetro")
+
+def p_nativas(t):
+    '''nativas : TOFIXED
+                | TOEXPO
+                | TOSTRING
+                | TOLOWER
+                | TOUPPER
+                | SPLIT
+                | CONCAT'''
+    t[0] = t[1]
+
+def p_parametro_nativa(t):
+    'parametro_nativa : expresion'
+    t[0] = t[1]
+
+def p_parametro_nativa_v(t):
+    'parametro_nativa :'
+    t[0] = None
 
 def p_entero(t):
     'expresion : ENTERO'
-    t[0] = int(t[1])
+    t[0] = Nativo(Type(DataType.NUMBER), t[1], t.lineno(1), 9)
 
 def p_decimal(t):
     'expresion : DECIMAL'
-    t[0] = float(t[1])    
+    t[0] = Nativo(Type(DataType.NUMBER), t[1], t.lineno(1), 9)
 
 def p_cadena(t):
     'expresion : CADENA'
-    t[0] = Nativo(Type(DataType.STRING),t[1],t.lineno(1),9)
+    t[0] = Nativo(Type(DataType.STRING), t[1], t.lineno(1), 9)
 
 def p_booleano(t):
     '''expresion : FALSO
                 | VERDADERO'''
-    if t[1] == 'false':
-        t[0] = False
-    elif t[1] == 'true':
-        t[0] = True
+    t[0] = Nativo(Type(DataType.BOOLEAN), t[1], t.lineno(1), 9)
 
 def p_identificador(t):
     'expresion : ID'
-    t[0] = t[1]
+    t[0] = Nativo(Type(DataType.ID), t[1], t.lineno(1), 9)
 
 def p_exp_acceso(t):
     'expresion : ID dimensiones'
@@ -283,6 +313,7 @@ def p_atributo(t):
 
 def p_valor_atributo(t):
     'expresion : ID PTO ID'
+
 def p_arreglo(t):
     'expresion : CORABRE lista_valores CORCIERRA'    
 

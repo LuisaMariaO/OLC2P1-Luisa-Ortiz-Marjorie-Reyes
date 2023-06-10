@@ -9,4 +9,3 @@ class Instruction(ABC):
     @abstractmethod
     def interpretar(self,arbol,tabla):
         pass
-        

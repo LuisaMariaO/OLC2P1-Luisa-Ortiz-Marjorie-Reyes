@@ -4,28 +4,35 @@ import ply.lex as lex
 errors = []
 
 reservedWords = {
-    'null'      : 'NULL',
-    'any'       : 'ANY',
-    'let'       : 'LET',
-    'console'   : 'CONSOLE',
-    'log'       : 'LOG',
-    'interface' : 'INTERFACE',
-    'true'      : 'VERDADERO',
-    'false'     : 'FALSO',
-    'string'    : 'STRING',
-    'number'    : 'NUMBER',
-    'boolean'   : 'BOOLEAN',
-    'function'  : 'FUNCTION',
-    'return'    : 'RETURN',
-    'if'        : 'IF',
-    'else'      : 'ELSE',
-    'else if'   : 'ELSEIF',
-    'while'     : 'WHILE',  
-    'for'       : 'FOR',
-    'in'        : 'IN',
-    'of'        : 'OF',
-    'break'     : 'BREAK',
-    'continue'  : 'CONTINUE'
+    'null'          : 'NULL',
+    'any'           : 'ANY',
+    'let'           : 'LET',
+    'console'       : 'CONSOLE',
+    'log'           : 'LOG',
+    'interface'     : 'INTERFACE',
+    'true'          : 'VERDADERO',
+    'false'         : 'FALSO',
+    'string'        : 'STRING',
+    'number'        : 'NUMBER',
+    'boolean'       : 'BOOLEAN',
+    'function'      : 'FUNCTION',
+    'return'        : 'RETURN',
+    'if'            : 'IF',
+    'else'          : 'ELSE',
+    'else if'       : 'ELSEIF',
+    'while'         : 'WHILE',  
+    'for'           : 'FOR',
+    'in'            : 'IN',
+    'of'            : 'OF',
+    'break'         : 'BREAK',
+    'continue'      : 'CONTINUE',
+    'toFixed'       : 'TOFIXED',
+    'toExponential' : 'TOEXPO',
+    'toString'      : 'TOSTRING',
+    'toLowerCase'   : 'TOLOWER',
+    'toUpperCase'   : 'TOUPPER',
+    'split'         : 'SPLIT',
+    'concat'        : 'CONCAT'
 }
 
 tokens = [
@@ -81,9 +88,9 @@ t_CORCIERRA     = r'\]'
 t_SUMA          = r'\+'
 t_RESTA         = r'\-'
 t_MULTIPLICACION = r'\*'
-t_DIVISION      = r'/'
+t_DIVISION      = r'\/'
 t_POTENCIA      = r'\^'
-t_MODULO        = r'%'
+t_MODULO        = r'\%'
 t_MAYORIGUAL    = r'>='
 t_MENORIGUAL    = r'<='
 t_DIFERENTE     = r'!=='
