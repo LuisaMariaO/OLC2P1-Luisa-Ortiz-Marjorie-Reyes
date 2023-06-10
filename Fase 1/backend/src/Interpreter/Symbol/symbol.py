@@ -21,4 +21,4 @@ class Symbol:
         return self.valor
     
     def setValor(self,valor):
-        self.valor=valor
+        self.valor = valor

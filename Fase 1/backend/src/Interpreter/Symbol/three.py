@@ -12,7 +12,7 @@ class Three:
         self.consola = value
 
     def updateConsola(self,value):
-        self.consola = self.consola + "> " + value + '\n'
+        self.consola = self.consola + "> " + str(value) + '\n'
 
     def getInstrucciones(self):
         return self.instrucciones
