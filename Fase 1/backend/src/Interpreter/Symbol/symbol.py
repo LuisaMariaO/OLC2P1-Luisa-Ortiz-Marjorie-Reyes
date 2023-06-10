@@ -3,6 +3,7 @@ class Symbol:
         self.tipo = tipo
         self.identificador = identificador
         self.valor = valor
+        #Agregar rol y ambito
 
     def getTipo(self):
         return self.tipo
