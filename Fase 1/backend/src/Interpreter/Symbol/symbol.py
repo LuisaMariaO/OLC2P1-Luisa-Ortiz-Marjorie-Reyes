@@ -1,9 +1,11 @@
 class Symbol:
-    def __init__(self, tipo, identificador, valor):
+    def __init__(self, tipo, identificador, valor,rol,ambito):
         self.tipo = tipo
         self.identificador = identificador
         self.valor = valor
-        #Agregar rol y ambito
+        self.rol = rol
+        self.ambito = ambito
+        
 
     def getTipo(self):
         return self.tipo

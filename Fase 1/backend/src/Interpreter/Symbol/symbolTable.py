@@ -1,13 +1,14 @@
 class SymbolTable:
-    def __init__(self,tablaAnterior):
+    def __init__(self,tablaAnterior,ambito):
         self.tablaAnterior = tablaAnterior
         self.tablaActual = {}
+        self.ambito = ambito 
 
-    def getSimbolo(self,id):
-        return self.tablaActual.get(id)
+    def getSimbolo(self,ide):
+        return self.tablaActual.get(ide)
     
-    def setValor(self,id,simbolo):
-        self.tablaActual[id] = simbolo
+    def setValor(self,ide,simbolo):
+        self.tablaActual[ide] = simbolo
     
     def getTablaAnterior(self):
         return self.tablaAnterior

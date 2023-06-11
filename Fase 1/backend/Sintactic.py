@@ -9,6 +9,8 @@ from src.Interpreter.Symbol.type import *
 from src.Interpreter.Expresions.aritmeticas import *
 from src.Interpreter.Expresions.logicas import *
 from src.Interpreter.Expresions.relacionales import *
+from src.Interpreter.Instructions.declaracion import *
+from src.Interpreter.Instructions.asignacion import *
 
 precedence = (
     ('left', 'OR'),
@@ -71,8 +73,8 @@ def p_tipar(t):
 
 def p_declaraciones(t):
     'declaracion : LET ID tipar IGUAL expresion'
-    print("Declaracion variable ", t[2], t[3], t[5])
-    t[0] = t[5]
+    t[0] = Declaracion(t[2],t[3],t[5],t.lineno(1),0)
+    
 
 
 
@@ -82,8 +84,8 @@ def p_no_tipar(t):
 
 def p_asignaciones(t):
     'asignacion : ID IGUAL expresion'
-    print("Asignación variable ", t[1], t[3])
-    t[0] = t[3]
+
+    t[0] = Asignacion(t[1],t[3],t.lineno(1),0)
 
 def p_funciones(t): 
     'funcion : FUNCTION ID PARABRE lista_parametros PARCIERRA LLAVEABRE instrucciones LLAVECIERRA puntoycoma'
@@ -331,19 +333,28 @@ def p_null(t):
     t[0] = None
 
 def p_tipos(t):
-    '''tipo : STRING 
-            | NUMBER
-            | BOOLEAN
-            | ID
-            | ANY 
-            | NUMBER CORABRE CORCIERRA
+    '''tipo : NUMBER CORABRE CORCIERRA
             | STRING CORABRE CORCIERRA
             | BOOLEAN CORABRE CORCIERRA
             | ANY CORABRE CORCIERRA
             | ID CORABRE CORCIERRA''' #Cuando el tipo es el nombre de un struct
-
-
     t[0] = t[1]
+
+def p_tipo_string(t):
+    'tipo : STRING'
+    t[0] = DataType.STRING
+
+def p_tipo_number(t):
+    'tipo : NUMBER'
+    t[0] = DataType.NUMBER
+
+def p_tipo_boolean(t):
+    'tipo : BOOLEAN'
+    t[0] = DataType.BOOLEAN
+
+def p_tipo_any(t):
+    'tipo : ANY'
+    t[0] = DataType.ANY
 
 def p_error(t):
     print("Error sintactico '%s'" % t.value)

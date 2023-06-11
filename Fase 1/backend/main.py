@@ -24,7 +24,7 @@ def parse():
     try:
         instrucciones = Sintactic.parsear(data.get('code'))
         ast = Three(instrucciones)
-        tabla = SymbolTable(None)
+        tabla = SymbolTable(None,"Global")
         ast.setTablaGlobal = tabla
         
 
