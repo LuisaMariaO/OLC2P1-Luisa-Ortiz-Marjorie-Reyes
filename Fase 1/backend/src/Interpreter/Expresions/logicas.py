@@ -34,9 +34,9 @@ class Logica(Instruction):
                     self.tipoDato = DataType.BOOLEAN
                     return (izq or der)
                 else: 
-                    return None
+                    return Exception("Semántico", "El operador '||' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
             else:
-                return None
+                return Exception("Semántico", "El operador '||' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
                 
         elif self.operacion.getTipo() == LogicType.AND:
             if self.izq.tipoDato.getTipo() == DataType.BOOLEAN:
@@ -44,9 +44,9 @@ class Logica(Instruction):
                     self.tipoDato = DataType.BOOLEAN
                     return (izq and der)
                 else: 
-                    return None
+                    return Exception("Semántico", "El operador '&&' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
             else:
-                return None
+                return Exception("Semántico", "El operador '&&' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
 
         elif self.operacion.getTipo() == LogicType.NOT:
             if self.izq.tipoDato.getTipo() == DataType.BOOLEAN:
@@ -54,9 +54,9 @@ class Logica(Instruction):
                     self.tipoDato = DataType.BOOLEAN
                     return (not izq)
                 else: 
-                    return None
+                    return Exception("Semántico", "El operador '!' no puede ser aplicado al tipo '" + self.izq.tipoDato.getTipo() + "'", self.linea, self.columna)
             else:
-                return None
+                return Exception("Semántico", "El operador '!' no puede ser aplicado al tipo '" + self.izq.tipoDato.getTipo() + "'", self.linea, self.columna)
             
         else:
-            return None
+            return Exception("Semántico", "El operador '" + self.operacion.getTipo() + "' no es válido", self.linea, self.columna)
