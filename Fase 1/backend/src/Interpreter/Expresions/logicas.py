@@ -31,7 +31,7 @@ class Logica(Instruction):
         if self.operacion.getTipo() == LogicType.OR:
             if self.izq.tipoDato.getTipo() == DataType.BOOLEAN:
                 if self.der.tipoDato.getTipo() == DataType.BOOLEAN:
-                    self.tipoDato = DataType.BOOLEAN
+                    self.tipoDato = Type(DataType.BOOLEAN)
                     return (izq or der)
                 else: 
                     return Exception("Semántico", "El operador '||' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
@@ -41,7 +41,7 @@ class Logica(Instruction):
         elif self.operacion.getTipo() == LogicType.AND:
             if self.izq.tipoDato.getTipo() == DataType.BOOLEAN:
                 if self.der.tipoDato.getTipo() == DataType.BOOLEAN:
-                    self.tipoDato = DataType.BOOLEAN
+                    self.tipoDato = Type(DataType.BOOLEAN)
                     return (izq and der)
                 else: 
                     return Exception("Semántico", "El operador '&&' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
@@ -51,7 +51,7 @@ class Logica(Instruction):
         elif self.operacion.getTipo() == LogicType.NOT:
             if self.izq.tipoDato.getTipo() == DataType.BOOLEAN:
                 if self.der.tipoDato.getTipo() == DataType.BOOLEAN:
-                    self.tipoDato = DataType.BOOLEAN
+                    self.tipoDato = Type(DataType.BOOLEAN)
                     return (not izq)
                 else: 
                     return Exception("Semántico", "El operador '!' no puede ser aplicado al tipo '" + self.izq.tipoDato.getTipo() + "'", self.linea, self.columna)

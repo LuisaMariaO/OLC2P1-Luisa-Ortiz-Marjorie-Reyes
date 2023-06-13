@@ -11,6 +11,7 @@ from src.Interpreter.Expresions.logicas import *
 from src.Interpreter.Expresions.relacionales import *
 from src.Interpreter.Instructions.declaracion import *
 from src.Interpreter.Instructions.asignacion import *
+from src.Interpreter.Expresions.funcNativas import *
 
 precedence = (
     ('left', 'OR'),
@@ -22,6 +23,7 @@ precedence = (
     ('right', 'NOT'),
     ('right', 'POTENCIA'),
     ('left','PARABRE','PARCIERRA'),
+    ('left','PTO'),
 )
 
 def p_Inicio(t):
@@ -248,13 +250,11 @@ def p_expresiones_aritmeticas(t):
         t[0] = t[2]
 
 def p_expresiones_nativas(t):
-    '''expresion : ID PTO nativas PARABRE parametro_nativa PARCIERRA'''
+    '''expresion : expresion PTO nativas PARABRE parametro_nativa PARCIERRA'''
     if t[5] == None:
-        t[0] = None
-        print("Nativa sin parámetro")
+        t[0] = FuncionNativa(t[1], t[3], None, t.lineno(1), 9)
     else: 
-        t[0] = t[5]
-        print("Nativa con parámetro")
+        t[0] = FuncionNativa(t[1], t[3], t[5], t.lineno(1), 9)
 
 def p_nativas(t):
     '''nativas : TOFIXED
@@ -264,7 +264,20 @@ def p_nativas(t):
                 | TOUPPER
                 | SPLIT
                 | CONCAT'''
-    t[0] = t[1]
+    if t[1] == 'toFixed':
+        t[0] = Native(NativeFunc.FIXED)
+    elif t[1] == 'toExponential':
+        t[0] = Native(NativeFunc.EXPO)
+    elif t[1] == 'toString':
+        t[0] = Native(NativeFunc.STRING)
+    elif t[1] == 'toLowerCase':
+        t[0] = Native(NativeFunc.LOWER)
+    elif t[1] == 'toUpperCase':
+        t[0] = Native(NativeFunc.UPPER)
+    elif t[1] == 'split':
+        t[0] = Native(NativeFunc.SPLIT)
+    elif t[1] == 'concat':
+        t[0] = Native(NativeFunc.CONCAT)
 
 def p_parametro_nativa(t):
     'parametro_nativa : expresion'
