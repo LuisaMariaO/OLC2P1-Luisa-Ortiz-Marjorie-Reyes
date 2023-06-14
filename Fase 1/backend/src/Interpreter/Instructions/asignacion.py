@@ -13,8 +13,7 @@ class Asignacion(Instruction):
         tablaActual = tabla
         while (tablaActual!=None):
             busqueda = tablaActual.getSimbolo(self.id)
-            print(tablaActual.tablaActual)
-            print(busqueda)
+            
             if busqueda!=None:
                 #Se encontró una variable con ese nombre
                 valor = self.valor.interpretar(arbol,tabla)

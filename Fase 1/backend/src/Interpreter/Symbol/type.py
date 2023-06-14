@@ -23,4 +23,5 @@ class DataType(Enum):
     VECTOR_ANY = 10
     VECTOR_ID = 11
     INDEFINIDO = 12
+    LLAMADA = 13
     

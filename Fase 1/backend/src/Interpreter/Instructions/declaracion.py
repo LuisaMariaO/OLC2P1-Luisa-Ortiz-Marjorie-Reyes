@@ -46,4 +46,6 @@ class Declaracion(Instruction):
           
             tabla.setValor(self.id,Symbol(self.tipo,self.id,valor,"Variable",tabla.ambito))
 
+            
+
 

@@ -10,6 +10,7 @@ class Imprimir(Instruction):
     def interpretar(self, arbol, tabla):
 
         valor = self.expresion.interpretar(arbol,tabla)
+        
         if type(valor) == Exception:
             return valor
         arbol.updateConsola(valor)

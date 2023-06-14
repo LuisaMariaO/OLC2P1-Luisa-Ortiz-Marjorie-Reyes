@@ -11,6 +11,9 @@ from src.Interpreter.Expresions.logicas import *
 from src.Interpreter.Expresions.relacionales import *
 from src.Interpreter.Instructions.declaracion import *
 from src.Interpreter.Instructions.asignacion import *
+from src.Interpreter.Instructions.funcion import *
+from src.Interpreter.Instructions.llamada import *
+from src.Interpreter.Expresions.returnIns import *
 
 precedence = (
     ('left', 'OR'),
@@ -91,12 +94,13 @@ def p_funciones(t):
     'funcion : FUNCTION ID PARABRE lista_parametros PARCIERRA LLAVEABRE instrucciones LLAVECIERRA puntoycoma'
     #'funcion : FUNCTION ID PARABRE lista_parametros PARCIERRA LLAVEABRE lista_instrucciones #LLAVECIERRA retorno puntoycoma'
     print("Declaracion de funcion ",t[2])
-    t[0] = t[2]
+    t[0] = Funcion(t[2],t[4],t[7],t.lineno(1),0)
 
 
 def p_lista_parametros(t):
     'lista_parametros : lista_parametros COMA ID tipar'
     if t[3]!="":
+        t[1][t[3]]=t[4]
         t[1].append(t[3])
     t[0] = t[1]
 
@@ -105,18 +109,18 @@ def p_lista_parametros(t):
 def p_parametro(t):
     'lista_parametros : ID tipar'
     if t[1]=="":
-        t[0] = []
+        t[0] = {}
     else:
-        t[0] = [t[1]]
+        t[0] = {t[1] : t[2]}
 
 def p_parametro_vacio(t):
     'lista_parametros :'
-    t[0] = None
+    t[0] = []
 
 
 def p_retorno(t):
     '''retorno : RETURN valor_retorno puntoycoma'''
-    t[0] = t[2]
+    t[0] = Return(t[2],t.lineno(1),0)
 
 
     
@@ -130,15 +134,25 @@ def p_valor_retorno_vacio(t):
 
 def p_llamada_funcion(t):
     'llamada : ID PARABRE lista_parametros_l PARCIERRA'
+    
+    t[0] = Llamada(t[1],t[3],t.lineno(1),0)
 
 def p_lista_parametros_l (t):
     'lista_parametros_l : lista_parametros_l COMA expresion'
+    if t[3] != "":
+        t[1].append(t[3])
+    t[0] = t[1]
 
 def p_parametro_l(t):
     'lista_parametros_l : expresion'
+    if t[1] == "":
+        t[0] = []
+    else:
+        t[0] = [t[1]]
 
 def p_parametro_l_vacio(t):
     'lista_parametros_l :'
+    t[0] = []
 
 def p_if(t):
     'if : IF PARABRE expresion PARCIERRA LLAVEABRE instrucciones LLAVECIERRA elseif else'
@@ -355,6 +369,11 @@ def p_tipo_boolean(t):
 def p_tipo_any(t):
     'tipo : ANY'
     t[0] = DataType.ANY
+
+
+def p_expresion_llamada(t):
+    'expresion : llamada'
+    t[0] = Nativo(Type(DataType.LLAMADA),t[1],t.lineno(1),0)
 
 def p_error(t):
     print("Error sintactico '%s'" % t.value)
