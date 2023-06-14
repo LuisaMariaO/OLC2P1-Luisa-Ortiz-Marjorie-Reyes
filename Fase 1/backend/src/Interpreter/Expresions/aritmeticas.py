@@ -39,7 +39,7 @@ class Aritmetica(Instruction):
                     return (izq + der)
                 elif self.der.tipoDato.getTipo() == DataType.STRING:
                     self.tipoDato = Type(DataType.STRING)
-                    return (izq + der)
+                    return (str(izq) + der)
                 else:
                     return Exception("Semántico", "El operador '+' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
             
@@ -49,7 +49,7 @@ class Aritmetica(Instruction):
                     return (izq + der)
                 elif self.der.tipoDato.getTipo() == DataType.NUMBER:
                     self.tipoDato = Type(DataType.STRING)
-                    return (izq + der)
+                    return (izq + str(der))
                 else:
                     return Exception("Semántico", "El operador '+' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
             
