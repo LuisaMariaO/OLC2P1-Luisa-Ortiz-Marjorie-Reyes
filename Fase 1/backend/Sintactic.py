@@ -15,6 +15,7 @@ from src.Interpreter.Instructions.funcion import *
 from src.Interpreter.Instructions.llamada import *
 from src.Interpreter.Expresions.returnIns import *
 from src.Interpreter.Expresions.funcNativas import *
+from src.Interpreter.Instructions.ifIns import *
 
 precedence = (
     ('left', 'OR'),
@@ -27,6 +28,8 @@ precedence = (
     ('right', 'POTENCIA'),
     ('left','PARABRE','PARCIERRA'),
     ('left','PTO'),
+    
+ 
 )
 
 def p_Inicio(t):
@@ -103,7 +106,7 @@ def p_lista_parametros(t):
     'lista_parametros : lista_parametros COMA ID tipar'
     if t[3]!="":
         t[1][t[3]]=t[4]
-        t[1].append(t[3])
+        #t[1].append(t[3])
     t[0] = t[1]
 
 
@@ -119,13 +122,10 @@ def p_parametro_vacio(t):
     'lista_parametros :'
     t[0] = []
 
-
 def p_retorno(t):
     '''retorno : RETURN valor_retorno puntoycoma'''
     t[0] = Return(t[2],t.lineno(1),0)
-
-
-    
+   
 def p_valor_retorno(t):
     '''valor_retorno : expresion'''
     t[0] = t[1]
@@ -156,23 +156,42 @@ def p_parametro_l_vacio(t):
     'lista_parametros_l :'
     t[0] = []
 
+
+
 def p_if(t):
     'if : IF PARABRE expresion PARCIERRA LLAVEABRE instrucciones LLAVECIERRA elseif else'
+    t[0] = If(t[3],t[6],t[8],t[9],t.lineno(1),0)
+
+def p_elif(t):
+    'elif : ELSEIF'
 
 def p_elseif_list(t):
-    'elseif : elseif ELSEIF PARABRE expresion PARCIERRA LLAVEABRE instrucciones LLAVECIERRA'
+    'elseif : elseif elif PARABRE expresion PARCIERRA LLAVEABRE instrucciones LLAVECIERRA'
+    if t[2]!="":
+        t[1][t[4]]=t[7]
+        #t[1].append(t[3])
+    t[0] = t[1]
+
 
 def p_elseif(t):
-    'elseif : ELSEIF PARABRE expresion PARCIERRA LLAVEABRE instrucciones LLAVECIERRA'
+    'elseif : elif PARABRE expresion PARCIERRA LLAVEABRE instrucciones LLAVECIERRA'
+    
+    if t[1]=="":
+        t[0] = {}
+    else:
+        t[0] = {t[3] : t[6]}
 
 def p_elseif_none(t):
     'elseif :'
+    t[0] = None
 
 def p_else(t):
     'else : ELSE LLAVEABRE instrucciones LLAVECIERRA'
+    t[0] = t[3]
 
 def p_else_none(t):
     'else :'
+    t[0] = None
 
 def p_while(t):
     'while : WHILE PARABRE expresion PARCIERRA LLAVEABRE instrucciones LLAVECIERRA'
@@ -394,6 +413,9 @@ def p_expresion_llamada(t):
 
 def p_error(t):
     print("Error sintactico '%s'" % t.value)
+   
+
+
 
 def parsear(input):
     global errores
@@ -402,6 +424,7 @@ def parsear(input):
     errores = []
     parser = yacc.yacc()
     entrada = input
-    lexer.lineno = 1
+
     result = parser.parse(input)
+    
     return result

@@ -61,7 +61,8 @@ class Llamada(Instruction):
                         
                         self.tipoDato = instruccion.tipoDato
                         return returnValue
-
+                    if type(instruccion)==Exception:
+                        return instruccion
                 return None
                 
             tablaActual = tablaActual.getTablaAnterior()

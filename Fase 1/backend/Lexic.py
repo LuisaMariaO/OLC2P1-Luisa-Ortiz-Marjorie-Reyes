@@ -18,8 +18,9 @@ reservedWords = {
     'function'      : 'FUNCTION',
     'return'        : 'RETURN',
     'if'            : 'IF',
+
     'else'          : 'ELSE',
-    'else if'       : 'ELSEIF',
+    
     'while'         : 'WHILE',  
     'for'           : 'FOR',
     'in'            : 'IN',
@@ -71,7 +72,9 @@ tokens = [
     'DECIMAL',
     'CADENA',
     #OTROS
-    'ID'
+    'ID',
+    'ELSEIF'
+    
 ]+ list(reservedWords.values())
 
 # TOKENS
@@ -101,6 +104,11 @@ t_AND           = r'&&'
 t_OR            = r'\|\|'
 t_NOT           = r'\!'
 t_COMA          = r'\,'
+
+
+def t_ELSEIF(token):
+    r'else if'
+    return token
 
 def t_DECIMAL(token):
     r'\d+\.\d+'
@@ -154,6 +162,7 @@ def t_newline(t):
 t_ignore = " \t"
 
 def t_error(token):
+    print(token.value)
     token.lexer.skip(1)
 
 def find_column(inp, tk):
