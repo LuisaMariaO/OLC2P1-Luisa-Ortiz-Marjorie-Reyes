@@ -7,7 +7,7 @@ class Asignacion(Instruction):
     def __init__(self,id,valor,linea,columna):
         self.id = id
         self.valor = valor
-        super().__init__(linea,columna,DataType.INDEFINIDO)
+        super().__init__(linea,columna,Type(DataType.INDEFINIDO))
 
     def interpretar(self, arbol, tabla):
         tablaActual = tabla

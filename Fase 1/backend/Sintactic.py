@@ -16,6 +16,7 @@ from src.Interpreter.Instructions.llamada import *
 from src.Interpreter.Expresions.returnIns import *
 from src.Interpreter.Expresions.funcNativas import *
 from src.Interpreter.Instructions.ifIns import *
+from src.Interpreter.Instructions.whileIns import *
 
 precedence = (
     ('left', 'OR'),
@@ -195,6 +196,7 @@ def p_else_none(t):
 
 def p_while(t):
     'while : WHILE PARABRE expresion PARCIERRA LLAVEABRE instrucciones LLAVECIERRA'
+    t[0] = While(t[3],t[6],t.lineno(1),0)
 
 def p_for(t):
     'for : FOR PARABRE LET ID rango PARCIERRA LLAVEABRE instrucciones LLAVECIERRA'

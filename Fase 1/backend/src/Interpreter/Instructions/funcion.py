@@ -9,7 +9,7 @@ class Funcion(Instruction):
         self.id = id
         self.instrucciones = instrucciones
         self.parametros = parametros
-        super().__init__(linea,columna,DataType.INDEFINIDO)
+        super().__init__(linea,columna,Type(DataType.INDEFINIDO))
 
     def getInstrucciones(self):
         return self.instrucciones

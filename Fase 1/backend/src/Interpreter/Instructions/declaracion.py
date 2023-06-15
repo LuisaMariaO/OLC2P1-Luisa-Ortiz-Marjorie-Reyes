@@ -8,7 +8,7 @@ class Declaracion(Instruction):
         self.id = id
         self.valor = valor
         self.tipo = tipo
-        super().__init__(linea,columna,DataType.INDEFINIDO)
+        super().__init__(linea,columna,Type(DataType.INDEFINIDO))
 
     def interpretar(self, arbol, tabla):
        

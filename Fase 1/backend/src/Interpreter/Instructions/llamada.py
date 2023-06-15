@@ -10,7 +10,7 @@ class Llamada(Instruction):
     def __init__(self,id,parametros,linea,columna):
         self.id = id
         self.parametros = parametros
-        super().__init__(linea,columna,DataType.INDEFINIDO)
+        super().__init__(linea,columna,Type(DataType.INDEFINIDO))
 
     def interpretar(self, arbol, tabla):
     
@@ -61,8 +61,8 @@ class Llamada(Instruction):
                         
                         self.tipoDato = instruccion.tipoDato
                         return returnValue
-                    if type(instruccion)==Exception:
-                        return instruccion
+                    if type(returnValue)==Exception:
+                        arbol.updateErrores(returnValue)
                 return None
                 
             tablaActual = tablaActual.getTablaAnterior()

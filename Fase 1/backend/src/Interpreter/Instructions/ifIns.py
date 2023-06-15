@@ -9,7 +9,7 @@ class If(Instruction):
         self.instrucciones = instrucciones
         self.elifIns = elifIns
         self.elseIns = elseIns
-        super().__init__(linea,columna,DataType.INDEFINIDO) #TODO: Hacer en todas estas Type(DataType.indefinido)
+        super().__init__(linea,columna,Type(DataType.INDEFINIDO)) 
 
     def interpretar(self, arbol, tabla):
    
@@ -19,11 +19,11 @@ class If(Instruction):
             return Exception("Semántico","La condición debe ser una expresión booleana",self.linea,self.columna)
         if type(condition)==Exception: return condition
         if condition:
-            tablaNueva = SymbolTable(tabla,"If linea "+str(self.linea))
+            tablaNueva = SymbolTable(tabla,"If")
             for instruccion in self.instrucciones:
-                instruccion.interpretar(arbol,tablaNueva)
-                if type(instruccion)==Exception:
-                    return instruccion
+                result=instruccion.interpretar(arbol,tablaNueva)
+                if type(result)==Exception:
+                    arbol.updateErrores(result)
         else:
             
             if self.elifIns!=None:
@@ -33,18 +33,18 @@ class If(Instruction):
                         return Exception("Semántico","La condición debe ser una expresión booleana",self.linea,self.columna)
                     if type(condition)==Exception: return condition
                     if condition:
-                        tablaNueva = SymbolTable(tabla,"Elif")
+                        tablaNueva = SymbolTable(tabla,"Else if")
                         for instruccion in ins:
-                            instruccion.interpretar(arbol,tablaNueva)
-                            if type(instruccion)==Exception:
-                                return instruccion
+                            result=instruccion.interpretar(arbol,tablaNueva)
+                            if type(result)==Exception:
+                                arbol.updateErrores(result)
                         return
                     
             if self.elseIns!=None:
                 tablaNueva = SymbolTable(tabla,"Else")
                 for instruccion in self.elseIns:
-                    instruccion.interpretar(arbol,tablaNueva)
-                    if type(instruccion)==Exception:
-                        return instruccion
+                    result=instruccion.interpretar(arbol,tablaNueva)
+                    if type(result)==Exception:
+                        arbol.updateErrores(result)
 
                     

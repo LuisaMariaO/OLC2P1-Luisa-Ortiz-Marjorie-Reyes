@@ -31,7 +31,7 @@ def parse():
         for instr in instrucciones:
             result = instr.interpretar(ast,tabla)
             if type(result) == Exception:
-                ast.updateErrores(instr)
+                ast.updateErrores(result)
        # listToStr = ' '.join([str(elem) for elem in instrucciones])
         return jsonify({'ok':True, 'msg':'Data recibida', 'consola':ast.getConsola()}),200
     except:
