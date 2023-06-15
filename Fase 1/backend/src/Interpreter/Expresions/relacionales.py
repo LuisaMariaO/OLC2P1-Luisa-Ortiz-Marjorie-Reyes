@@ -30,6 +30,7 @@ class Relacional(Instruction):
     def interpretar(self, arbol, tabla):
         izq = self.izq.interpretar(arbol, tabla)
         der = self.der.interpretar(arbol, tabla)
+        
 
         if self.operacion.getTipo() == RelationalType.MAYOR:
             if self.izq.tipoDato.getTipo() == DataType.NUMBER:
@@ -58,6 +59,7 @@ class Relacional(Instruction):
         if self.operacion.getTipo() == RelationalType.MENOR:
             if self.izq.tipoDato.getTipo() == DataType.NUMBER:
                 if self.der.tipoDato.getTipo() == DataType.NUMBER:
+                   
                     self.tipoDato = Type(DataType.BOOLEAN)
                     return (izq < der)
                 else:

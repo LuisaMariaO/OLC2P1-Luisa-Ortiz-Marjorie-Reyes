@@ -21,13 +21,14 @@ class Nativo(Instruction):
             return False
         elif self.tipoDato.getTipo() == DataType.ID:
             tablaActual = tabla
-          
+            
             while (tablaActual!=None):
                 busqueda = tablaActual.getSimbolo(self.valor)
               
                 if busqueda!=None:
                     #Se encontró una variable con ese nombre
                     self.tipoDato = Type(busqueda.getTipo())
+                    #print(busqueda.getValor())
                     return busqueda.getValor()
                 tablaActual = tablaActual.getTablaAnterior()
             return Exception("Semántico","No existe una variable o función con el nombre <"+self.valor+">",self.linea,self.columna)

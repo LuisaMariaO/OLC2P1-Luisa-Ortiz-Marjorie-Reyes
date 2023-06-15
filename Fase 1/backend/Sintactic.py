@@ -17,6 +17,7 @@ from src.Interpreter.Expresions.returnIns import *
 from src.Interpreter.Expresions.funcNativas import *
 from src.Interpreter.Instructions.ifIns import *
 from src.Interpreter.Instructions.whileIns import *
+from src.Interpreter.Instructions.forRange import *
 
 precedence = (
     ('left', 'OR'),
@@ -200,9 +201,18 @@ def p_while(t):
 
 def p_for(t):
     'for : FOR PARABRE LET ID rango PARCIERRA LLAVEABRE instrucciones LLAVECIERRA'
+    
+    if t[5][0]=="=":
+        #forRange
+        #print(t[4])
+        #print(t[5][2])
+        t[0] = ForRange(t[4],t[5][1],t[5][2],t[5][3],t[8],t.lineno(1),0)
+    else:
+        pass
 
 def p_rango(t):
     'rango : IGUAL expresion PTOCOMA expresion PTOCOMA ID incremental'
+    t[0] = ["=",t[2],t[4],t[7]]
 
 def p_in_of(t):
     'rango : in_of expresion'
@@ -210,6 +220,10 @@ def p_in_of(t):
 def p_incremental_mas(t):
     '''incremental : SUMA SUMA
                 | RESTA RESTA'''
+    if t[1] == '+':
+        t[0] = '+'
+    else:
+        t[0] = '-'
     
 def p_in_of_t(t):
     '''in_of : IN
