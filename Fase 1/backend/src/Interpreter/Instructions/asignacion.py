@@ -20,7 +20,7 @@ class Asignacion(Instruction):
                 if type(valor) == Exception:
                     return valor
                 
-                if busqueda.getTipo() == self.valor.tipoDato.getTipo():
+                if busqueda.getTipo() == self.valor.tipoDato.getTipo() or busqueda.getTipo()==DataType.ANY:
                  
                     busqueda.setValor(valor)
               

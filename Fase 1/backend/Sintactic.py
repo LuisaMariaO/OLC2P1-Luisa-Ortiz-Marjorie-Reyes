@@ -11,13 +11,10 @@ from src.Interpreter.Expresions.logicas import *
 from src.Interpreter.Expresions.relacionales import *
 from src.Interpreter.Instructions.declaracion import *
 from src.Interpreter.Instructions.asignacion import *
-<<<<<<< HEAD
 from src.Interpreter.Instructions.funcion import *
 from src.Interpreter.Instructions.llamada import *
 from src.Interpreter.Expresions.returnIns import *
-=======
 from src.Interpreter.Expresions.funcNativas import *
->>>>>>> 1484bc00940c7d2a4ada6299d7f938da30469c43
 
 precedence = (
     ('left', 'OR'),
@@ -385,6 +382,10 @@ def p_tipo_boolean(t):
 def p_tipo_any(t):
     'tipo : ANY'
     t[0] = DataType.ANY
+
+def p_tipo_null(t):
+    'tipo : NULL'
+    t[0] = DataType.NULL
 
 
 def p_expresion_llamada(t):

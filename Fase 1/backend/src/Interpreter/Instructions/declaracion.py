@@ -18,7 +18,9 @@ class Declaracion(Instruction):
             return
         
         if self.tipo == None:
-            if type(valor) == int or type(valor) == float:
+            if valor==None:
+                self.tipo = DataType.NULL
+            elif type(valor) == int or type(valor) == float:
                 self.tipo = DataType.NUMBER
             elif type(valor) == str:
                 self.tipo = DataType.STRING
@@ -26,8 +28,8 @@ class Declaracion(Instruction):
                 self.tipo = DataType.BOOLEAN
             
        
-        if self.valor.tipoDato.getTipo() != self.tipo:
-  
+        if self.valor.tipoDato.getTipo() != self.tipo and self.tipo!=DataType.ANY:
+            
            #Si el valor de la expresion no coincide con el de la variable, se retorna un error
             return Exception("Semantico","El tipo de dato del valor no coincide con el de la variable",self.linea,self.columna)
         else:
