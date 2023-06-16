@@ -21,6 +21,7 @@ from src.Interpreter.Instructions.forRange import *
 from src.Interpreter.Instructions.forOf import *
 from src.Interpreter.Instructions.breakIns import *
 from src.Interpreter.Instructions.continueIns import *
+from src.Interpreter.Instructions.interface import *
 
 precedence = (
     ('left', 'OR'),
@@ -254,6 +255,7 @@ def p_dimension(t):
 
 def p_interface(t):
     'struct : INTERFACE ID LLAVEABRE atributos LLAVECIERRA'
+    t[0] = Interface(t[2],t[4],t.lineno(1),0)
 
 def p_asignacion_atributo(t):
     'asignacion_atributo : ID PTO ID IGUAL expresion'
@@ -377,18 +379,35 @@ def p_exp_acceso(t):
 
 def p_interface_expr(t):
     'expresion : LLAVEABRE atributos_valor LLAVECIERRA'
+    t[0] = t[2]
 
 def p_atributos_valor(t):
     'atributos_valor : atributos_valor COMA ID DOSPTOS expresion'
+    if t[2]!="":
+        t[1][t[3]]=t[5]
+        #t[1].append(t[3])
+    t[0] = t[1]
 
 def p_atributo_valor(t):
     'atributos_valor : ID DOSPTOS expresion'
+    if t[1]=="":
+        t[0] = {}
+    else:
+        t[0] = {t[1] : t[3]}
 
 def p_atributos(t):
     'atributos : atributos ID tipar PTOCOMA'
+    if t[2]!="":
+        t[1][t[2]]=t[3]
+        #t[1].append(t[3])
+    t[0] = t[1]
 
 def p_atributo(t):
     'atributos : ID tipar PTOCOMA'
+    if t[1]=="":
+        t[0] = {}
+    else:
+        t[0] = {t[1] : t[2]}
 
 def p_valor_atributo(t):
     'expresion : expresion PTO ID'
@@ -436,6 +455,10 @@ def p_tipo_any(t):
 def p_tipo_null(t):
     'tipo : NULL'
     t[0] = DataType.NULL
+
+def p_tipo_struct(t):
+    'tipo : ID'
+    t[0] = t[1]
 
 
 def p_expresion_llamada(t):
