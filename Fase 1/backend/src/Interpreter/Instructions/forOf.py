@@ -3,6 +3,9 @@ from ..Symbol.type import*
 from ..Exceptions.exception import Exception
 from ..Symbol.symbolTable import *
 from ..Symbol.symbol import *
+from ..Instructions.breakIns import *
+from ..Instructions.continueIns import *
+from ..Expresions.returnIns import *
 import copy
 
 class ForOf(Instruction):
@@ -31,6 +34,7 @@ class ForOf(Instruction):
 
         
         while(len(valueIterate)>0):
+            parar=False
             #Actualizo el valor de la variable con el primer elemento del arrego o string
             simbolo = tablaNueva.getSimbolo(self.id)
             simbolo.setValor(valueIterate[0])
@@ -45,8 +49,17 @@ class ForOf(Instruction):
             
             instruccionesLocales = copy.deepcopy(self.instrucciones)
             for instruccion in instruccionesLocales:
+                if isinstance(instruccion,Break):
+                    parar = True
+                    break
+                if isinstance(instruccion,Continue):
+                    break
+                if isinstance(instruccion,Return):
+                    arbol.updateErrores(Exception("Semántico","La instrucción return no es propia de la instrucción for",self.linea,self.columna))
+                    continue
                 result = instruccion.interpretar(arbol,tablaNueva)
                 if type(result)==Exception:
                     arbol.updateErrores(result)
-            
+            if parar:
+                break
             

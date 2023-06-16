@@ -5,6 +5,8 @@ from ..Symbol.symbol import Symbol
 from ..Symbol.symbolTable import *
 import copy
 from ..Expresions.returnIns import *
+from ..Instructions.breakIns import *
+from ..Instructions.continueIns import *
 
 class Llamada(Instruction):
     def __init__(self,id,parametros,linea,columna):
@@ -55,7 +57,14 @@ class Llamada(Instruction):
                     
                
                 for instruccion in instrucciones:
-                   
+                    if isinstance(instruccion,Break):
+                       
+                        arbol.updateErrores(Exception("Semántico","La instrucción break no es propia de las funciones",self.linea,self.columna))
+                        continue
+                    if isinstance(instruccion,Continue):
+                        arbol.updateErrores(Exception("Semántico","La instrucción continue no es propia de las funciones",self.linea,self.columna))
+                        continue
+                    
                     returnValue = instruccion.interpretar(arbol, nuevaTabla)
                     if type(instruccion)== Return or type(returnValue)==Return:
                         

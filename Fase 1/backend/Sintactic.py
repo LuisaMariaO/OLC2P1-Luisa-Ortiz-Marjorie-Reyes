@@ -19,6 +19,8 @@ from src.Interpreter.Instructions.ifIns import *
 from src.Interpreter.Instructions.whileIns import *
 from src.Interpreter.Instructions.forRange import *
 from src.Interpreter.Instructions.forOf import *
+from src.Interpreter.Instructions.breakIns import *
+from src.Interpreter.Instructions.continueIns import *
 
 precedence = (
     ('left', 'OR'),
@@ -61,8 +63,8 @@ def p_instruccion_global(t):
                 | if
                 | while
                 | for
-                | BREAK
-                | CONTINUE
+                | break
+                | continue
                 | retorno
                 | asignacion_arreglo
                 | struct
@@ -128,6 +130,14 @@ def p_parametro_vacio(t):
 def p_retorno(t):
     '''retorno : RETURN valor_retorno puntoycoma'''
     t[0] = Return(t[2],t.lineno(1),0)
+
+def p_break(t):
+    'break : BREAK'
+    t[0] = Break(t.lineno(1),0)
+
+def p_continue(t):
+    'continue : CONTINUE'
+    t[0] = Continue(t.lineno(1),0)
    
 def p_valor_retorno(t):
     '''valor_retorno : expresion'''
