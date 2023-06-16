@@ -18,6 +18,7 @@ from src.Interpreter.Expresions.funcNativas import *
 from src.Interpreter.Instructions.ifIns import *
 from src.Interpreter.Instructions.whileIns import *
 from src.Interpreter.Instructions.forRange import *
+from src.Interpreter.Instructions.forOf import *
 
 precedence = (
     ('left', 'OR'),
@@ -29,7 +30,7 @@ precedence = (
     ('right', 'NOT'),
     ('right', 'POTENCIA'),
     ('left','PARABRE','PARCIERRA'),
-    ('left','PTO'),
+    ('left','PTO','OF'),
     
  
 )
@@ -201,21 +202,26 @@ def p_while(t):
 
 def p_for(t):
     'for : FOR PARABRE LET ID rango PARCIERRA LLAVEABRE instrucciones LLAVECIERRA'
-    
+   
     if t[5][0]=="=":
         #forRange
         #print(t[4])
         #print(t[5][2])
         t[0] = ForRange(t[4],t[5][1],t[5][2],t[5][3],t[8],t.lineno(1),0)
     else:
-        pass
+        t[0] = ForOf(t[4],t[5][0],t[8],t.lineno(1),0)
 
 def p_rango(t):
-    'rango : IGUAL expresion PTOCOMA expresion PTOCOMA ID incremental'
-    t[0] = ["=",t[2],t[4],t[7]]
+    '''rango : IGUAL expresion PTOCOMA expresion PTOCOMA ID incremental
+        | IN expresion
+        | OF expresion'''
+    if t[1] == "=":
+        t[0] = ["=",t[2],t[4],t[7]]
+    elif t[1] == "in":
+        t[0] = [t[2]]
+    elif t[1] == "of":
+        t[0] = [t[2]]
 
-def p_in_of(t):
-    'rango : in_of expresion'
 
 def p_incremental_mas(t):
     '''incremental : SUMA SUMA
@@ -225,9 +231,7 @@ def p_incremental_mas(t):
     else:
         t[0] = '-'
     
-def p_in_of_t(t):
-    '''in_of : IN
-            | OF'''
+
 
 def p_asignacion_arreglo(t):
     'asignacion_arreglo : ID dimensiones IGUAL expresion'
@@ -300,6 +304,7 @@ def p_expresiones_aritmeticas(t):
 
 def p_expresiones_nativas(t):
     '''expresion : expresion PTO nativas PARABRE parametro_nativa PARCIERRA'''
+   
     if t[5] == None:
         t[0] = FuncionNativa(t[1], t[3], None, t.lineno(1), 9)
     else: 
@@ -376,7 +381,7 @@ def p_atributo(t):
     'atributos : ID tipar PTOCOMA'
 
 def p_valor_atributo(t):
-    'expresion : ID PTO ID'
+    'expresion : expresion PTO ID'
 
 def p_arreglo(t):
     'expresion : CORABRE lista_valores CORCIERRA'    

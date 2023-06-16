@@ -68,6 +68,7 @@ class FuncionNativa(Instruction):
                 return Exception("Semántica", "Tipo de dato no válido para la función 'toString'", self.linea, self.columna)
             
         elif self.func.getTipo() == NativeFunc.LOWER:
+            
             if self.op.tipoDato.getTipo() == DataType.STRING:
                 self.tipoDato = Type(DataType.STRING)
                 return op.lower()
