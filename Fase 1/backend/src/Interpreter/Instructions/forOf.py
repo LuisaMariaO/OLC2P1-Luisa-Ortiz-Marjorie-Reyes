@@ -17,7 +17,7 @@ class ForOf(Instruction):
         
         tablaNueva = SymbolTable(tabla,"For")
         valueIterate = self.iterativo.interpretar(arbol,tabla)
-        print(valueIterate)
+       
         if type(valueIterate)==Exception: return valueIterate
         
         
@@ -25,9 +25,9 @@ class ForOf(Instruction):
            
             return Exception("Semántico","Solo se pueden iterar vectores y strings",self.linea,self.columna)
         
-        print(valueIterate)
+        
         tablaNueva.setValor(self.id,Symbol(DataType.INDEFINIDO,self.id,None,"Variable local for",tablaNueva.ambito))
-        print(tablaNueva)   
+     
 
         
         while(len(valueIterate)>0):

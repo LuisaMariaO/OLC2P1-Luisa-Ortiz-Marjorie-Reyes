@@ -74,7 +74,7 @@ def p_puntoycoma(t):
                 |'''
 #*************************************INSTRUCCIONES**********************************************
 def p_imprimir(t):
-    'imprimir : CONSOLE PTO LOG PARABRE expresion PARCIERRA'
+    'imprimir : CONSOLE PTO LOG PARABRE lista_parametros_l PARCIERRA'
    
     t[0] = Imprimir(DataType.INDEFINIDO,t[5],t.lineno(1),9)
 
