@@ -1,5 +1,6 @@
 from ..Abstract.instruction import Instruction
 from ..Symbol.type import *
+from ..Exceptions.exception import *
 
 class Nativo(Instruction):
     def __init__(self,tipo,valor,linea,columna):
@@ -32,10 +33,12 @@ class Nativo(Instruction):
                     return busqueda.getValor()
                 tablaActual = tablaActual.getTablaAnterior()
             return Exception("Semántico","No existe una variable o función con el nombre <"+self.valor+">",self.linea,self.columna)
-
+            
         elif self.tipoDato.getTipo() == DataType.LLAMADA:
            
             valor = self.valor.interpretar(arbol,tabla)
             self.tipoDato = Type(self.valor)
             print(valor)
             return valor
+        
+       

@@ -10,6 +10,8 @@ class Asignacion(Instruction):
         super().__init__(linea,columna,Type(DataType.INDEFINIDO))
 
     def interpretar(self, arbol, tabla):
+
+
         tablaActual = tabla
         while (tablaActual!=None):
             busqueda = tablaActual.getSimbolo(self.id)
@@ -23,6 +25,7 @@ class Asignacion(Instruction):
                 if busqueda.getTipo() == self.valor.tipoDato.getTipo() or busqueda.getTipo()==DataType.ANY:
                  
                     busqueda.setValor(valor)
+                    return
               
                 else:
                     return Exception("Semántico","El tipo de dato signado no coincide con el tipo de dato de la variable",self.linea,self.columna)

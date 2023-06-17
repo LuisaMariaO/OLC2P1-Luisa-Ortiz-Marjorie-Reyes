@@ -22,6 +22,8 @@ from src.Interpreter.Instructions.forOf import *
 from src.Interpreter.Instructions.breakIns import *
 from src.Interpreter.Instructions.continueIns import *
 from src.Interpreter.Instructions.interface import *
+from src.Interpreter.Instructions.asignacionAtributo import *
+from src.Interpreter.Expresions.atributo import *
 
 precedence = (
     ('left', 'OR'),
@@ -100,6 +102,10 @@ def p_asignaciones(t):
     'asignacion : ID IGUAL expresion'
 
     t[0] = Asignacion(t[1],t[3],t.lineno(1),0)
+
+def p_asignacion_atr(t):
+    'asignacion : ID PTO ID IGUAL expresion'
+    t[0] = AsignacionAtributo(t[1],t[3],t[5],t.lineno(1),0)
 
 def p_funciones(t): 
     'funcion : FUNCTION ID PARABRE lista_parametros PARCIERRA LLAVEABRE instrucciones LLAVECIERRA puntoycoma'
@@ -411,15 +417,14 @@ def p_atributo(t):
 
 def p_valor_atributo(t):
     'expresion : expresion PTO ID'
+    
+    t[0] = Atributo(t[1],t[3],t.lineno(1),0)
+
 
 def p_arreglo(t):
-    'expresion : CORABRE lista_valores CORCIERRA'    
+    'expresion : CORABRE lista_parametros_l CORCIERRA'    
 
-def p_lista_valores(t):
-    'lista_valores : lista_valores COMA expresion'
 
-def p_valor(t):
-    'lista_valores : expresion'
 
 def p_valor_none(t):
     'lista_valores :'

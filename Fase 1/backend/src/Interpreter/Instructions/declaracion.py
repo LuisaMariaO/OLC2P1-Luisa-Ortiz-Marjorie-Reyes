@@ -40,6 +40,7 @@ class Declaracion(Instruction):
                             
                         else:
                             return Exception("Semántico","El número de atributos ingresado no es correcto",self.linea,self.columna)
+                        
                         tabla.setValor(self.id,Symbol(self.tipo,self.id,atributos,"variable de tipo interface",tabla.ambito))
                         return
                         #busqueda.setValor(valor)
