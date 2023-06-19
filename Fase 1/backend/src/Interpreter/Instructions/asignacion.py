@@ -11,14 +11,16 @@ class Asignacion(Instruction):
 
     def interpretar(self, arbol, tabla):
 
-
+       
         tablaActual = tabla
         while (tablaActual!=None):
             busqueda = tablaActual.getSimbolo(self.id)
             
             if busqueda!=None:
                 #Se encontró una variable con ese nombre
+              
                 valor = self.valor.interpretar(arbol,tabla)
+                print(valor)
                 if type(valor) == Exception:
                     return valor
                 

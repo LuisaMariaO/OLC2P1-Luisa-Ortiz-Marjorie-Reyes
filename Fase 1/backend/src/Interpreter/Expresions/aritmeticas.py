@@ -57,8 +57,10 @@ class Aritmetica(Instruction):
                 return Exception("Semántico", "El operador '+' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
                 
         elif self.operacion.getTipo() == AritmeticType.RESTA:
-            izq = self.izq.interpretar(arbol, tabla)
-            der = self.der.interpretar(arbol, tabla)
+            
+            #izq = self.izq.interpretar(arbol, tabla)
+            #der = self.der.interpretar(arbol, tabla)
+            
 
             if self.izq.tipoDato.getTipo() == DataType.NUMBER:
                 if self.der.tipoDato.getTipo() == DataType.NUMBER:
@@ -70,8 +72,8 @@ class Aritmetica(Instruction):
                 return Exception("Semántico", "El operador '-' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
             
         elif self.operacion.getTipo() == AritmeticType.MULTIPLICACION:
-            izq = self.izq.interpretar(arbol, tabla)
-            der = self.der.interpretar(arbol, tabla)
+            #izq = self.izq.interpretar(arbol, tabla)
+            #der = self.der.interpretar(arbol, tabla)
 
             if self.izq.tipoDato.getTipo() == DataType.NUMBER:
                 if self.der.tipoDato.getTipo() == DataType.NUMBER:
@@ -83,8 +85,8 @@ class Aritmetica(Instruction):
                 return Exception("Semántico", "El operador '*' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
             
         elif self.operacion.getTipo() == AritmeticType.DIVISION:
-            izq = self.izq.interpretar(arbol, tabla)
-            der = self.der.interpretar(arbol, tabla)
+            #izq = self.izq.interpretar(arbol, tabla)
+            #der = self.der.interpretar(arbol, tabla)
 
             if self.izq.tipoDato.getTipo() == DataType.NUMBER:
                 if self.der.tipoDato.getTipo() == DataType.NUMBER:
@@ -99,8 +101,8 @@ class Aritmetica(Instruction):
                 return Exception("Semántico", "El operador '/' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
             
         elif self.operacion.getTipo() == AritmeticType.POTENCIA:
-            izq = self.izq.interpretar(arbol, tabla)
-            der = self.der.interpretar(arbol, tabla)
+            #izq = self.izq.interpretar(arbol, tabla)
+            #der = self.der.interpretar(arbol, tabla)
 
             if self.izq.tipoDato.getTipo() == DataType.NUMBER:
                 if self.der.tipoDato.getTipo() == DataType.NUMBER:
@@ -112,8 +114,8 @@ class Aritmetica(Instruction):
                 return Exception("Semántico", "El operador '^' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
         
         elif self.operacion.getTipo() == AritmeticType.MODULO:
-            izq = self.izq.interpretar(arbol, tabla)
-            der = self.der.interpretar(arbol, tabla)
+            #izq = self.izq.interpretar(arbol, tabla)
+            #der = self.der.interpretar(arbol, tabla)
 
             if self.izq.tipoDato.getTipo() == DataType.NUMBER:
                 if self.der.tipoDato.getTipo() == DataType.NUMBER:

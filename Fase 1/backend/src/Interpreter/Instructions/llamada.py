@@ -15,20 +15,20 @@ class Llamada(Instruction):
         super().__init__(linea,columna,Type(DataType.INDEFINIDO))
 
     def interpretar(self, arbol, tabla):
-    
+   
         tablaActual = tabla
         while (tablaActual!=None):
             busqueda = tablaActual.getSimbolo(self.id)
-        
+           
             if busqueda!=None:
                 #Se encontró una función con ese nombre
-                simbolo = tabla.getSimbolo(self.id)
+                simbolo = tablaActual.getSimbolo(self.id)
                 funcion = copy.deepcopy(simbolo.valor)
-                
+               
                 parametrosDeclaracion = funcion.getParametros()
-          
+                
                 instrucciones = funcion.getInstrucciones()
-    
+                
                 #Acá comparo la longitud de las listas de parametros
                 if len(parametrosDeclaracion) != len(self.parametros):
                     return Exception("Semántico","El número de parámetros recibidos no coincide con la función declarada",self.linea,self.columna)
@@ -55,8 +55,10 @@ class Llamada(Instruction):
                     else:
                         return Exception("Semántico","No coinciden los tipos de los parámetros",self.linea,self.columna)
                     
-               
+                
                 for instruccion in instrucciones:
+                    
+                    
                     if isinstance(instruccion,Break):
                        
                         arbol.updateErrores(Exception("Semántico","La instrucción break no es propia de las funciones",self.linea,self.columna))
@@ -66,6 +68,7 @@ class Llamada(Instruction):
                         continue
                     
                     returnValue = instruccion.interpretar(arbol, nuevaTabla)
+                    
                     if type(instruccion)== Return or type(returnValue)==Return:
                         
                         self.tipoDato = instruccion.tipoDato

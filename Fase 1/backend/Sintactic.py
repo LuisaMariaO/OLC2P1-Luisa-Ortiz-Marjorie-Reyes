@@ -36,7 +36,7 @@ precedence = (
     ('right', 'POTENCIA'),
     ('left','PARABRE','PARCIERRA'),
     ('left','PTO','OF'),
-    
+    #('right', 'UMENOS'),   
  
 )
 
@@ -305,9 +305,11 @@ def p_expresiones_aritmeticas(t):
                 | expresion POTENCIA expresion
                 | expresion MODULO expresion
                 | PARABRE expresion PARCIERRA'''
+    
     if t[2] == '+':
         t[0] = Aritmetica(t[1], t[3], Aritmetic(AritmeticType.SUMA), t.lineno(1), 9)
     elif t[2] == '-':
+        
         t[0] = Aritmetica(t[1], t[3], Aritmetic(AritmeticType.RESTA), t.lineno(1), 9)
     elif t[2] == '*':
         t[0] = Aritmetica(t[1], t[3], Aritmetic(AritmeticType.MULTIPLICACION), t.lineno(1), 9)
@@ -319,6 +321,10 @@ def p_expresiones_aritmeticas(t):
         t[0] = Aritmetica(t[1], t[3], Aritmetic(AritmeticType.MODULO), t.lineno(1), 9)
     elif t[1] == "(" and t[3] == ")":
         t[0] = t[2]
+
+#def p_expresion_unaria(t):
+#    'expresion : RESTA expresion %prec UMENOS'
+#    t[0] = Aritmetica(t[2],t[2],Aritmetic(AritmeticType.NEGACION),t.lineno(1),0)
 
 def p_expresiones_nativas(t):
     '''expresion : expresion PTO nativas PARABRE parametro_nativa PARCIERRA'''
@@ -426,8 +432,7 @@ def p_arreglo(t):
 
 
 
-def p_valor_none(t):
-    'lista_valores :'
+
 
 def p_null(t):
     'expresion : NULL'

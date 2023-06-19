@@ -37,7 +37,7 @@ class Nativo(Instruction):
         elif self.tipoDato.getTipo() == DataType.LLAMADA:
            
             valor = self.valor.interpretar(arbol,tabla)
-            self.tipoDato = Type(self.valor)
+            self.tipoDato = Type(self.valor.tipoDato.getTipo())
             print(valor)
             return valor
         
