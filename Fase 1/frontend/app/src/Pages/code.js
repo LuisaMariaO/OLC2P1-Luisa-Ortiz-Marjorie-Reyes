@@ -67,6 +67,23 @@ function Code(){
        // miConsola.current.editor.setValue("Resultado de la ejecución")
         //miConsola.current.editor.clearSelection()
     }
+
+    const postCompile = (event) =>{
+        event.preventDefault();
+      //  alert(miEditor.current.editor.getValue())
+        Service.compile(miEditor.current.editor.getValue())
+        .then(({consola,ok}) => {
+            
+            miConsola.current.editor.setValue(consola)
+            miConsola.current.editor.clearSelection()
+           
+        })
+        .catch((error) => {
+           alert("Errores léxicos o sintácticos encontrados :c")
+        })
+       // miConsola.current.editor.setValue("Resultado de la ejecución")
+        //miConsola.current.editor.clearSelection()
+    }
     const clean = () =>{
         miEditor.current.editor.setValue("")
         miConsola.current.editor.setValue("")
@@ -167,10 +184,15 @@ function Code(){
        
             &nbsp; &nbsp;
             <button type="button" class="btn btn-success" onClick={postParse}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play" viewBox="0 0 16 16">
-            <path d="M10.804 8 5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z"/>
-            </svg>
+            <i class="bi bi-play-fill"></i>
                 Ejecutar
+            </button>
+
+            &nbsp; &nbsp;
+
+            <button type="button" class="btn btn-warning" onClick={postCompile}>
+            <i class="bi bi-terminal-fill"></i> 
+                 &nbsp;Compilar
             </button>
                 &nbsp; &nbsp;
             <button type="button" class="btn btn-secondary" onClick={clean}>

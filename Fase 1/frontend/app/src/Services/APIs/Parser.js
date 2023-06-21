@@ -14,3 +14,8 @@ export const parse = async(value) =>{
     const { data } = await instance.post("/parse", { code: value })
     return data
 }
+
+export const compile = async(value) =>{
+    const { data } = await instance.post("/compile", { code: value })
+    return data
+}
