@@ -1,5 +1,5 @@
 class SymbolTable:
-    def __init__(self,tablaAnterior,ambito):
+    def __init__(self, tablaAnterior, ambito):
         self.tablaAnterior = tablaAnterior
         self.tablaActual = {}
         self.ambito = ambito 

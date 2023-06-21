@@ -1,5 +1,5 @@
 class Symbol:
-    def __init__(self, tipo, identificador, valor,rol,ambito):
+    def __init__(self, tipo, identificador, valor, rol, ambito):
         self.tipo = tipo
         self.identificador = identificador
         self.valor = valor

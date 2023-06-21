@@ -27,7 +27,7 @@ class AsignacionAtributo(Instruction):
                     return valor
             tablaActual = tablaActual.getTablaAnterior()
         if variable==None:
-            return Exception("Semántico","No existe una variable o función con el nombre <"+self.id+">",self.linea,self.columna)
+            return Exception("Error semántico","No existe una variable o función con el nombre: "+self.id,self.linea,self.columna)
  
         tablaActual = tabla
         while (tablaActual!=None):
@@ -44,5 +44,5 @@ class AsignacionAtributo(Instruction):
                     
                     return
                 else:
-                    return Exception("Sintáctico","El tipo de dato del atributo no concuerda con el del nuevo valor",self.linea,self.columna)
+                    return Exception("Erro semántico","El tipo de dato del atributo no concuerda con el del nuevo valor",self.linea,self.columna)
             tablaActual = tablaActual.getTablaAnterior()

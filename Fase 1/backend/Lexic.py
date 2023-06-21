@@ -1,7 +1,10 @@
 import re
 import ply.lex as lex
+from main import entrada
+from src.Interpreter.Exceptions.exception import *
 
-errors = []
+erroresLexicos = []
+textoentrada = ""
 
 reservedWords = {
     'null'          : 'NULL',
@@ -18,9 +21,7 @@ reservedWords = {
     'function'      : 'FUNCTION',
     'return'        : 'RETURN',
     'if'            : 'IF',
-
     'else'          : 'ELSE',
-    
     'while'         : 'WHILE',  
     'for'           : 'FOR',
     'in'            : 'IN',
@@ -78,7 +79,7 @@ tokens = [
 ]+ list(reservedWords.values())
 
 # TOKENS
-t_PTO           = r'.'
+t_PTO           = r'\.'
 t_DOSPTOS       = r'\:'
 t_IGUAL         = r'\='
 t_PTOCOMA       = r'\;'
@@ -162,18 +163,12 @@ def t_newline(t):
 t_ignore = " \t"
 
 def t_error(token):
-    print(token.value)
+    print(lexer)
+    erroresLexicos.append(Exception("Error léxico", "Caracter inválido: " + str(token.value[0]), token.lineno, encontrar_columna(entrada, token)))
     token.lexer.skip(1)
 
-def find_column(inp, tk):
-    line_start = inp.rfind('\n', 0, tk.lexpos) + 1
-    return (tk.lexpos - line_start) + 1
-
-def test_lexer(lexema):
-    while True:
-        token = lexer.tokens()
-        if not token:
-            break
-        print(token)
+def encontrar_columna(entrada, token):
+    inicio = entrada.rfind('\n', 0, token.lexpos) + 1
+    return (token.lexpos - inicio) + 1
 
 lexer = lex.lex(reflags = re.IGNORECASE)

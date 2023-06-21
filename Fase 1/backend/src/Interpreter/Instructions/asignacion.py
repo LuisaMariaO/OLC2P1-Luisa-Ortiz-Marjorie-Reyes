@@ -10,28 +10,22 @@ class Asignacion(Instruction):
         super().__init__(linea,columna,Type(DataType.INDEFINIDO))
 
     def interpretar(self, arbol, tabla):
-
-       
+        #Recorre la tabla de símbolos buscando el identificador
         tablaActual = tabla
         while (tablaActual!=None):
             busqueda = tablaActual.getSimbolo(self.id)
-            
-            if busqueda!=None:
-                #Se encontró una variable con ese nombre
-              
+            #Si se encontró una variable con ese nombre, obtiene el valor y el tipo
+            if busqueda != None:
                 valor = self.valor.interpretar(arbol,tabla)
-                print(valor)
                 if type(valor) == Exception:
                     return valor
-                
+                #Si el tipo de la variable coincide con el tipo que se quiere asignar
                 if busqueda.getTipo() == self.valor.tipoDato.getTipo() or busqueda.getTipo()==DataType.ANY:
-                 
                     busqueda.setValor(valor)
                     return
-              
                 else:
-                    return Exception("Semántico","El tipo de dato signado no coincide con el tipo de dato de la variable",self.linea,self.columna)
+                    return Exception("Error semántico","El tipo de dato de la expresión no coincide con el tipo de dato de la variable", self.linea, self.columna)
                 
             tablaActual = tablaActual.getTablaAnterior()
 
-        return Exception("Semántico","No existe una variable o función con el nombre <"+self.id+">",self.linea,self.columna)
+        return Exception("Error semántico","No existe una variable o función con el nombre '" + self.id + "'", self.linea, self.columna)

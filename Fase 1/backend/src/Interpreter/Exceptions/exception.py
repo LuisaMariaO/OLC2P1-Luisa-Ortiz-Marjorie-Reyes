@@ -1,3 +1,4 @@
+from datetime import datetime
 class Exception:
     def __init__(self,tipo,desc,linea,columna):
         self.tipo = tipo
@@ -6,4 +7,5 @@ class Exception:
         self.columna = columna
 
     def toString(self):
-        return self.tipo + ' - ' + self.desc + ' [' + str(self.linea) + ', ' + str(self.columna) + '];'
+        now = datetime.now()
+        return '<td>' + self.tipo + ": " + self.desc + '</td> \n <td>' + str(self.linea) + '</td> \n <td>' + str(self.columna) + '</td> \n <td>' + now.strftime('%d/%m/%Y, %H:%M:%S') + "</td> \n"

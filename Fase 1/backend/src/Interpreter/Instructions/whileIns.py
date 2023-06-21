@@ -20,7 +20,7 @@ class While(Instruction):
 
        
         if condicionCopy.tipoDato.getTipo()!=DataType.BOOLEAN:
-            return Exception("Semántico","La condición debe ser una expresión booleana",self.linea,self.columna)
+            return Exception("Error semántico","La condición debe ser una expresión booleana",self.linea,self.columna)
         if type(condition)==Exception: return condition
         tablaNueva = SymbolTable(tabla,"While")
         while(condition):
@@ -33,7 +33,7 @@ class While(Instruction):
                 if isinstance(instruccion,Continue):
                     break
                 if isinstance(instruccion,Return):
-                    arbol.updateErrores(Exception("Semántico","La instrucción return no es propia de la instrucción for",self.linea,self.columna))
+                    arbol.updateErrores(Exception("Error semántico","La instrucción return no es propia de la instrucción for",self.linea,self.columna))
                     continue
                 result = instruccion.interpretar(arbol,tablaNueva)
                 if type(result)==Exception:
@@ -44,7 +44,7 @@ class While(Instruction):
             condition = condicionCopy.interpretar(arbol,tabla)
        
             if condicionCopy.tipoDato.getTipo()!=DataType.BOOLEAN:
-                return Exception("Semántico","La condición debe ser una expresión booleana",self.linea,self.columna)
+                return Exception("Error semántico","La condición debe ser una expresión booleana",self.linea,self.columna)
             if type(condition)==Exception: return condition
 
 

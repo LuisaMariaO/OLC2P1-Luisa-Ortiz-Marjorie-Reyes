@@ -31,7 +31,7 @@ class Llamada(Instruction):
                 
                 #Acá comparo la longitud de las listas de parametros
                 if len(parametrosDeclaracion) != len(self.parametros):
-                    return Exception("Semántico","El número de parámetros recibidos no coincide con la función declarada",self.linea,self.columna)
+                    return Exception("Error semántico","El número de parámetros recibidos no coincide con la función declarada",self.linea,self.columna)
                 
                 nuevaTabla = SymbolTable(tabla,"Función "+self.id)
                 
@@ -53,7 +53,7 @@ class Llamada(Instruction):
                         
                         nuevaTabla.setValor(simbolo.identificador,simbolo)
                     else:
-                        return Exception("Semántico","No coinciden los tipos de los parámetros",self.linea,self.columna)
+                        return Exception("Error semántico","No coinciden los tipos de los parámetros",self.linea,self.columna)
                     
                 
                 for instruccion in instrucciones:
@@ -61,10 +61,10 @@ class Llamada(Instruction):
                     
                     if isinstance(instruccion,Break):
                        
-                        arbol.updateErrores(Exception("Semántico","La instrucción break no es propia de las funciones",self.linea,self.columna))
+                        arbol.updateErrores(Exception("Error semántico","La instrucción break no es propia de las funciones",self.linea,self.columna))
                         continue
                     if isinstance(instruccion,Continue):
-                        arbol.updateErrores(Exception("Semántico","La instrucción continue no es propia de las funciones",self.linea,self.columna))
+                        arbol.updateErrores(Exception("Error semántico","La instrucción continue no es propia de las funciones",self.linea,self.columna))
                         continue
                     
                     returnValue = instruccion.interpretar(arbol, nuevaTabla)
@@ -79,6 +79,6 @@ class Llamada(Instruction):
                 
             tablaActual = tablaActual.getTablaAnterior()
 
-        return Exception("Semántico","No se encontró la función <"+self.id,self.linea,self.columna)
+        return Exception("Error semántico","No se encontró la función '"+self.id+"'",self.linea,self.columna)
 
         
