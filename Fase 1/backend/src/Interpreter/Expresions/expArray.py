@@ -23,6 +23,8 @@ class Array(Instruction):
                 self.tipoDato = Type(DataType.STRING)
             elif type(valor) == bool:
                 self.tipoDato = Type(DataType.BOOLEAN)
+            elif type(valor) == list:
+                self.tipoDato = Type(DataType.VECTOR_ANY)
             else:
                 self.tipoDato = Type(DataType.ANY)
             return valor

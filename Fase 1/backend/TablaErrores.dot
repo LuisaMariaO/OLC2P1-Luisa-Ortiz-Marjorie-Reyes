@@ -9,13 +9,6 @@ digraph {
             <td bgcolor="honeydew4">Columna</td>
             <td bgcolor="honeydew4">Fecha y hora</td>
             </tr>
-<tr>
-<td>1</td>
-<td>Semántico: El tipo de dato signado no coincide con el tipo de dato de la variable</td> 
- <td>3</td> 
- <td>0</td> 
- <td>20/06/2023, 22:28:57</td> 
-</tr>
 </table>
     >]
     }

@@ -25,6 +25,7 @@ from src.Interpreter.Instructions.asignacionAtributo import *
 from src.Interpreter.Expresions.atributo import *
 from src.Interpreter.Expresions.expArray import *
 from src.Interpreter.Exceptions.exception import *
+from src.Interpreter.Instructions.asignacionArray import *
 
 precedence = (
     ('left', 'OR'),
@@ -71,7 +72,7 @@ def p_instruccion_global(t):
                 | continue
                 | retorno
                 | struct
-                | asignacion_atributo'''
+                | asignacion_array'''
     t[0] = t[1]
 #Las instrucciones pueden venir con o sin punto y coma al final
 def p_puntoycoma(t):
@@ -82,6 +83,7 @@ def p_puntoycoma_erro(t):
     '''puntoycoma : error PTOCOMA
                 | error'''
     erroresLexicos.append("Error sintáctico", "Error", 0,0)
+
 #*************************************INSTRUCCIONES**********************************************
 def p_imprimir(t):
     'imprimir : CONSOLE PTO LOG PARABRE lista_parametros_l PARCIERRA'
@@ -113,15 +115,12 @@ def p_funciones(t):
     print("Declaracion de funcion ",t[2])
     t[0] = Funcion(t[2],t[4],t[7],t.lineno(1),0)
 
-
 def p_lista_parametros(t):
     'lista_parametros : lista_parametros COMA ID tipar'
     if t[3]!="":
         t[1][t[3]]=t[4]
         #t[1].append(t[3])
     t[0] = t[1]
-
-
 
 def p_parametro(t):
     'lista_parametros : ID tipar'
@@ -157,6 +156,10 @@ def p_valor_retorno_vacio(t):
 def p_llamada_funcion(t):
     'llamada : ID PARABRE lista_parametros_l PARCIERRA'
     t[0] = Llamada(t[1],t[3],t.lineno(1),0)
+
+def p_asignacion_array(t):
+    'asignacion_array : ID dimensiones IGUAL expresion'
+    t[0] = AsignacionArray(t[1], t[2], t[4], t.lineno(1), 0)
 
 def p_lista_parametros_l (t):
     'lista_parametros_l : lista_parametros_l COMA expresion'
@@ -264,8 +267,6 @@ def p_interface(t):
     'struct : INTERFACE ID LLAVEABRE atributos LLAVECIERRA'
     t[0] = Interface(t[2],t[4],t.lineno(1),0)
 
-def p_asignacion_atributo(t):
-    'asignacion_atributo : ID PTO ID IGUAL expresion'
 #**********************************************EXPRESIONES***************************************
 def p_expresiones_logicas(t):
     '''expresion : expresion AND expresion
@@ -328,12 +329,11 @@ def p_expresiones_aritmeticas(t):
 #    t[0] = Aritmetica(t[2],t[2],Aritmetic(AritmeticType.NEGACION),t.lineno(1),0)
 
 def p_expresiones_nativas(t):
-    '''expresion : expresion PTO nativas PARABRE parametro_nativa PARCIERRA'''
-   
-    if t[5] == None:
-        t[0] = FuncionNativa(t[1], t[3], None, t.lineno(1), 9)
+    '''expresion : expr_punto nativas PARABRE parametro_nativa PARCIERRA'''
+    if t[4] == None:
+        t[0] = FuncionNativa(t[1], t[2], None, t.lineno(1), 9)
     else: 
-        t[0] = FuncionNativa(t[1], t[3], t[5], t.lineno(1), 9)
+        t[0] = FuncionNativa(t[1], t[2], t[4], t.lineno(1), 9)
 
 def p_nativas(t):
     '''nativas : TOFIXED
@@ -420,9 +420,12 @@ def p_atributo(t):
         t[0] = {t[1] : t[2]}
 
 def p_valor_atributo(t):
-    'expresion : expresion PTO ID'
-    t[0] = Atributo(t[1],t[3],t.lineno(1),0)
+    'expresion : expr_punto ID'
+    t[0] = Atributo(t[1],t[2],t.lineno(1),0)
 
+def p_expresion_punto(t):
+    'expr_punto : expresion PTO'
+    t[0] = t[1]
 
 def p_arreglo(t):
     'expresion : CORABRE lista_parametros_l CORCIERRA'

@@ -93,5 +93,11 @@ class FuncionNativa(Instruction):
             else:
                 return Exception("Error semántico", "Tipo de dato no válido para la función 'Split", self.linea, self.columna)
 
-        '''elif self.func.getTipo() == NativeFunc.CONCAT:'''
+        elif self.func.getTipo() == NativeFunc.CONCAT:
+            if self.op.tipoDato.getTipo() == DataType.VECTOR_ANY:
+                if self.parametro != None:
+                    param = self.parametro.interpretar(arbol, tabla)
+                    if self.parametro.tipoDato.getTipo() == DataType.VECTOR_ANY:
+                        self.tipoDato = Type(DataType.VECTOR_ANY)
+                        return op + param
 
