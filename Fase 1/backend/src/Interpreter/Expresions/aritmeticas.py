@@ -41,7 +41,7 @@ class Aritmetica(Instruction):
                     self.tipoDato = Type(DataType.STRING)
                     return (str(izq) + der)
                 else:
-                    return Exception("Semántico", "El operador '+' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
+                    return Exception("Error semántico", "El operador '+' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
             
             if self.izq.tipoDato.getTipo() == DataType.STRING:
                 if self.der.tipoDato.getTipo() == DataType.STRING:
@@ -51,81 +51,69 @@ class Aritmetica(Instruction):
                     self.tipoDato = Type(DataType.STRING)
                     return (izq + str(der))
                 else:
-                    return Exception("Semántico", "El operador '+' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
+                    return Exception("Error semántico", "El operador '+' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
             
             else:
-                return Exception("Semántico", "El operador '+' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
+                return Exception("Error semántico", "El operador '+' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
                 
         elif self.operacion.getTipo() == AritmeticType.RESTA:
-            
-            #izq = self.izq.interpretar(arbol, tabla)
-            #der = self.der.interpretar(arbol, tabla)
-            
 
             if self.izq.tipoDato.getTipo() == DataType.NUMBER:
                 if self.der.tipoDato.getTipo() == DataType.NUMBER:
                     self.tipoDato = Type(DataType.NUMBER)
                     return (izq - der)
                 else:
-                    return Exception("Semántico", "El operador '-' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
+                    return Exception("Error semántico", "El operador '-' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
             else: 
-                return Exception("Semántico", "El operador '-' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
+                return Exception("Error semántico", "El operador '-' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
             
         elif self.operacion.getTipo() == AritmeticType.MULTIPLICACION:
-            #izq = self.izq.interpretar(arbol, tabla)
-            #der = self.der.interpretar(arbol, tabla)
 
             if self.izq.tipoDato.getTipo() == DataType.NUMBER:
                 if self.der.tipoDato.getTipo() == DataType.NUMBER:
                     self.tipoDato = Type(DataType.NUMBER)
                     return (izq * der)
                 else:
-                    return Exception("Semántico", "El operador '*' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
+                    return Exception("Error semántico", "El operador '*' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
             else: 
-                return Exception("Semántico", "El operador '*' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
+                return Exception("Error semántico", "El operador '*' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
             
         elif self.operacion.getTipo() == AritmeticType.DIVISION:
-            #izq = self.izq.interpretar(arbol, tabla)
-            #der = self.der.interpretar(arbol, tabla)
 
             if self.izq.tipoDato.getTipo() == DataType.NUMBER:
                 if self.der.tipoDato.getTipo() == DataType.NUMBER:
                     if der == 0:
-                        return Exception("Semántico", "División sobre 0", self.linea, self.columna)
+                        return Exception("Error semántico", "División sobre 0", self.linea, self.columna)
                     else:
                         self.tipoDato = Type(DataType.NUMBER)
                         return (izq / der)
                 else:
-                    return Exception("Semántico", "El operador '/' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
+                    return Exception("Error semántico", "El operador '/' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
             else: 
-                return Exception("Semántico", "El operador '/' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
+                return Exception("Error semántico", "El operador '/' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
             
         elif self.operacion.getTipo() == AritmeticType.POTENCIA:
-            #izq = self.izq.interpretar(arbol, tabla)
-            #der = self.der.interpretar(arbol, tabla)
 
             if self.izq.tipoDato.getTipo() == DataType.NUMBER:
                 if self.der.tipoDato.getTipo() == DataType.NUMBER:
                     self.tipoDato = Type(DataType.NUMBER)
                     return pow(izq, der)
                 else:
-                    return Exception("Semántico", "El operador '^' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
+                    return Exception("Error semántico", "El operador '^' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
             else: 
-                return Exception("Semántico", "El operador '^' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
+                return Exception("Error semántico", "El operador '^' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
         
         elif self.operacion.getTipo() == AritmeticType.MODULO:
-            #izq = self.izq.interpretar(arbol, tabla)
-            #der = self.der.interpretar(arbol, tabla)
 
             if self.izq.tipoDato.getTipo() == DataType.NUMBER:
                 if self.der.tipoDato.getTipo() == DataType.NUMBER:
                     self.tipoDato = Type(DataType.NUMBER)
                     return (izq % der)
                 else:
-                    return Exception("Semántico", "El operador '%' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
+                    return Exception("Error semántico", "El operador '%' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
             else: 
-                return Exception("Semántico", "El operador '%' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
+                return Exception("Error semántico", "El operador '%' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
         
         else:
-            return Exception("Semántico", "El operador '" + self.operacion.getTipo() + "' no es válido", self.linea, self.columna)
+            return Exception("Error semántico", "El operador '" + self.operacion.getTipo() + "' no es válido", self.linea, self.columna)
 

@@ -29,5 +29,5 @@ class Atributo(Instruction):
                     #print(busqueda.getValor())
                 return busqueda.getValor().get(self.atributo)
             tablaActual = tablaActual.getTablaAnterior()
-            return Exception("Semántico","No existe una variable o función con el nombre <"+self.valor+">",self.linea,self.columna)
+            return Exception("Semántico","No existe una variable o función con el nombre: "+self.valor,self.linea,self.columna)
         

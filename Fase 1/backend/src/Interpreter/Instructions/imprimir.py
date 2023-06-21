@@ -8,14 +8,11 @@ class Imprimir(Instruction):
         super().__init__(linea,columna,tipo)
 
     def interpretar(self, arbol, tabla):
-       
-        valor=""
+        valor = ""
         for expresion in self.expresiones:
             result = expresion.interpretar(arbol,tabla)
-            if type(result)== Exception:
+            if type(result) == Exception:
                 return result
             valor+=(str(result))+" "
-        
-        
         arbol.updateConsola(valor)
 

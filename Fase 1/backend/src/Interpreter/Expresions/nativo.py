@@ -2,6 +2,15 @@ from ..Abstract.instruction import Instruction
 from ..Symbol.type import *
 from ..Exceptions.exception import *
 
+def Recorrer(array, arbol, tabla):
+    arr = []
+    for element in array:
+        if isinstance(element,list):
+            Recorrer(element, arbol, tabla)
+        else:
+            arr.append(element.interpretar(arbol, tabla))
+    return arr
+
 class Nativo(Instruction):
     def __init__(self,tipo,valor,linea,columna):
         self.valor = valor
@@ -9,7 +18,7 @@ class Nativo(Instruction):
 
     def getValor(self):
         return self.valor
-    
+        
     def interpretar(self, arbol, tabla):
 
         if self.tipoDato.getTipo() == DataType.NUMBER:
@@ -32,13 +41,15 @@ class Nativo(Instruction):
                     #print(busqueda.getValor())
                     return busqueda.getValor()
                 tablaActual = tablaActual.getTablaAnterior()
-            return Exception("Semántico","No existe una variable o función con el nombre <"+self.valor+">",self.linea,self.columna)
+            return Exception("Error semántico","No existe una variable o función con el nombre: "+self.valor,self.linea,self.columna)
             
         elif self.tipoDato.getTipo() == DataType.LLAMADA:
-           
             valor = self.valor.interpretar(arbol,tabla)
             self.tipoDato = Type(self.valor.tipoDato.getTipo())
             print(valor)
             return valor
         
+        elif self.tipoDato.getTipo() == DataType.VECTOR_ANY or self.tipoDato.getTipo() == DataType.VECTOR_NUMBER or self.tipoDato.getTipo() == DataType.VECTOR_STRING or self.tipoDato.getTipo() == DataType.VECTOR_BOOLEAN:
+            self.valor = Recorrer(self.valor, arbol, tabla)
+            return self.valor
        

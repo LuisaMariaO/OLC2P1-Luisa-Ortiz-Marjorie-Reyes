@@ -16,7 +16,7 @@ class If(Instruction):
         condition = self.condicion.interpretar(arbol,tabla)
        
         if self.condicion.tipoDato.getTipo()!=DataType.BOOLEAN:
-            return Exception("Semántico","La condición debe ser una expresión booleana",self.linea,self.columna)
+            return Exception("Error semántico","La condición debe ser una expresión booleana",self.linea,self.columna)
         if type(condition)==Exception: return condition
         if condition:
             tablaNueva = SymbolTable(tabla,"If")
@@ -31,7 +31,7 @@ class If(Instruction):
                 for cond,ins in self.elifIns.items():
                     condition = cond.interpretar(arbol,tabla)
                     if self.condicion.tipoDato.getTipo()!=DataType.BOOLEAN:
-                        return Exception("Semántico","La condición debe ser una expresión booleana",self.linea,self.columna)
+                        return Exception("Error semántico","La condición debe ser una expresión booleana",self.linea,self.columna)
                     if type(condition)==Exception: return condition
                     if condition:
                         tablaNueva = SymbolTable(tabla,"Else if")

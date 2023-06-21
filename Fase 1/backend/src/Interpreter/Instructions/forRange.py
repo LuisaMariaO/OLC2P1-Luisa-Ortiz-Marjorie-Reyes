@@ -25,7 +25,7 @@ class ForRange(Instruction):
         if type(valueDec)==Exception: return valueDec
 
         if self.valorDeclaracion.tipoDato.getTipo() != DataType.NUMBER:
-            return Exception("Semántico","Los índices de for deben ser valores numéricos enteros",self.linea,self.columna)
+            return Exception("Error semántico","Los índices de for deben ser valores numéricos enteros",self.linea,self.columna)
         
         
         tablaNueva.setValor(self.id,Symbol(self.valorDeclaracion.tipoDato.getTipo(),self.id,valueDec,"Variable local for",tablaNueva.ambito))
@@ -36,7 +36,7 @@ class ForRange(Instruction):
         condition = condicionCopy.interpretar(arbol,tablaNueva)
         
         if condicionCopy.tipoDato.getTipo()!=DataType.BOOLEAN:
-            return Exception("Semántico","La condición debe ser una expresión booleana",self.linea,self.columna)
+            return Exception("Error semántico","La condición debe ser una expresión booleana",self.linea,self.columna)
         if type(condition)==Exception: return condition
 
         while(condition):
@@ -49,7 +49,7 @@ class ForRange(Instruction):
                 if isinstance(instruccion,Continue):
                     break
                 if isinstance(instruccion,Return):
-                    arbol.updateErrores(Exception("Semántico","La instrucción return no es propia de la instrucción for",self.linea,self.columna))
+                    arbol.updateErrores(Exception("Error semántico","La instrucción return no es propia de la instrucción for",self.linea,self.columna))
                     continue
                 result = instruccion.interpretar(arbol,tablaNueva)
                 if type(result)==Exception:
@@ -67,5 +67,5 @@ class ForRange(Instruction):
             condition = condicionCopy.interpretar(arbol,tablaNueva)
        
             if condicionCopy.tipoDato.getTipo()!=DataType.BOOLEAN:
-                return Exception("Semántico","La condición debe ser una expresión booleana",self.linea,self.columna)
+                return Exception("Error semántico","La condición debe ser una expresión booleana",self.linea,self.columna)
             if type(condition)==Exception: return condition

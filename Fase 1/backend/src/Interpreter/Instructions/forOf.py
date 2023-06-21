@@ -26,7 +26,7 @@ class ForOf(Instruction):
         
         if self.iterativo.tipoDato.getTipo() != DataType.STRING and self.iterativo.tipoDato.getTipo()!=DataType.VECTOR_ANY and self.iterativo.tipoDato.getTipo()!=DataType.VECTOR_BOOLEAN and self.iterativo.tipoDato.getTipo()!=DataType.VECTOR_ID and self.iterativo.tipoDato.getTipo()!=DataType.VECTOR_BOOLEAN and self.iterativo.tipoDato.getTipo()!=DataType.VECTOR_STRING :
            
-            return Exception("Semántico","Solo se pueden iterar vectores y strings",self.linea,self.columna)
+            return Exception("Error semántico","Solo se pueden iterar vectores y strings",self.linea,self.columna)
         
         
         tablaNueva.setValor(self.id,Symbol(DataType.INDEFINIDO,self.id,None,"Variable local for",tablaNueva.ambito))
@@ -55,7 +55,7 @@ class ForOf(Instruction):
                 if isinstance(instruccion,Continue):
                     break
                 if isinstance(instruccion,Return):
-                    arbol.updateErrores(Exception("Semántico","La instrucción return no es propia de la instrucción for",self.linea,self.columna))
+                    arbol.updateErrores(Exception("Error semántico","La instrucción return no es propia de la instrucción for",self.linea,self.columna))
                     continue
                 result = instruccion.interpretar(arbol,tablaNueva)
                 if type(result)==Exception:

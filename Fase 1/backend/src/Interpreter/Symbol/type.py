@@ -21,7 +21,7 @@ class DataType(Enum):
     VECTOR_STRING = 8
     VECTOR_BOOLEAN = 9
     VECTOR_ANY = 10
-    VECTOR_ID = 11
+    VECTOR_TEMP = 11
     INDEFINIDO = 12
     LLAMADA = 13
     INTERFACE = 14

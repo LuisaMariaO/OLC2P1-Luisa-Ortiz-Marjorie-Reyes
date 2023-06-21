@@ -25,7 +25,7 @@ class Funcion(Instruction):
                
             if busqueda!=None:
                 #Se encontró una funcion con ese nombre
-                return Exception("Semántico","Ya existe una variable o función con el nombre <"+self.id+">",self.linea,self.columna)
+                return Exception("Error semántico","Ya existe una variable o función con el nombre '"+self.id+"'",self.linea,self.columna)
                  
                 
               

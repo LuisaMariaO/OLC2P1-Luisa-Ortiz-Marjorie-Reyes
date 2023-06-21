@@ -1,0 +1,14 @@
+digraph {
+            node[shape=none]
+            n1[label=<
+            <table border="1">]
+            <tr>
+            <td bgcolor="honeydew4"> No. </td>
+            <td bgcolor="honeydew4">Descripción</td>
+            <td bgcolor="honeydew4">Linea</td>
+            <td bgcolor="honeydew4">Columna</td>
+            <td bgcolor="honeydew4">Fecha y hora</td>
+            </tr>
+</table>
+    >]
+    }
