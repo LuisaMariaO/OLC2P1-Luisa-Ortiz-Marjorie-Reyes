@@ -30,6 +30,24 @@ class SymbolTable:
         self.size += 1
         self.tablaActual[id] = simbolo
         return self.tablaActual[id]
+   
+    def setAsignacion(self,id,tipo,inHeap,find=True):
+        #TODO: Probar con la asignación, cambiar el código de ahí también
+ 
+        if find:
+            tablaActual = self.tablaActual
+            while tablaActual != None:
+                if id in tablaActual: #Si encuentro la variable, la actualizo
+                    if tipo == tablaActual[id].getTipo():
+                        tablaActual[id].setInHeap(inHeap)
+                        return tablaActual[id]
+                    else:
+                        
+                        return "Error: No coinciden los tipos"
+                else:
+                    tablaActual = self.tablaAnterior
+        
+        return "Error: No se encontró la variable <"+id+">"
 
     #def setTabla(self, id, tipo, inHeap, find = True):
     #    if find:
