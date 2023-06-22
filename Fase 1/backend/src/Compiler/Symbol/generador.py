@@ -63,7 +63,7 @@ class Generador():
     def getCode(self):
         return f'{self.getHeader()}\nfunc main(){{\n{self.codigo}\n}}'
     
-    def addComent(self,comentario):
+    def addComment(self,comentario):
         self.codigo += f'/* {comentario} */\n'
 
     def getInstance(self):

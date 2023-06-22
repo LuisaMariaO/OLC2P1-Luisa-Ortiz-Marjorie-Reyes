@@ -2,16 +2,25 @@ from ..Abstract.instruction import Instruction
 from ..Symbol.type import*
 from ..Exceptions.exception import Exception
 from ..Symbol.symbol import Symbol
+from ..Abstract.returnF2 import Return
 import copy
+from ..Abstract.returnF2 import Return
+from ..Symbol.generador import Generador
 
 class Declaracion(Instruction):
     def __init__(self,id,tipo,valor,linea,columna):
         self.id = id
         self.valor = valor
         self.tipo = tipo
+        self.find = True
+        self.ghost = -1 #Para ocultar el stack
         super().__init__(linea,columna,Type(DataType.INDEFINIDO))
 
-    def interpretar(self, arbol, tabla):
+    def compilar(self, arbol, tabla):
+        genAux = Generador()
+        generador = genAux.getInstance()
+
+        generador.addComment("Declaracion de variable")
         #DECLARACION DE VARIABLES DE TIPO INTERFACE
         if type(self.tipo)==str:
             tablaActual = tabla
@@ -35,10 +44,12 @@ class Declaracion(Instruction):
                                 if atributos.get(atr) ==  valor.tipoDato.getTipo():
                                     atributos[atr] = valorAtr
                                 else:
+                                    generador.addComment("Error: El valor del atributo "<+atr+"> no concuerda con el tipo asignado")
                                     return Exception("Semántico","El valor del atributo <"+atr+"> no concuerda con el tipo asignado",self.linea,self.columna)
                                 
                             
                         else:
+                            generador.addComment("Error: Eñ número de atrinutos ingresado no es correcto")
                             return Exception("Semántico","El número de atributos ingresado no es correcto",self.linea,self.columna)
                         
                         tabla.setValor(self.id,Symbol(self.tipo,self.id,atributos,"variable de tipo interface",tabla.ambito))
@@ -46,51 +57,66 @@ class Declaracion(Instruction):
                         #busqueda.setValor(valor)
                 
                     else:
+                        generador.addComment("Error: El tipo de dato ingresado no corresponde a una interface")
                         return Exception("Semántico","El tipo de dato ingresado no corresponde a una interface",self.linea,self.columna)
                     
                 tablaActual = tablaActual.getTablaAnterior()
 
-            return Exception("Semántico","No existe una variable o función con el nombre <"+self.id+">",self.linea,self.columna)
+            return Exception("Semántico","No existe una interface con el nombre <"+self.id+">",self.linea,self.columna)
           
         
 
         #DECLARACION DE VARIABLES DE TIPOS NATIVOS
-        valor = self.valor.interpretar(arbol,tabla)
+     
     
-        if type(valor) == Exception:
-            return
-        
-        if self.tipo == None:
-            if valor==None:
-                self.tipo = DataType.NULL
-            elif type(valor) == int or type(valor) == float:
-                self.tipo = DataType.NUMBER
-            elif type(valor) == str:
-                self.tipo = DataType.STRING
-            elif type(valor) == bool:
-                self.tipo = DataType.BOOLEAN
        
         
-        if self.valor.tipoDato.getTipo() != self.tipo and self.tipo!=DataType.ANY:
+       
+        
+        value = self.valor.compilar(arbol, tabla)
+        if isinstance(value, Exception): return value # Analisis Semantico -> Error
+        # Verificacion de tipos
+        if self.tipo == self.valor.tipoDato.getTipo():
+            #Si el tipo a guardar es un struct o es una interface, inHeap es verdadero pues son tipos de dato que lo utilizan
+            inHeap = value.getTipo().getTipo() == DataType.STRING or value.getTipo() == DataType.INTERFACE
             
-           #Si el valor de la expresion no coincide con el de la variable, se retorna un error
-            return Exception("Semantico","El tipo de dato del valor no coincide con el de la variable",self.linea,self.columna)
+            simbolo = tabla.setDeclaracion(self.id, value.getTipo().getTipo(), inHeap, self.find)
+            if simbolo==None:
+                generador.addComment("Error: Ya existe una variable o función con el nombre <"+self.id+">")
+                generador.addSpace()
+                return Exception("Semántico","Ya existe una variable o función con el nombre <"+self.id+">",self.linea,self.columna)
+            
+
         else:
-          
-            tablaActual = tabla
-            while (tablaActual!=None):
-                busqueda = tablaActual.getSimbolo(self.id)
-               
-                if busqueda!=None:
-                   #Se encontró una variable con ese nombre
-                   return Exception("Semántico","Ya existe una variable o función con ese nombre",self.linea,self.columna)
-                
-              
-                tablaActual = tablaActual.getTablaAnterior()
-             
-          
-            tabla.setValor(self.id,Symbol(self.tipo,self.id,valor,"Variable",tabla.ambito))
+            generador.addComment('Error: Los tipos no concuerdan')
+            generador.addSpace()
+            return Exception("Semantico", "Tipo de dato diferente declarado.", self.fila, self.columna)
+            
+        
+        tempPos = simbolo.posicion
+        if not simbolo.isGlobal:
+            tempPos = generador.addTemp()
+            generador.addExpression(tempPos, 'P', simbolo.pos, '+')
+
+
+        #Valores booleanos
+        if value.getTipo().getTipo() == DataType.BOOLEAN:
+            tempLbl = generador.newLabel()
+            
+            generador.putLabel(value.trueLbl)
+            generador.setStack(tempPos, "1")
+            
+            generador.addGoto(tempLbl)
+
+            generador.putLabel(value.falseLbl)
+            generador.setStack(tempPos, "0")
+
+            generador.putLabel(tempLbl)
+        else:
+            generador.setStack(tempPos, value.value)
+        
+        generador.addComment("Fin de declaracion de variable")
+        generador.addSpace()
 
             
-
 

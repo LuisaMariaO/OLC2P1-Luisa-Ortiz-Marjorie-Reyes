@@ -1,17 +1,22 @@
 from flask import Flask, request
 from flask.json import jsonify
 from os import system
-
 from flask_cors import CORS
+
 import Sintactic
 import SintacticF2
 from src.Interpreter.Symbol.three import Three
 from src.Interpreter.Symbol.symbolTable import SymbolTable
 from src.Interpreter.Exceptions.exception import Exception
+#Fase 2
 from src.Compiler.Symbol.generador import *
+from src.Compiler.Symbol.three import Three as ThreeFase2
+from src.Compiler.Symbol.symbolTable import SymbolTable as TableFase2
+from src.Compiler.Exceptions.exception import Exception as ExceptionFase2
 
 app = Flask(__name__)
 CORS(app)
+
 entrada = ""
 
 @app.route('/')
@@ -22,7 +27,9 @@ def index():
 def parse():
 
     data = request.json
+    global entrada
     entrada = data.get('code')
+    
     
     try:
         instrucciones = Sintactic.parsear(data.get('code'))
@@ -40,33 +47,32 @@ def parse():
     except:
         return jsonify({'ok':False, 'msg':'No es posible analizar la entrada', 'consola':'Error en el servidor :('}), 409
  
-<<<<<<< HEAD
 @app.route('/compile',methods=['POST'])
 def compile():
 
     data = request.json
-    
+    global entrada
+    entrada = data.get('code')
     print(data.get('code'))
     genAux = Generador()
     genAux.cleanAll() #Limpio el código de la ejecución anterior
     generador = genAux.getInstance()
     try:
         instrucciones = SintacticF2.parsear(data.get('code'))
-        ast = Three(instrucciones)
-        tabla = SymbolTable(None,"Global")
+        ast = ThreeFase2(instrucciones)
+        tabla = TableFase2(None,"Global")
         ast.setTablaGlobal = tabla
         
         
-        for instr in instrucciones:
+        for instr in instrucciones[0]:
             result = instr.compilar(ast,tabla)
-            if type(result) == Exception:
+            if type(result) == ExceptionFase2:
                 ast.updateErrores(result)
       
         return jsonify({'ok':True, 'msg':'Data recibida', 'consola':generador.getCode()}),200
     except:
         return jsonify({'ok':False, 'msg':'No es posible analizar la entrada', 'consola':'Error en el servidor :('}), 409
  
-=======
 def graficarErrores(errores):
     Archivo = open("TablaErrores.dot", "w", encoding="UTF-8")
     p1 = '''digraph {
@@ -93,7 +99,6 @@ def graficarErrores(errores):
 
 def GetEntrada():
     return entrada
->>>>>>> 91c646b18a59afc7ffec302a50a737ba4cdb0321
 
 if __name__=='__main__':
     app.run(host='localhost',debug=True)
