@@ -1,9 +1,11 @@
 import re
 import ply.lex as lex
-from main import entrada
+import main
 from src.Interpreter.Exceptions.exception import *
 
+
 erroresLexicos = []
+textoentrada = ""
 
 reservedWords = {
     'null'          : 'NULL',
@@ -33,9 +35,7 @@ reservedWords = {
     'toLowerCase'   : 'TOLOWER',
     'toUpperCase'   : 'TOUPPER',
     'split'         : 'SPLIT',
-    'concat'        : 'CONCAT',
-    'typeOf'        : 'TYPEOF',
-    'length'        : 'LENGTH',
+    'concat'        : 'CONCAT'
 }
 
 tokens = [
@@ -117,16 +117,19 @@ def t_DECIMAL(token):
     try:
         token.value = float(token.value)
     except ValueError:
-        erroresLexicos.append(Exception("Error léxico", "Valor float muy grande %d" + str(token.value), token.lineno, token.lexpos))
+        print("El valor del float es muy grande %d", token.value)
         token.value = 0
     return token
 
 def t_ENTERO(token):
     r'\d+'
     try:
-        token.value = int(token.value)
+        if (token.value != None):
+            token.value = int(token.value)
+        else: 
+            token.value = '0'
     except ValueError:
-        erroresLexicos.append(Exception("Error léxico", "Valor int muy grande %d" + str(token.value), token.lineno, token.lexpos))
+        print("El valor del entero es muy grande %d", token.value)
         token.value = 0
     return token
 
@@ -158,11 +161,15 @@ def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
 
-t_ignore = " \t\r"
+t_ignore = " \t"
 
 def t_error(token):
     print(lexer)
-    erroresLexicos.append(Exception("Error léxico", "Caracter inválido: " + str(token.value[0]), token.lineno, encontrar_columna(entrada, token)))
+    erroresLexicos.append(Exception("Error léxico", "Caracter inválido: " + str(token.value[0]), token.lineno, encontrar_columna(main.entrada, token)))
     token.lexer.skip(1)
+
+def encontrar_columna(entrada, token):
+    inicio = entrada.rfind('\n', 0, token.lexpos) + 1
+    return (token.lexpos - inicio) + 1
 
 lexer = lex.lex(reflags = re.IGNORECASE)
