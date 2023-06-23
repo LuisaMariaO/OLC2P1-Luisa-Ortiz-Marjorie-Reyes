@@ -8,7 +8,10 @@ def Recorrer(array, arbol, tabla):
         if isinstance(element,list):
             Recorrer(element, arbol, tabla)
         else:
-            arr.append(element.interpretar(arbol, tabla))
+            element = element.interpretar(arbol, tabla)
+            if type(element) == Exception:
+                return element
+            arr.append(element)
     return arr
 
 class Nativo(Instruction):
@@ -45,11 +48,15 @@ class Nativo(Instruction):
             
         elif self.tipoDato.getTipo() == DataType.LLAMADA:
             valor = self.valor.interpretar(arbol,tabla)
+            if type(valor) == Exception:
+                return valor
             self.tipoDato = Type(self.valor.tipoDato.getTipo())
-            print(valor)
             return valor
         
         elif self.tipoDato.getTipo() == DataType.VECTOR_ANY or self.tipoDato.getTipo() == DataType.VECTOR_NUMBER or self.tipoDato.getTipo() == DataType.VECTOR_STRING or self.tipoDato.getTipo() == DataType.VECTOR_BOOLEAN:
             self.valor = Recorrer(self.valor, arbol, tabla)
             return self.valor
+        
+        elif self.tipoDato.getTipo() == DataType.NULL:
+            return None
        

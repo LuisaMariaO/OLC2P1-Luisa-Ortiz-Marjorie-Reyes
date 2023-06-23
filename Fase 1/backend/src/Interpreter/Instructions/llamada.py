@@ -42,7 +42,7 @@ class Llamada(Instruction):
                     
                     if tipo==None:
                         tipo = DataType.NULL
-                    simbolos.append(Symbol(tipo,ide,None,"Parametro",nuevaTabla.ambito))
+                    simbolos.append(Symbol(tipo,ide,None,"Parametro",nuevaTabla.ambito,self.linea,self.columna))
 
                 for (simbolo,valor) in zip(simbolos,self.parametros):
                     

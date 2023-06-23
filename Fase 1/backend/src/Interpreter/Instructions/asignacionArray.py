@@ -1,7 +1,6 @@
 from ..Abstract.instruction import Instruction
 from ..Symbol.type import*
 from ..Exceptions.exception import Exception
-from ..Symbol.symbol import Symbol
 
 class AsignacionArray(Instruction):
     def __init__(self,id,posicion,valor,linea,columna):

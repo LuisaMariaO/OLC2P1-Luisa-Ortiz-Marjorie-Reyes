@@ -26,7 +26,11 @@ class Logica(Instruction):
     
     def interpretar(self, arbol, tabla):
         izq = self.izq.interpretar(arbol, tabla)
+        if type(izq) == Exception:
+            return izq
         der = self.der.interpretar(arbol, tabla)
+        if type(der) == Exception:
+            return der
 
         if self.operacion.getTipo() == LogicType.OR:
             if self.izq.tipoDato.getTipo() == DataType.BOOLEAN:

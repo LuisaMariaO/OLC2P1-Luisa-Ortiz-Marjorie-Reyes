@@ -20,6 +20,8 @@ class NativeFunc(Enum):
     UPPER = 5
     SPLIT = 6
     CONCAT = 7
+    TYPEOF = 8
+    LENGTH = 9
 
 class FuncionNativa(Instruction):
     def __init__(self, op, func, parametro, linea, columna):
@@ -30,12 +32,16 @@ class FuncionNativa(Instruction):
     
     def interpretar(self, arbol, tabla):
         op = self.op.interpretar(arbol, tabla)
+        if type(op) == Exception:
+            return op
         
         if self.func.getTipo() == NativeFunc.FIXED:
             if self.op.tipoDato.getTipo() == DataType.NUMBER:
                 self.tipoDato = Type(DataType.NUMBER)
                 if self.parametro != None:
                     p = self.parametro.interpretar(arbol, tabla)
+                    if type(p) == Exception:
+                        return p
                     return round(op, int(p))
                 else:
                     return int(round(op, 0))
@@ -47,6 +53,8 @@ class FuncionNativa(Instruction):
                 self.tipoDato = Type(DataType.NUMBER)
                 if self.parametro != None:
                     p = self.parametro.interpretar(arbol, tabla)
+                    if type(p) == Exception:
+                        return p
                     structure = "." + str(int(p)) + "E"
                     return format(op, str(structure))
                 else:
@@ -87,6 +95,8 @@ class FuncionNativa(Instruction):
                 self.tipoDato = Type(DataType.VECTOR_STRING)
                 if self.parametro != None:
                     p = self.parametro.interpretar(arbol, tabla)
+                    if type(p) == Exception:
+                        return p
                     return op.split(str(p))
                 else:
                     return Exception("Error semántico", "La función 'split' no cuenta con un parámetro obligatorio", self.linea, self.columna)
@@ -97,7 +107,40 @@ class FuncionNativa(Instruction):
             if self.op.tipoDato.getTipo() == DataType.VECTOR_ANY:
                 if self.parametro != None:
                     param = self.parametro.interpretar(arbol, tabla)
+                    if type(param) == Exception:
+                        return param
                     if self.parametro.tipoDato.getTipo() == DataType.VECTOR_ANY:
                         self.tipoDato = Type(DataType.VECTOR_ANY)
                         return op + param
+        
+        elif self.func.getTipo() == NativeFunc.TYPEOF:
+            self.tipoDato = Type(DataType.STRING)
+            if type(op) == str:
+                return "string"
+            elif type(op) == float:
+                return "number"
+            elif type(op) == bool:
+                return "boolean"
+            elif type(op) == int:
+                return "number"
+            elif type(op) == list:
+                return "array"
+            else:
+                return "any"
+        elif self.func.getTipo() == NativeFunc.LENGTH:
+            if self.op.tipoDato.getTipo() == DataType.VECTOR_ANY:
+                if type(op) == list:
+                    self.tipoDato = Type(DataType.NUMBER)
+                    return len(op)
+                else:
+                    return Exception("Error semántico: ", "Tipo de dato no válido para función length",self.linea, self.columna)
+            elif self.op.tipoDato.getTipo() == DataType.STRING:
+                if type(op) == str:
+                    self.tipoDato = Type(DataType.NUMBER)
+                    return len(op)
+                else:
+                    return Exception("Error semántico: ", "Tipo de dato no válido para función length",self.linea, self.columna)
+            else:
+                return Exception("Error semántico: ", "Tipo de dato no válido para función length",self.linea, self.columna)
+                        
 

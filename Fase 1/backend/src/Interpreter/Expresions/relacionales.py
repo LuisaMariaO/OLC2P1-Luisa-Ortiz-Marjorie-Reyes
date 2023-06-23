@@ -29,7 +29,11 @@ class Relacional(Instruction):
     
     def interpretar(self, arbol, tabla):
         izq = self.izq.interpretar(arbol, tabla)
+        if type(izq) == Exception:
+            return izq
         der = self.der.interpretar(arbol, tabla)
+        if type(der) == Exception:
+            return der
         
         if self.operacion.getTipo() == RelationalType.MAYOR:
             if self.izq.tipoDato.getTipo() == DataType.NUMBER:

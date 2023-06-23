@@ -20,7 +20,6 @@ class If(Instruction):
         if type(condition)==Exception: return condition
         if condition:
             tablaNueva = SymbolTable(tabla,"If")
-            print(self.instrucciones)
             for instruccion in self.instrucciones:
                 result=instruccion.interpretar(arbol,tablaNueva)
                 if type(result)==Exception:

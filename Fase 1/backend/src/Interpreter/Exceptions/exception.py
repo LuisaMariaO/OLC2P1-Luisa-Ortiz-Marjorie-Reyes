@@ -6,6 +6,6 @@ class Exception:
         self.linea = linea
         self.columna = columna
 
-    def toString(self):
+    def toString(self, color):
         now = datetime.now()
-        return '<td>' + self.tipo + ": " + self.desc + '</td> \n <td>' + str(self.linea) + '</td> \n <td>' + str(self.columna) + '</td> \n <td>' + now.strftime('%d/%m/%Y, %H:%M:%S') + "</td> \n"
+        return '<td bgcolor=\"' + color + '\">   ' + self.tipo + ": " + self.desc + '</td> \n <td bgcolor=\"' + color + '\">   ' + str(self.linea) + '</td> \n <td bgcolor=\"' + color + '\">   ' + str(self.columna) + '</td> \n <td bgcolor=\"' + color + '\">' + now.strftime('%d/%m/%Y, %H:%M:%S') + "</td> \n"

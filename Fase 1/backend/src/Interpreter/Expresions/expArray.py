@@ -9,10 +9,17 @@ class Array(Instruction):
     
     def interpretar(self, arbol, tabla):
         valor = self.id.interpretar(arbol, tabla)
+        if type(valor) == Exception:
+            return valor
+        
         if type(valor) == list and type(self.position) == list:
             for elem in self.position:
-                if len(valor) > int(elem.interpretar(arbol, tabla)):
-                    valor = valor[int(elem.interpretar(arbol, tabla))]
+                elem = elem.interpretar(arbol, tabla)
+                if type(elem) == Exception:
+                    return elem
+                elem = int(elem)
+                if len(valor) > elem:
+                    valor = valor[elem]
                     if type(valor) != list:
                         break
                 else:
@@ -25,8 +32,12 @@ class Array(Instruction):
                 self.tipoDato = Type(DataType.BOOLEAN)
             elif type(valor) == list:
                 self.tipoDato = Type(DataType.VECTOR_ANY)
-            else:
+            elif type(valor) == None:
+                self.tipoDato = Type(DataType.NULL)
+            elif type(valor) == any:
                 self.tipoDato = Type(DataType.ANY)
+            else:
+                return Exception("Error semántico: ", "Tipo de dato inválido", self.linea, self.columna)
             return valor
         else: 
             return Exception("Error semántico", "Acceso a array inválido", self.linea, self.columna)

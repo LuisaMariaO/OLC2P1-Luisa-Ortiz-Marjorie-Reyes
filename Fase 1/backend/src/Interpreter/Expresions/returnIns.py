@@ -10,6 +10,8 @@ class Return(Instruction):
     def interpretar(self, arbol, tabla):
         if self.valor!=None:
             returnValue = self.valor.interpretar(arbol,tabla)
+            if type(returnValue) == Exception:
+                return returnValue
             self.tipoDato = self.valor.tipoDato
             return returnValue
         else:

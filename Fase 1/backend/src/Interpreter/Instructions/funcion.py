@@ -32,4 +32,4 @@ class Funcion(Instruction):
             tablaActual = tablaActual.getTablaAnterior()
              
 
-        tabla.setValor(self.id,Symbol(self.tipoDato,self.id,self,"Función",tabla.ambito))
+        tabla.setValor(self.id,Symbol(self.tipoDato,self.id,self,"Función",tabla.ambito,self.linea,self.columna))

@@ -28,7 +28,7 @@ class ForRange(Instruction):
             return Exception("Error semántico","Los índices de for deben ser valores numéricos enteros",self.linea,self.columna)
         
         
-        tablaNueva.setValor(self.id,Symbol(self.valorDeclaracion.tipoDato.getTipo(),self.id,valueDec,"Variable local for",tablaNueva.ambito))
+        tablaNueva.setValor(self.id,Symbol(self.valorDeclaracion.tipoDato.getTipo(),self.id,valueDec,"Variable local for",tablaNueva.ambito,self.linea,self.columna))
        
 
         condicionCopy = copy.deepcopy(self.condicion)

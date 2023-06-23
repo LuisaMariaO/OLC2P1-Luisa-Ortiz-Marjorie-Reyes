@@ -30,7 +30,11 @@ class Aritmetica(Instruction):
     
     def interpretar(self, arbol, tabla):
         izq = self.izq.interpretar(arbol, tabla)
+        if type(izq) == Exception:
+            return izq
         der = self.der.interpretar(arbol, tabla)
+        if type(der) == Exception:
+            return der
 
         if self.operacion.getTipo() == AritmeticType.SUMA:
             if self.izq.tipoDato.getTipo() == DataType.NUMBER:
@@ -114,6 +118,17 @@ class Aritmetica(Instruction):
             else: 
                 return Exception("Error semántico", "El operador '%' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
         
+        elif self.operacion.getTipo() == AritmeticType.NEGACION:
+
+            if self.izq.tipoDato.getTipo() == DataType.NUMBER:
+                if self.der.tipoDato.getTipo() == DataType.NUMBER:
+                    self.tipoDato = Type(DataType.NUMBER)
+                    return (-izq)
+                else:
+                    return Exception("Error semántico", "El operador '-' no puede ser aplicado al tipo '" + self.izq.tipoDato.getTipo() + "'", self.linea, self.columna)
+            else: 
+                return Exception("Error semántico", "El operador '-' no puede ser aplicado al tipo '" + self.izq.tipoDato.getTipo() + "'", self.linea, self.columna)
+
         else:
             return Exception("Error semántico", "El operador '" + self.operacion.getTipo() + "' no es válido", self.linea, self.columna)
 

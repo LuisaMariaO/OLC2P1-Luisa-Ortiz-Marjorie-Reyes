@@ -30,54 +30,88 @@ class Declaracion(Instruction):
                                 if atributos.get(atr) ==  valor.tipoDato.getTipo():
                                     atributos[atr] = valorAtr
                                 else:
-                                    return Exception("Error semántico","El valor del atributo '"+atr+"' no concuerda con el tipo asignado",self.linea,self.columna)
+                                    return Exception("Error semántico: ","El valor del atributo '"+atr+"' no concuerda con el tipo asignado",self.linea,self.columna)
                         else:
-                            return Exception("Error semántico","El número de atributos ingresado no es correcto",self.linea,self.columna)
+                            return Exception("Error semántico: ","El número de atributos ingresado no es correcto",self.linea,self.columna)
                         
                         tabla.setValor(self.id,Symbol(self.tipo,self.id,atributos,"variable de tipo interface",tabla.ambito))
                         return
                         #busqueda.setValor(valor)
                 
                     else:
-                        return Exception("Error semántico","El tipo de dato ingresado no corresponde a una interface",self.linea,self.columna)
+                        return Exception("Error semántico: ","El tipo de dato ingresado no corresponde a una interface",self.linea,self.columna)
                     
                 tablaActual = tablaActual.getTablaAnterior()
 
-            return Exception("Error semántico","No existe una variable o función con el nombre '"+self.id+"'",self.linea,self.columna)
-          
-
+            return Exception("Error semántico: ","No existe una variable o función con el nombre '"+self.id+"'",self.linea,self.columna)
+        
+        #DECLARACION DE VARIABLES SIN VALOR Y SIN TIPO DE DATO
+        if self.valor == None:
+            if self.tipo == None:
+                self.valor = ""
+                self.tipo = DataType.ANY
+                tablaActual = tabla
+                while (tablaActual!=None):
+                    busqueda = tablaActual.getSimbolo(self.id)
+                    if busqueda!=None:
+                        return Exception("Error semántico","Ya existe una variable o función con ese nombre '"+self.id+"'",self.linea,self.columna)
+                    tablaActual = tablaActual.getTablaAnterior()
+                valor = self.valor
+                tabla.setValor(self.id,Symbol(self.tipo,self.id,valor,"Variable",tabla.ambito,self.linea,self.columna))
+            else:
+                if self.tipo == DataType.STRING:
+                    self.valor = ""
+                elif self.tipo == DataType.NUMBER:
+                    self.valor = 0.0
+                elif self.tipo == DataType.BOOLEAN:
+                    self.valor = False
+                elif self.tipo == DataType.VECTOR_ANY:
+                    self.valor = []
+                elif self.tipo == DataType.NULL:
+                    self.valor = None
+                elif self.tipo == DataType.ANY:
+                    self.valor = ""
+                else:
+                    return Exception("Error semántico: ","Tipo de dato inválido para declarar variable", self.linea, self.columna)
+                tablaActual = tabla
+                while (tablaActual!=None):
+                    busqueda = tablaActual.getSimbolo(self.id)
+                    if busqueda!=None:
+                        return Exception("Error semántico","Ya existe una variable o función con ese nombre '"+self.id+"'",self.linea,self.columna)
+                    tablaActual = tablaActual.getTablaAnterior()
+                valor = self.valor
+                tabla.setValor(self.id,Symbol(self.tipo,self.id,valor,"Variable",tabla.ambito,self.linea,self.columna))
         #DECLARACION DE VARIABLES DE TIPOS NATIVOS
         #DECLARACION DE VARIABLES DE ARREGLOS
-        valor = self.valor.interpretar(arbol,tabla)
+        else: 
+            valor = self.valor.interpretar(arbol,tabla)
 
-        if type(valor) == Exception:
-            return
-        
-        if self.tipo == None:
-            if valor==None:
-                self.tipo = DataType.NULL
-            elif type(valor) == int or type(valor) == float:
-                self.tipo = DataType.NUMBER
-            elif type(valor) == str:
-                self.tipo = DataType.STRING
-            elif type(valor) == bool:
-                self.tipo = DataType.BOOLEAN
-            elif type(valor) == list:
-                self.tipo = DataType.VECTOR_ANY
+            if type(valor) == Exception:
+                return
+            
+            if self.tipo == None:
+                if valor==None:
+                    self.tipo = DataType.NULL
+                elif type(valor) == int or type(valor) == float:
+                    self.tipo = DataType.NUMBER
+                elif type(valor) == str:
+                    self.tipo = DataType.STRING
+                elif type(valor) == bool:
+                    self.tipo = DataType.BOOLEAN
+                elif type(valor) == list:
+                    self.tipo = DataType.VECTOR_ANY
 
-        if self.valor.tipoDato.getTipo() != self.tipo and self.tipo!=DataType.ANY:
-           #Si el valor de la expresion no coincide con el de la variable, se retorna un error
-            return Exception("Semantico","El tipo de dato del valor no coincide con el de la variable",self.linea,self.columna)
-        else:
-            tablaActual = tabla
-            while (tablaActual!=None):
-                busqueda = tablaActual.getSimbolo(self.id)
-               
-                if busqueda!=None:
-                   #Se encontró una variable con ese nombre
-                   return Exception("Error semántico","Ya existe una variable o función con ese nombre",self.linea,self.columna)
-                tablaActual = tablaActual.getTablaAnterior()
-            tabla.setValor(self.id,Symbol(self.tipo,self.id,valor,"Variable",tabla.ambito))
+            if self.valor.tipoDato.getTipo() != self.tipo and self.tipo!=DataType.ANY:
+            #Si el valor de la expresion no coincide con el de la variable, se retorna un error
+                return Exception("Semantico","El tipo de dato del valor no coincide con el de la variable",self.linea,self.columna)
+            else:
+                tablaActual = tabla
+                while (tablaActual!=None):
+                    busqueda = tablaActual.getSimbolo(self.id)
+                    if busqueda!=None:
+                        return Exception("Error semántico","Ya existe una variable o función con ese nombre '"+self.id+"'",self.linea,self.columna)
+                    tablaActual = tablaActual.getTablaAnterior()
+                tabla.setValor(self.id,Symbol(self.tipo,self.id,valor,"Variable",tabla.ambito,self.linea,self.columna))
 
 
             

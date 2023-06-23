@@ -1,0 +1,27 @@
+digraph {
+            fontname="Arial"
+            label = "Tabla de símbolos"
+            node[shape=none]
+            n1[label=<
+            <table BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">]
+            <tr>
+            <td bgcolor="#512D38"> <font color="white">Nombre </font></td>
+            <td bgcolor="#512D38"> <font color="white">Tipo</font></td>
+            <td bgcolor="#512D38"> <font color="white">Ámbito</font></td>
+            <td bgcolor="#512D38"> <font color="white">Valor</font></td>
+            <td bgcolor="#512D38"> <font color="white">Rol</font></td>
+            <td bgcolor="#512D38"> <font color="white">Fila</font></td>
+            <td bgcolor="#512D38"> <font color="white">Columna</font></td>
+            </tr>
+<tr>
+<td bgcolor="#FFE9F3">   arr   </td>
+<td bgcolor="#FFE9F3">   array   </td>
+<td bgcolor="#FFE9F3">   Global   </td>
+<td bgcolor="#FFE9F3">   [1.0, 2.0, [3.0, 'tres'], 4.0, None, [6.0, False]]   </td>
+<td bgcolor="#FFE9F3">   Variable   </td>
+<td bgcolor="#FFE9F3">   1   </td>
+<td bgcolor="#FFE9F3">   45   </td>
+</tr>
+</table>
+    >]
+    }

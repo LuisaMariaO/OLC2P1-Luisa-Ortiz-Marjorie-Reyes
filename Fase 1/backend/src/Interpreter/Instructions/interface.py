@@ -26,5 +26,5 @@ class Interface(Instruction):
             tablaActual = tablaActual.getTablaAnterior()
              
         
-        tabla.setValor(self.id,Symbol(DataType.INTERFACE,self.id,self,"Interface",tabla.ambito))
+        tabla.setValor(self.id,Symbol(DataType.INTERFACE,self.id,self,"Interface",tabla.ambito,self.linea,self.columna))
         
