@@ -18,6 +18,23 @@ class Imprimir(Instruction):
                 return result
             if expresion.tipoDato.getTipo() == DataType.NUMBER:
                 generador.addPrint('f',result.getValue()) #imprimimos siempre floats porque no se manejan por separado enteros y flotantes
+            elif expresion.tipoDato.getTipo() == DataType.STRING:
+                generador.fPrintString()
+
+                paramTemp = generador.addTemp()
+                generador.addExp(paramTemp,'P',tabla.size,'+')
+                generador.addExp(paramTemp,paramTemp,'1','+')
+                generador.setStack(paramTemp,result.getValue())
+
+                generador.newEnv(tabla.size)
+                generador.callFun('printString')
+
+                temp = generador.addTemp()
+                generador.getStack(temp,'P')
+                generador.retEnv(tabla.size)
+
+        generador.addPrint("c",10)
+                
             
         
         
