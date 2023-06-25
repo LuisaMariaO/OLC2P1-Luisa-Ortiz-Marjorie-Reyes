@@ -23,7 +23,6 @@ class Nativo(Instruction):
         return self.valor
         
     def interpretar(self, arbol, tabla):
-
         if self.tipoDato.getTipo() == DataType.NUMBER:
             return float(self.valor)
         elif self.tipoDato.getTipo() == DataType.STRING:
