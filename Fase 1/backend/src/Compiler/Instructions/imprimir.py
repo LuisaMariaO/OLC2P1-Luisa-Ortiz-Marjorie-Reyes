@@ -32,7 +32,18 @@ class Imprimir(Instruction):
                 temp = generador.addTemp()
                 generador.getStack(temp,'P')
                 generador.retEnv(tabla.size)
+            elif expresion.tipoDato.getTipo() == DataType.BOOLEAN:
+                tempLbl = generador.newLabel()
 
+                generador.putLabel(result.getTrueLbl())
+                generador.printTrue()
+
+                generador.addGoto(tempLbl)
+
+                generador.putLabel(result.getFalseLbl())
+                generador.printFalse()
+
+                generador.putLabel(tempLbl)
         generador.addPrint("c",10)
                 
             

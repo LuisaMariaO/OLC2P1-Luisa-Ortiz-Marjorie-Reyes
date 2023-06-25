@@ -1,6 +1,9 @@
 from enum import Enum
 from ..Abstract.instruction import Instruction
 from ..Symbol.type import *
+from ..Symbol.generador import *
+from ..Abstract.returnF2 import Return
+from ..Exceptions.exception import Exception
 
 class Relational:
     def __init__(self,operacion):
@@ -27,155 +30,50 @@ class Relacional(Instruction):
         self.operacion = operacion
         super().__init__(linea,columna,Type(DataType.INDEFINIDO))
     
-    def interpretar(self, arbol, tabla):
-        izq = self.izq.interpretar(arbol, tabla)
-        der = self.der.interpretar(arbol, tabla)
-        
+    def compilar(self, arbol, tabla):
 
-        if self.operacion.getTipo() == RelationalType.MAYOR:
-            if self.izq.tipoDato.getTipo() == DataType.NUMBER:
-                if self.der.tipoDato.getTipo() == DataType.NUMBER:
-                    self.tipoDato = Type(DataType.BOOLEAN)
-                    return (izq > der)
-                else:
-                    return Exception("Semántico", "El operador '>' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
-            
-            elif self.izq.tipoDato.getTipo() == DataType.STRING:
-                if self.der.tipoDato.getTipo() == DataType.STRING:
-                    self.tipoDato = Type(DataType.BOOLEAN)
-                    return (izq > der)
-                else:
-                    return Exception("Semántico", "El operador '>' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
-                
-            elif self.izq.tipoDato.getTipo() == DataType.BOOLEAN:
-                if self.der.tipoDato.getTipo() == DataType.BOOLEAN:
-                    self.tipoDato = Type(DataType.BOOLEAN)
-                    return (izq > der)
-                else:
-                    return Exception("Semántico", "El operador '>' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
-            else:
-                return Exception("Semántico", "El operador '>' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
-            
-        if self.operacion.getTipo() == RelationalType.MENOR:
-            if self.izq.tipoDato.getTipo() == DataType.NUMBER:
-                if self.der.tipoDato.getTipo() == DataType.NUMBER:
-                   
-                    self.tipoDato = Type(DataType.BOOLEAN)
-                    return (izq < der)
-                else:
-                    return Exception("Semántico", "El operador '<' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
-            
-            elif self.izq.tipoDato.getTipo() == DataType.STRING:
-                if self.der.tipoDato.getTipo() == DataType.STRING:
-                    self.tipoDato = Type(DataType.BOOLEAN)
-                    return (izq < der)
-                else:
-                    return Exception("Semántico", "El operador '<' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
-                
-            elif self.izq.tipoDato.getTipo() == DataType.BOOLEAN:
-                if self.der.tipoDato.getTipo() == DataType.BOOLEAN:
-                    self.tipoDato = Type(DataType.BOOLEAN)
-                    return (izq < der)
-                else:
-                    return Exception("Semántico", "El operador '<' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
-            else:
-                return Exception("Semántico", "El operador '<' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
+        genAux = Generador()
+        generador = genAux.getInstance()
+        generador.addComment("EXPRESION RELACIONAL")
+        izq = self.izq.compilar(arbol, tabla)
+        der = self.der.compilar(arbol, tabla)
         
-        if self.operacion.getTipo() == RelationalType.IGUAL:
-            if self.izq.tipoDato.getTipo() == DataType.NUMBER:
-                if self.der.tipoDato.getTipo() == DataType.NUMBER:
-                    self.tipoDato = Type(DataType.BOOLEAN)
-                    return (izq == der)
-                else:
-                    return Exception("Semántico", "El operador '===' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
-            
-            elif self.izq.tipoDato.getTipo() == DataType.STRING:
-                if self.der.tipoDato.getTipo() == DataType.STRING:
-                    self.tipoDato = Type(DataType.BOOLEAN)
-                    return (izq == der)
-                else:
-                    return Exception("Semántico", "El operador '===' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
-                
-            elif self.izq.tipoDato.getTipo() == DataType.BOOLEAN:
-                if self.der.tipoDato.getTipo() == DataType.BOOLEAN:
-                    self.tipoDato = Type(DataType.BOOLEAN)
-                    return (izq == der)
-                else:
-                    return Exception("Semántico", "El operador '===' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
-            else:
-                return Exception("Semántico", "El operador '===' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
-        
-        if self.operacion.getTipo() == RelationalType.DIFERENTE:
-            if self.izq.tipoDato.getTipo() == DataType.NUMBER:
-                if self.der.tipoDato.getTipo() == DataType.NUMBER:
-                    self.tipoDato = Type(DataType.BOOLEAN)
-                    return (izq != der)
-                else:
-                    return Exception("Semántico", "El operador '!==' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
-            
-            elif self.izq.tipoDato.getTipo() == DataType.STRING:
-                if self.der.tipoDato.getTipo() == DataType.STRING:
-                    self.tipoDato = Type(DataType.BOOLEAN)
-                    return (izq != der)
-                else:
-                    return Exception("Semántico", "El operador '!==' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
-                
-            elif self.izq.tipoDato.getTipo() == DataType.BOOLEAN:
-                if self.der.tipoDato.getTipo() == DataType.BOOLEAN:
-                    self.tipoDato = Type(DataType.BOOLEAN)
-                    return (izq != der)
-                else:
-                    return Exception("Semántico", "El operador '!==' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
-            else:
-                return Exception("Semántico", "El operador '!==' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
-        
-        if self.operacion.getTipo() == RelationalType.MAYORIGUAL:
-            if self.izq.tipoDato.getTipo() == DataType.NUMBER:
-                if self.der.tipoDato.getTipo() == DataType.NUMBER:
-                    self.tipoDato = Type(DataType.BOOLEAN)
-                    return (izq >= der)
-                else:
-                    return Exception("Semántico", "El operador '>=' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
-            
-            elif self.izq.tipoDato.getTipo() == DataType.STRING:
-                if self.der.tipoDato.getTipo() == DataType.STRING:
-                    self.tipoDato = Type(DataType.BOOLEAN)
-                    return (izq >= der)
-                else:
-                    return Exception("Semántico", "El operador '>=' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
-                
-            elif self.izq.tipoDato.getTipo() == DataType.BOOLEAN:
-                if self.der.tipoDato.getTipo() == DataType.BOOLEAN:
-                    self.tipoDato = Type(DataType.BOOLEAN)
-                    return (izq >= der)
-                else:
-                    return Exception("Semántico", "El operador '>=' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
-            else:
-                return Exception("Semántico", "El operador '>=' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
-        
-        if self.operacion.getTipo() == RelationalType.MENORIGUAL:
-            if self.izq.tipoDato.getTipo() == DataType.NUMBER:
-                if self.der.tipoDato.getTipo() == DataType.NUMBER:
-                    self.tipoDato = Type(DataType.BOOLEAN)
-                    return (izq <= der)
-                else:
-                    return Exception("Semántico", "El operador '<=' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
-            
-            elif self.izq.tipoDato.getTipo() == DataType.STRING:
-                if self.der.tipoDato.getTipo() == DataType.STRING:
-                    self.tipoDato = Type(DataType.BOOLEAN)
-                    return (izq <= der)
-                else:
-                    return Exception("Semántico", "El operador '<=' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
-                
-            elif self.izq.tipoDato.getTipo() == DataType.BOOLEAN:
-                if self.der.tipoDato.getTipo() == DataType.BOOLEAN:
-                    self.tipoDato = Type(DataType.BOOLEAN)
-                    return (izq <= der)
-                else:
-                    return Exception("Semántico", "El operador '<=' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
-            else:
-                return Exception("Semántico", "El operador '<=' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
-        
+        result = Return(None,Type(DataType.BOOLEAN),False)
+
+        if self.izq.tipoDato.getTipo() == DataType.NUMBER and self.der.tipoDato.getTipo() == DataType.NUMBER:
+            self.checkLabels()
+            if self.operacion.getTipo() == RelationalType.MAYOR:
+                generador.addIf(izq.getValue(),der.getValue(),'>',self.getTrueLbl())
+            elif self.operacion.getTipo() == RelationalType.MENOR:
+                generador.addIf(izq.getValue(),der.getValue(),'<',self.getTrueLbl())
+            elif self.operacion.getTipo() == RelationalType.MAYORIGUAL:
+                generador.addIf(izq.getValue(),der.getValue(),'>=',self.getTrueLbl())
+            elif self.operacion.getTipo() == RelationalType.MENORIGUAL:
+                generador.addIf(izq.getValue(),der.getValue(),'<=',self.getTrueLbl())
+            elif self.operacion.getTipo() == RelationalType.IGUAL:
+                generador.addIf(izq.getValue(),der.getValue(),'==',self.getTrueLbl())
+            elif self.operacion.getTipo() == RelationalType.DIFERENTE:
+                generador.addIf(izq.getValue(),der.getValue(),'!=',self.getTrueLbl())
+            generador.addGoto(self.getFalseLbl())
+        elif self.izq.tipoDato.getTipo() == DataType.STRING and self.der.tipoDato.getTipo() == DataType.STRING:
+            pass
+            generador.addComment("FIN DE LA EXPRESION RELACIONAL")
+            generador.addSpace()
+            result.setTrueLbl(self.trueLbl)
+            result.setFalseLbl(self.falseLbl)
+            self.tipoDato = Type(DataType.BOOLEAN)
+            return result
         else:
-            return Exception("Semántico", "El operador '" + self.operacion.tipoDato.getTipo() + "' no es válido", self.linea, self.columna)
+            generador.addComment("Error: Solo se permiten operaciones relacionales entre valores numéricos")
+            return Exception("Semántico","Solo se permiten las operaciones relacionales entre valores numéricos",self.linea,self.columna)
+        
+    def checkLabels(self):
+        genAux = Generador()
+        generador = genAux.getInstance()
+
+        if self.trueLbl == '':
+            self.trueLbl = generador.newLabel()
+        if self.falseLbl == '':
+            self.falseLbl = generador.newLabel()
+
+        

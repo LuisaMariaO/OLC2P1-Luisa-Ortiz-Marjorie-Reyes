@@ -17,6 +17,7 @@ class Declaracion(Instruction):
         super().__init__(linea,columna,Type(DataType.INDEFINIDO))
 
     def compilar(self, arbol, tabla):
+        
         genAux = Generador()
         generador = genAux.getInstance()
 

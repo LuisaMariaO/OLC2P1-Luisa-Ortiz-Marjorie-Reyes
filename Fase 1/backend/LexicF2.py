@@ -1,6 +1,6 @@
 import re
 import ply.lex as lex
-import main
+#import main
 from src.Interpreter.Exceptions.exception import *
 
 
@@ -165,7 +165,7 @@ t_ignore = " \t"
 
 def t_error(token):
     print(lexer)
-    erroresLexicos.append(Exception("Error léxico", "Caracter inválido: " + str(token.value[0]), token.lineno, encontrar_columna(main.entrada, token)))
+    #erroresLexicos.append(Exception("Error léxico", "Caracter inválido: " + str(token.value[0]), token.lineno, encontrar_columna(main.entrada, token)))
     token.lexer.skip(1)
 
 def encontrar_columna(entrada, token):

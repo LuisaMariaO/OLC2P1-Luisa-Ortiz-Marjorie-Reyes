@@ -36,12 +36,26 @@ class Nativo(Instruction):
             generador.addComment("Fin de compilacion de acceso")
             generador.addSpace()
 
-            #ret = Return(None,DataType.BOOLEAN,False)
-            #ret.trueLbl = self.trueLbl
-            #ret.falseLbl = self.falseLbl
+            
             self.tipoDato = Type(simbolo.tipo)
-            return Return(temp,simbolo.tipo,True)
+            if simbolo.tipo != DataType.BOOLEAN:
+                return Return(temp,self.tipoDato,True)
+            
+            if self.trueLbl == '':
+                self.trueLbl = generador.newLabel()
+            if self.falseLbl == '':
+                self.falseLbl = generador.newLabel()
 
+            generador.addIf(temp,'1', '==', self.trueLbl)
+            generador.addGoto(self.falseLbl)
+
+            generador.addComment("Fin de compilacion de Acceso")
+            generador.addSpace()
+
+            ret = Return(None, self.tipoDato, True)
+            ret.setTrueLbl(self.trueLbl)
+            ret.setFalseLbl(self.falseLbl)
+            return ret
         elif self.tipoDato.getTipo() == DataType.STRING:
             temporal = generador.addTemp()
             generador.addAsignacion(temporal, 'H') #Le mandamos el heap porque en el stack se va a guardar la posición en donde comienza la cadena, la cual estará almacenada en el heap
@@ -59,4 +73,23 @@ class Nativo(Instruction):
             return Return(str(self.valor),self.tipoDato,False)
         
         elif self.tipoDato.getTipo() == DataType.BOOLEAN:
-            pass
+            if self.trueLbl=='':
+                self.trueLbl=generador.newLabel()
+            if self.falseLbl=='':
+                self.falseLbl=generador.newLabel()
+
+            if self.valor=='true':
+                self.valor=True
+                generador.addGoto(self.trueLbl)
+                generador.addComment("GOTO comodin")
+                generador.addGoto(self.falseLbl)
+            else:
+                self.valor=False
+                generador.addGoto(self.falseLbl)
+                generador.addComment("GOTO comodin")
+                generador.addGoto(self.trueLbl)
+
+            ret = Return(self.valor,self.tipoDato,False)
+            ret.trueLbl = self.trueLbl
+            ret.falseLbl = self.falseLbl
+            return ret

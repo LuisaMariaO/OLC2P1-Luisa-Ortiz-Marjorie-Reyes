@@ -237,12 +237,40 @@ class Generador():
     ######################
     #CONSOLE.LOG
     ######################
-    def addPrint(self,type,value):
+    def addPrint(self,typee,value):
         self.setImport('fmt')
-        self.codeIn(f'fmt.Printf("%{type}",{value});\n') 
+        self.codeIn(f'fmt.Printf("%{typee}", {value});\n')
+        #if type(value)==int:
+        #    self.codeIn(f'fmt.Printf("%{typee}",({value}));\n')
+        #else:
+        #    self.codeIn(f'fmt.Printf("%{typee}",{value});\n') 
         #%d -> entero
         #%c -> caracter
         #%f -> flotante
         #%s -> string
+
+    def printTrue(self):
+        self.setImport('fmt')
+        self.addIdent()
+        self.addPrint("c", 116)
+        self.addIdent()
+        self.addPrint("c", 114)
+        self.addIdent()
+        self.addPrint("c", 117)
+        self.addIdent()
+        self.addPrint("c", 101)
+    
+    def printFalse(self):
+        self.setImport('fmt')
+        self.addIdent()
+        self.addPrint("c", 102)
+        self.addIdent()
+        self.addPrint("c", 97)
+        self.addIdent()
+        self.addPrint("c", 108)
+        self.addIdent()
+        self.addPrint("c", 115)
+        self.addIdent()
+        self.addPrint("c", 101)
 
     
