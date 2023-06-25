@@ -15,11 +15,11 @@ class SymbolTable:
     
     def setTablaAnterior(self,tabla):
         self.tablaAnterior = tabla
-
-    def getTabla(self):
-        return self.tablaActual
     
     def setTabla(self,tabla):
         self.tablaActual = tabla
+
+    def getTabla(self):
+        return self.tablaActual
 
 

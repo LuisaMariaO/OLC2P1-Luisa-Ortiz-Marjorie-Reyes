@@ -26,14 +26,13 @@ def index():
 def parse():
 
     data = request.json
-    entrada = data.get('code')
     
     try:
         instrucciones = Sintactic.parsear(data.get('code'))
        
         ast = Three(instrucciones[0])
         tabla = SymbolTable(None,"Global")
-        ast.setTablaGlobal = tabla
+        ast.setTablaGlobal(tabla)
         
         for instr in ast.getInstrucciones():
             result = instr.interpretar(ast,tabla)
@@ -105,15 +104,16 @@ def graficarTabla(tabla):
             <td bgcolor=\"#512D38\"> <font color="white">Columna</font></td>
             </tr>\n'''
     color = "#FFE9F3"
-    for simbolo in tabla.getTabla():
+    for simbolo in tabla.tablaActual:
+        print(simbolo)
         p1 += "<tr>\n"
-        p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla.getTabla()[simbolo].getIdentificador()) + '   </td>\n'
-        p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla.getTabla()[simbolo].translateTipo()) + '   </td>\n'
-        p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla.getTabla()[simbolo].getAmbito()) + '   </td>\n'
-        p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla.getTabla()[simbolo].getValor()) + '   </td>\n'
-        p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla.getTabla()[simbolo].getRol()) + '   </td>\n'
-        p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla.getTabla()[simbolo].getFila()) + '   </td>\n'
-        p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla.getTabla()[simbolo].getColumna()) + '   </td>\n'
+        p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla.tablaActual[simbolo].getIdentificador()) + '   </td>\n'
+        p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla.tablaActual[simbolo].translateTipo()) + '   </td>\n'
+        p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla.tablaActual[simbolo].getAmbito()) + '   </td>\n'
+        p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla.tablaActual[simbolo].getValor()) + '   </td>\n'
+        p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla.tablaActual[simbolo].getRol()) + '   </td>\n'
+        p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla.tablaActual[simbolo].getFila()) + '   </td>\n'
+        p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla.tablaActual[simbolo].getColumna()) + '   </td>\n'
         p1 += "</tr>\n"
         if color == "#FFE9F3":
             color = "#F4BFDB"

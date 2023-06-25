@@ -161,8 +161,12 @@ def t_newline(t):
 t_ignore = " \t\r"
 
 def t_error(token):
+<<<<<<< HEAD
     print(lexer)
     #erroresLexicos.append(Exception("Error léxico", "Caracter inválido: " + str(token.value[0]), token.lineno, encontrar_columna(entrada, token)))
+=======
+    erroresLexicos.append(Exception("Error léxico", "Caracter inválido: " + str(token.value[0]), token.lineno, token.lexpos))
+>>>>>>> 15effa7b43585a3a1596f241c2a5b1c486575487
     token.lexer.skip(1)
 
 lexer = lex.lex(reflags = re.IGNORECASE)
