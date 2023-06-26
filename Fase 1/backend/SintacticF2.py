@@ -1,6 +1,6 @@
 import ply.yacc as yacc
 import ply.lex as lex
-from LexicF2 import tokens, lexer, erroresLexicos, textoentrada
+from LexicF2 import tokens, lexer, erroresLexicos
 
 from src.Compiler.Expresions.nativo import Nativo
 from src.Compiler.Instructions.imprimir import Imprimir

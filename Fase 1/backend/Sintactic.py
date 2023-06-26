@@ -156,6 +156,7 @@ def p_funciones(t):
     elif t[9] == None:
         t[0] = {"instruc": Funcion(t[2],t[4].get("instruc"),t[7].get("instruc"),t.lineno(1),find_column(entrada, t.lexer)),
             "nodo": Nodo("funcion").setProduccion(["funcion", t[2], "(", t[4].get("nodo"), ")", "{", t[7].get("nodo"), "}"])}
+
 def p_lista_parametros(t):
     'lista_parametros : lista_parametros COMA ID tipar'
     if t[3]!="":
@@ -558,7 +559,12 @@ def p_tipos(t):
             | STRING CORABRE CORCIERRA
             | BOOLEAN CORABRE CORCIERRA
             | ANY CORABRE CORCIERRA
-            | ID CORABRE CORCIERRA''' #Cuando el tipo es el nombre de un struct
+            | ID CORABRE CORCIERRA
+            | NUMBER CORABRE CORCIERRA CORABRE CORCIERRA
+            | STRING CORABRE CORCIERRA CORABRE CORCIERRA
+            | BOOLEAN CORABRE CORCIERRA CORABRE CORCIERRA
+            | ANY CORABRE CORCIERRA CORABRE CORCIERRA
+            | ID CORABRE CORCIERRA CORABRE CORCIERRA''' #Cuando el tipo es el nombre de un struct
     t[0] = {"instruc": t[1],
             "nodo" : Nodo("tipo").setProduccion([t[1], "[", "]"])}
 

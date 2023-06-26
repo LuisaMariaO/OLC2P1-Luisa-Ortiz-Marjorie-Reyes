@@ -8,12 +8,14 @@ class Return(Instruction):
         super().__init__(linea, columna, DataType.INDEFINIDO)
 
     def interpretar(self, arbol, tabla):
+
         if self.valor!=None:
             returnValue = self.valor.interpretar(arbol,tabla)
             if type(returnValue) == Exception:
                 return returnValue
             self.tipoDato = self.valor.tipoDato
-            return returnValue
+            self.valor = returnValue
+            return self
         else:
             self.tipoDato = Type(DataType.NULL)
-            return None
+            return self

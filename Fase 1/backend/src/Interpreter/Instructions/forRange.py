@@ -52,6 +52,8 @@ class ForRange(Instruction):
                     arbol.updateErrores(Exception("Error semántico","La instrucción return no es propia de la instrucción for",self.linea,self.columna))
                     continue
                 result = instruccion.interpretar(arbol,tablaNueva)
+                if isinstance(result, Return):
+                    return result
                 if type(result)==Exception:
                     arbol.updateErrores(result)
             if parar:

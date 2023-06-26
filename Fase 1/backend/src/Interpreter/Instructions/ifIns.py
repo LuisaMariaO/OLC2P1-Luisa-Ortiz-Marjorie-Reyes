@@ -2,6 +2,7 @@ from ..Abstract.instruction import Instruction
 from ..Symbol.type import*
 from ..Exceptions.exception import Exception
 from ..Symbol.symbolTable import *
+from ..Expresions.returnIns import Return
 
 class If(Instruction):
     def __init__(self,condicion,instrucciones,elifIns,elseIns,linea,columna):
@@ -22,6 +23,8 @@ class If(Instruction):
             tablaNueva = SymbolTable(tabla,"If")
             for instruccion in self.instrucciones:
                 result=instruccion.interpretar(arbol,tablaNueva)
+                if isinstance(result, Return):
+                    return result
                 if type(result)==Exception:
                     arbol.updateErrores(result)
         else:
@@ -36,6 +39,8 @@ class If(Instruction):
                         tablaNueva = SymbolTable(tabla,"Else if")
                         for instruccion in ins:
                             result=instruccion.interpretar(arbol,tablaNueva)
+                            if isinstance(result, Return):
+                                return result
                             if type(result)==Exception:
                                 arbol.updateErrores(result)
                         return
@@ -44,6 +49,8 @@ class If(Instruction):
                 tablaNueva = SymbolTable(tabla,"Else")
                 for instruccion in self.elseIns:
                     result=instruccion.interpretar(arbol,tablaNueva)
+                    if isinstance(result, Return):
+                        return result
                     if type(result)==Exception:
                         arbol.updateErrores(result)
 

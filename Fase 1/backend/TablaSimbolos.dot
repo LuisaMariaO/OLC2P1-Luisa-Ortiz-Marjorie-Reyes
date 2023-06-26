@@ -14,31 +14,28 @@ digraph {
             <td bgcolor="#512D38"> <font color="white">Columna</font></td>
             </tr>
 <tr>
-<td bgcolor="#FFE9F3">   vari1   </td>
-<td bgcolor="#FFE9F3">   string   </td>
+<td bgcolor="#FFE9F3">   Actor   </td>
+<td bgcolor="#FFE9F3">   interface   </td>
 <td bgcolor="#FFE9F3">   Global   </td>
-<td bgcolor="#FFE9F3">   hola   </td>
-<td bgcolor="#FFE9F3">   Variable   </td>
-<td bgcolor="#FFE9F3">   4   </td>
-<td bgcolor="#FFE9F3">   4   </td>
+<td bgcolor="#FFE9F3">   Interface   </td>
+<td bgcolor="#FFE9F3">   1   </td>
+<td bgcolor="#FFE9F3">   10   </td>
 </tr>
 <tr>
-<td bgcolor="#F4BFDB">   vari2   </td>
-<td bgcolor="#F4BFDB">   string   </td>
+<td bgcolor="#F4BFDB">   Pelicula   </td>
+<td bgcolor="#F4BFDB">   interface   </td>
 <td bgcolor="#F4BFDB">   Global   </td>
-<td bgcolor="#F4BFDB">   hola   </td>
-<td bgcolor="#F4BFDB">   Variable   </td>
-<td bgcolor="#F4BFDB">   5   </td>
-<td bgcolor="#F4BFDB">   4   </td>
+<td bgcolor="#F4BFDB">   Interface   </td>
+<td bgcolor="#F4BFDB">   6   </td>
+<td bgcolor="#F4BFDB">   10   </td>
 </tr>
 <tr>
-<td bgcolor="#FFE9F3">   vari3   </td>
-<td bgcolor="#FFE9F3">   string   </td>
+<td bgcolor="#FFE9F3">   Contrato   </td>
+<td bgcolor="#FFE9F3">   interface   </td>
 <td bgcolor="#FFE9F3">   Global   </td>
-<td bgcolor="#FFE9F3">   hola   </td>
-<td bgcolor="#FFE9F3">   Variable   </td>
+<td bgcolor="#FFE9F3">   Interface   </td>
+<td bgcolor="#FFE9F3">   11   </td>
 <td bgcolor="#FFE9F3">   6   </td>
-<td bgcolor="#FFE9F3">   8   </td>
 </tr>
 </table>
     >]
