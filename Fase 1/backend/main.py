@@ -71,10 +71,10 @@ def compile():
             result = instr.compilar(ast,tabla)
             if type(result) == ExceptionFase2:
                 ast.updateErrores(result)
-        graficarErrores(ast.getErrores()+instrucciones[1])
-        treeGraph = ast.getTree()
-        graficarArbol(treeGraph)
-        graficarTabla(tabla)
+        #graficarErrores(ast.getErrores()+instrucciones[1])
+        #treeGraph = ast.getTree()
+        #graficarArbol(treeGraph)
+        #graficarTabla(tabla)
         #listToStr = ' '.join([str(elem) for elem in instrucciones])
         return jsonify({'ok':True, 'msg':'Data recibida', 'consola':generador.getCode()}),200
     except:
