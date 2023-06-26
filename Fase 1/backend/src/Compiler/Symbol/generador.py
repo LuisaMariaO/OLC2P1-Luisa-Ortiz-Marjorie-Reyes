@@ -20,7 +20,7 @@ class Generador():
 
         #Lista de nativas
         self.printString = False
-
+        self.compareString = False
         #Lista de imports
         self.imports = []
         self.imports2 = ['fmt','math'] #Imports quemados desde el inicio
@@ -41,7 +41,7 @@ class Generador():
 
         #Lista de nativas
         self.printString = False
-
+        self.compareString = False
         #Lista de imports
         self.imports = []
         self.imports2 = ['fmt','math']
@@ -200,6 +200,64 @@ class Generador():
         self.putLabel(returnLbl)
         self.addEndFunc()
         
+        self.inNatives = False
+
+    #########################
+    #COMPARE STRING
+    #########################
+    def fcompareString(self):
+        if self.compareString:
+            return
+        self.compareString = True
+        self.inNatives = True
+
+        self.addBeginFunc("compareString")
+        # Label para salir de la funcion
+        returnLbl = self.newLabel()
+
+        t2 = self.addTemp()
+        self.addExp(t2, 'P', '1', '+')
+        t3 = self.addTemp()
+        self.getStack(t3, t2)
+        self.addExp(t2,t2,'1', '+')
+        t4 = self.addTemp()
+        self.getStack(t4, t2)
+
+        l1 = self.newLabel()
+        l2 = self.newLabel()
+        l3 = self.newLabel()
+        self.putLabel(l1)
+
+        t5 = self.addTemp()
+        self.addIdent()
+        self.getHeap(t5,t3)
+
+        t6 = self.addTemp()
+        self.addIdent()
+        self.getHeap(t6,t4)
+
+        self.addIdent()
+        self.addIf(t5,t6,'!=', l3)
+        self.addIdent()
+        self.addIf(t5,'-1', '==', l2)
+
+        self.addIdent()
+        self.addExp(t3, t3,'1', '+')
+        self.addIdent()
+        self.addExp(t4, t4,'1','+')
+        self.addIdent()
+        self.addGoto(l1)
+
+        self.putLabel(l2)
+        self.addIdent()
+        self.setStack('P', '1')
+        self.addIdent()
+        self.addGoto(returnLbl)
+        self.putLabel(l3)
+        self.addIdent()
+        self.setStack('P', '0')
+        self.putLabel(returnLbl)
+        self.addEndFunc()
         self.inNatives = False
         
 
