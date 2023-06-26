@@ -56,16 +56,42 @@ class Relacional(Instruction):
                 generador.addIf(izq.getValue(),der.getValue(),'!=',self.getTrueLbl())
             generador.addGoto(self.getFalseLbl())
         elif self.izq.tipoDato.getTipo() == DataType.STRING and self.der.tipoDato.getTipo() == DataType.STRING:
-            pass
-            generador.addComment("FIN DE LA EXPRESION RELACIONAL")
-            generador.addSpace()
-            result.setTrueLbl(self.trueLbl)
-            result.setFalseLbl(self.falseLbl)
-            self.tipoDato = Type(DataType.BOOLEAN)
-            return result
+            if self.operacion.getTipo() == RelationalType.IGUAL or self.operacion.getTipo() == RelationalType.DIFERENTE:
+                generador.fcompareString()
+                paramTemp = generador.addTemp()
+                generador.addExp(paramTemp,'P',tabla.size,'+')
+                generador.addExp(paramTemp,paramTemp,'1','+')
+                generador.setStack(paramTemp,izq.getValue())
+
+                generador.addExp(paramTemp,paramTemp,'1','+')
+                generador.setStack(paramTemp,der.getValue())
+
+                generador.newEnv(tabla.size)
+                generador.callFun('compareString')
+
+                temp = generador.addTemp()
+                generador.getStack(temp,'P')
+                generador.retEnv(tabla.size)
+
+                self.checkLabels()
+                generador.addIf(temp,self.getNum(),"==",self.getTrueLbl()) #La operación se hará siempre con igual, si es un '===' se compara con true y si es '!=' con false
+                generador.addGoto(self.getFalseLbl()) 
+
+               
+            else:
+                generador.addComment("Error: Operación relacional incompatible con el tipo de dato string")
+                return Exception("Semántico","Operación relacional incompatible con el tipo de dato string",self.linea,self.columna)
+            
         else:
-            generador.addComment("Error: Solo se permiten operaciones relacionales entre valores numéricos")
-            return Exception("Semántico","Solo se permiten las operaciones relacionales entre valores numéricos",self.linea,self.columna)
+            generador.addComment("Error: Operación relacional incompatible con el tipo de dato")
+            return Exception("Semántico","Operación relacional incompatible con el tipo de dato",self.linea,self.columna)
+        
+        generador.addComment("FIN DE LA EXPRESION RELACIONAL")
+        generador.addSpace()
+        result.setTrueLbl(self.trueLbl)
+        result.setFalseLbl(self.falseLbl)
+        self.tipoDato = Type(DataType.BOOLEAN)
+        return result   
         
     def checkLabels(self):
         genAux = Generador()
@@ -75,5 +101,11 @@ class Relacional(Instruction):
             self.trueLbl = generador.newLabel()
         if self.falseLbl == '':
             self.falseLbl = generador.newLabel()
+
+    def getNum(self):
+        if self.operacion.getTipo()==RelationalType.IGUAL:
+            return '1'
+        if self.operacion.getTipo()==RelationalType.DIFERENTE:
+            return '0'
 
         
