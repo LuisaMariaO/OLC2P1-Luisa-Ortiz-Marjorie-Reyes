@@ -11,6 +11,69 @@ digraph {
             <td bgcolor="#342E37"> <font color="white"> Columna </font> </td>
             <td bgcolor="#342E37"> <font color="white"> Fecha y hora </font> </td>
             </tr>
+<tr>
+<td bgcolor="#BCF4F5">1</td>
+<td bgcolor="#BCF4F5">   Error semántico: Ya existe una variable o función con ese nombre 'output'</td> 
+ <td bgcolor="#BCF4F5">   279</td> 
+ <td bgcolor="#BCF4F5">   21</td> 
+ <td bgcolor="#BCF4F5">27/06/2023, 07:53:23</td> 
+</tr>
+<tr>
+<td bgcolor="#A4CCF4">2</td>
+<td bgcolor="#A4CCF4">   Error semántico: Ya existe una variable o función con ese nombre 'output'</td> 
+ <td bgcolor="#A4CCF4">   279</td> 
+ <td bgcolor="#A4CCF4">   21</td> 
+ <td bgcolor="#A4CCF4">27/06/2023, 07:53:23</td> 
+</tr>
+<tr>
+<td bgcolor="#BCF4F5">3</td>
+<td bgcolor="#BCF4F5">   Error semántico: Ya existe una variable o función con ese nombre 'output'</td> 
+ <td bgcolor="#BCF4F5">   279</td> 
+ <td bgcolor="#BCF4F5">   21</td> 
+ <td bgcolor="#BCF4F5">27/06/2023, 07:53:23</td> 
+</tr>
+<tr>
+<td bgcolor="#A4CCF4">4</td>
+<td bgcolor="#A4CCF4">   Error semántico: Ya existe una variable o función con ese nombre 'output'</td> 
+ <td bgcolor="#A4CCF4">   279</td> 
+ <td bgcolor="#A4CCF4">   21</td> 
+ <td bgcolor="#A4CCF4">27/06/2023, 07:53:23</td> 
+</tr>
+<tr>
+<td bgcolor="#BCF4F5">5</td>
+<td bgcolor="#BCF4F5">   Error semántico: Ya existe una variable o función con ese nombre 'output'</td> 
+ <td bgcolor="#BCF4F5">   279</td> 
+ <td bgcolor="#BCF4F5">   21</td> 
+ <td bgcolor="#BCF4F5">27/06/2023, 07:53:23</td> 
+</tr>
+<tr>
+<td bgcolor="#A4CCF4">6</td>
+<td bgcolor="#A4CCF4">   Error semántico: Ya existe una variable o función con ese nombre 'output'</td> 
+ <td bgcolor="#A4CCF4">   279</td> 
+ <td bgcolor="#A4CCF4">   21</td> 
+ <td bgcolor="#A4CCF4">27/06/2023, 07:53:23</td> 
+</tr>
+<tr>
+<td bgcolor="#BCF4F5">7</td>
+<td bgcolor="#BCF4F5">   Error semántico: Ya existe una variable o función con ese nombre 'output'</td> 
+ <td bgcolor="#BCF4F5">   279</td> 
+ <td bgcolor="#BCF4F5">   21</td> 
+ <td bgcolor="#BCF4F5">27/06/2023, 07:53:23</td> 
+</tr>
+<tr>
+<td bgcolor="#A4CCF4">8</td>
+<td bgcolor="#A4CCF4">   Error semántico: Ya existe una variable o función con ese nombre 'output'</td> 
+ <td bgcolor="#A4CCF4">   279</td> 
+ <td bgcolor="#A4CCF4">   21</td> 
+ <td bgcolor="#A4CCF4">27/06/2023, 07:53:23</td> 
+</tr>
+<tr>
+<td bgcolor="#BCF4F5">9</td>
+<td bgcolor="#BCF4F5">   Error semántico: Ya existe una variable o función con ese nombre 'output'</td> 
+ <td bgcolor="#BCF4F5">   279</td> 
+ <td bgcolor="#BCF4F5">   21</td> 
+ <td bgcolor="#BCF4F5">27/06/2023, 07:53:23</td> 
+</tr>
 </table>
     >]
     }
