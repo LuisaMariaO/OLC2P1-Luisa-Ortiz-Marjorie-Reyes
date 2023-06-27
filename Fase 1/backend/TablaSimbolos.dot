@@ -14,28 +14,94 @@ digraph {
             <td bgcolor="#512D38"> <font color="white">Columna</font></td>
             </tr>
 <tr>
-<td bgcolor="#FFE9F3">   ackerman   </td>
-<td bgcolor="#FFE9F3">   None   </td>
+<td bgcolor="#FFE9F3">   val1   </td>
+<td bgcolor="#FFE9F3">   number   </td>
 <td bgcolor="#FFE9F3">   Global   </td>
-<td bgcolor="#FFE9F3">   Función   </td>
-<td bgcolor="#FFE9F3">   262   </td>
-<td bgcolor="#FFE9F3">   9   </td>
+<td bgcolor="#FFE9F3">   -80.0   </td>
+<td bgcolor="#FFE9F3">   Variable   </td>
+<td bgcolor="#FFE9F3">   1   </td>
+<td bgcolor="#FFE9F3">   21   </td>
 </tr>
 <tr>
-<td bgcolor="#F4BFDB">   hanoi   </td>
-<td bgcolor="#F4BFDB">   None   </td>
+<td bgcolor="#F4BFDB">   val2   </td>
+<td bgcolor="#F4BFDB">   number   </td>
 <td bgcolor="#F4BFDB">   Global   </td>
-<td bgcolor="#F4BFDB">   Función   </td>
-<td bgcolor="#F4BFDB">   272   </td>
-<td bgcolor="#F4BFDB">   9   </td>
+<td bgcolor="#F4BFDB">   22.0   </td>
+<td bgcolor="#F4BFDB">   Variable   </td>
+<td bgcolor="#F4BFDB">   2   </td>
+<td bgcolor="#F4BFDB">   22   </td>
 </tr>
 <tr>
-<td bgcolor="#FFE9F3">   factorial   </td>
-<td bgcolor="#FFE9F3">   None   </td>
+<td bgcolor="#FFE9F3">   val3   </td>
+<td bgcolor="#FFE9F3">   number   </td>
 <td bgcolor="#FFE9F3">   Global   </td>
-<td bgcolor="#FFE9F3">   Función   </td>
-<td bgcolor="#FFE9F3">   282   </td>
-<td bgcolor="#FFE9F3">   8   </td>
+<td bgcolor="#FFE9F3">   5.515652263101987e+216   </td>
+<td bgcolor="#FFE9F3">   Variable   </td>
+<td bgcolor="#FFE9F3">   3   </td>
+<td bgcolor="#FFE9F3">   29   </td>
+</tr>
+<tr>
+<td bgcolor="#F4BFDB">   rel1   </td>
+<td bgcolor="#F4BFDB">   boolean   </td>
+<td bgcolor="#F4BFDB">   Global   </td>
+<td bgcolor="#F4BFDB">   True   </td>
+<td bgcolor="#F4BFDB">   Variable   </td>
+<td bgcolor="#F4BFDB">   16   </td>
+<td bgcolor="#F4BFDB">   104   </td>
+</tr>
+<tr>
+<td bgcolor="#FFE9F3">   rel2   </td>
+<td bgcolor="#FFE9F3">   boolean   </td>
+<td bgcolor="#FFE9F3">   Global   </td>
+<td bgcolor="#FFE9F3">   True   </td>
+<td bgcolor="#FFE9F3">   Variable   </td>
+<td bgcolor="#FFE9F3">   17   </td>
+<td bgcolor="#FFE9F3">   39   </td>
+</tr>
+<tr>
+<td bgcolor="#F4BFDB">   rel3   </td>
+<td bgcolor="#F4BFDB">   boolean   </td>
+<td bgcolor="#F4BFDB">   Global   </td>
+<td bgcolor="#F4BFDB">   True   </td>
+<td bgcolor="#F4BFDB">   Variable   </td>
+<td bgcolor="#F4BFDB">   18   </td>
+<td bgcolor="#F4BFDB">   89   </td>
+</tr>
+<tr>
+<td bgcolor="#FFE9F3">   despedida   </td>
+<td bgcolor="#FFE9F3">   string   </td>
+<td bgcolor="#FFE9F3">   Global   </td>
+<td bgcolor="#FFE9F3">   Adios mundo :c   </td>
+<td bgcolor="#FFE9F3">   Variable   </td>
+<td bgcolor="#FFE9F3">   24   </td>
+<td bgcolor="#FFE9F3">   34   </td>
+</tr>
+<tr>
+<td bgcolor="#F4BFDB">   saludo   </td>
+<td bgcolor="#F4BFDB">   string   </td>
+<td bgcolor="#F4BFDB">   Global   </td>
+<td bgcolor="#F4BFDB">   Hola Mundo!    </td>
+<td bgcolor="#F4BFDB">   Variable   </td>
+<td bgcolor="#F4BFDB">   25   </td>
+<td bgcolor="#F4BFDB">   36   </td>
+</tr>
+<tr>
+<td bgcolor="#FFE9F3">   aprox_1   </td>
+<td bgcolor="#FFE9F3">   number   </td>
+<td bgcolor="#FFE9F3">   Global   </td>
+<td bgcolor="#FFE9F3">   3.141516   </td>
+<td bgcolor="#FFE9F3">   Variable   </td>
+<td bgcolor="#FFE9F3">   30   </td>
+<td bgcolor="#FFE9F3">   24   </td>
+</tr>
+<tr>
+<td bgcolor="#F4BFDB">   carnet   </td>
+<td bgcolor="#F4BFDB">   string   </td>
+<td bgcolor="#F4BFDB">   Global   </td>
+<td bgcolor="#F4BFDB">   201903865   </td>
+<td bgcolor="#F4BFDB">   Variable   </td>
+<td bgcolor="#F4BFDB">   32   </td>
+<td bgcolor="#F4BFDB">   33   </td>
 </tr>
 </table>
     >]

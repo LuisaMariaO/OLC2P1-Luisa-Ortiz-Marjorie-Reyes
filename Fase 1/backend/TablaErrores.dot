@@ -1,0 +1,16 @@
+digraph {
+            fontname="Arial"
+            label = "Tabla de errores"
+            node[shape=none]
+            n1[label=<
+            <table BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">]
+            <tr>
+            <td bgcolor="#342E37"> <font color="white"> No. </font> </td>
+            <td bgcolor="#342E37"> <font color="white"> Descripción </font> </td>
+            <td bgcolor="#342E37"> <font color="white"> Linea </font> </td>
+            <td bgcolor="#342E37"> <font color="white"> Columna </font> </td>
+            <td bgcolor="#342E37"> <font color="white"> Fecha y hora </font> </td>
+            </tr>
+</table>
+    >]
+    }

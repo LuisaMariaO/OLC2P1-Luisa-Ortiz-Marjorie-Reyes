@@ -33,7 +33,6 @@ class ForOf(Instruction):
             #Se va a ir actualizando el tipo de dato del simbolo de la tabla en cada iteracion
             simbolo = tablaNueva.getSimbolo(self.id)
             simbolo.setValor(valueIterate[0])
-            print(type(valueIterate[0]))
             if type(valueIterate[0])==int or type(valueIterate[0])==float:
                 simbolo.setTipo(DataType.NUMBER)
             elif type(valueIterate[0])==str:

@@ -37,8 +37,6 @@ class AsignacionAtributo(Instruction):
                 #Se encontró la interfaz
                
                 if tipo.getParametros().get(self.atributo)==self.valor.tipoDato.getTipo():
-                    #Asigno el nuevo valor
-                    print(variable.getValor())
                     variable.getValor()[self.atributo] = valor
                     
                     return

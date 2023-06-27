@@ -8,6 +8,7 @@ import SintacticF2
 from src.Interpreter.Symbol.three import Three
 from src.Interpreter.Symbol.symbolTable import SymbolTable
 from src.Interpreter.Exceptions.exception import Exception
+from src.Interpreter.Instructions.funcion import Funcion
 #Fase 2
 from src.Compiler.Symbol.generador import *
 from src.Compiler.Symbol.three import Three as ThreeFase2
@@ -38,10 +39,10 @@ def parse():
             result = instr.interpretar(ast,tabla)
             if type(result) == Exception:
                 ast.updateErrores(result)
-        #graficarErrores(ast.getErrores()+instrucciones[1])
-        #treeGraph = ast.getTree()
-        #graficarArbol(treeGraph)
-        graficarTabla(tabla)
+        graficarErrores(ast.getErrores()+instrucciones[1])
+        treeGraph = ast.getTree()
+        graficarArbol(treeGraph)
+        graficarTabla(ast.getTablaGlobal())
        # listToStr = ' '.join([str(elem) for elem in instrucciones])
         return jsonify({'ok':True, 'msg':'Data recibida', 'consola':ast.getConsola()}),200
     except:
@@ -59,8 +60,6 @@ def compile():
 
     
     try:
-
-       
         instrucciones = SintacticF2.parsear(data.get('code'))
         ast = ThreeFase2(instrucciones[0])
         tabla = TableFase2(None,"Global")
@@ -109,7 +108,10 @@ def graficarTabla(tabla):
         p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla.tablaActual[simbolo].getIdentificador()) + '   </td>\n'
         p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla.tablaActual[simbolo].translateTipo()) + '   </td>\n'
         p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla.tablaActual[simbolo].getAmbito()) + '   </td>\n'
-        #sp1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla.tablaActual[simbolo].getValor()) + '   </td>\n'
+        if isinstance(tabla.tablaActual[simbolo].getValor(), Funcion):
+            p1 += '<td bgcolor=\"' + color + '\">       </td>\n'
+        else:
+            p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla.tablaActual[simbolo].getValor()) + '   </td>\n'
         p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla.tablaActual[simbolo].getRol()) + '   </td>\n'
         p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla.tablaActual[simbolo].getFila()) + '   </td>\n'
         p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla.tablaActual[simbolo].getColumna()) + '   </td>\n'

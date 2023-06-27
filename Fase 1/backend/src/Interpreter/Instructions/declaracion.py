@@ -12,7 +12,9 @@ class Declaracion(Instruction):
         super().__init__(linea,columna,Type(DataType.INDEFINIDO))
 
     def interpretar(self, arbol, tabla):
-        valor = self.valor.interpretar(arbol,tabla)
+        valor = self.valor
+        if self.valor != None:
+            valor = self.valor.interpretar(arbol,tabla)
         #DECLARACION DE VARIABLES DE TIPO INTERFACE
         if type(self.tipo)==str:
             tablaActual = tabla
