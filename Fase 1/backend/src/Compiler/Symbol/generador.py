@@ -152,9 +152,10 @@ class Generador():
         self.codeIn(f'func {id}(){{\n')
 
     def addEndFunc(self):
+        self.codeIn('}\n')
         if not self.inNatives:
             self.inFunc=False
-        self.codeIn('}\n')
+        
 
     ####################
     #NATIVAS

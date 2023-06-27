@@ -1,6 +1,9 @@
 from enum import Enum
 from ..Abstract.instruction import Instruction
 from ..Symbol.type import *
+from ..Symbol.generador import Generador
+from ..Exceptions.exception import Exception
+from ..Abstract.returnF2 import Return
 
 class Logic:
     def __init__(self,operacion):
@@ -24,39 +27,65 @@ class Logica(Instruction):
         self.operacion = operacion
         super().__init__(linea,columna,Type(DataType.INDEFINIDO))
     
-    def interpretar(self, arbol, tabla):
-        izq = self.izq.interpretar(arbol, tabla)
-        der = self.der.interpretar(arbol, tabla)
+    def compilar(self, arbol, tabla):
+        genAux = Generador()
+        generador = genAux.getInstance()
+        generador.addComment("EXPRESION LOGICA")
+       
 
-        if self.operacion.getTipo() == LogicType.OR:
-            if self.izq.tipoDato.getTipo() == DataType.BOOLEAN:
-                if self.der.tipoDato.getTipo() == DataType.BOOLEAN:
-                    self.tipoDato = Type(DataType.BOOLEAN)
-                    return (izq or der)
-                else: 
-                    return Exception("Semántico", "El operador '||' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
-            else:
-                return Exception("Semántico", "El operador '||' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
-                
-        elif self.operacion.getTipo() == LogicType.AND:
-            if self.izq.tipoDato.getTipo() == DataType.BOOLEAN:
-                if self.der.tipoDato.getTipo() == DataType.BOOLEAN:
-                    self.tipoDato = Type(DataType.BOOLEAN)
-                    return (izq and der)
-                else: 
-                    return Exception("Semántico", "El operador '&&' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
-            else:
-                return Exception("Semántico", "El operador '&&' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
+        self.checkLabels()
+        lblAndOr = ''
+
+        if self.operacion.getTipo() == LogicType.AND:
+            lblAndOr = generador.newLabel()
+
+            self.izq.setTrueLbl(lblAndOr)
+            self.der.setTrueLbl(self.trueLbl)
+            self.izq.falseLbl = self.der.falseLbl = self.falseLbl
+
+        elif self.operacion.getTipo() == LogicType.OR:
+            self.izq.setTrueLbl(self.trueLbl)
+            self.der.setTrueLbl(self.trueLbl)
+
+            lblAndOr = generador.newLabel()
+
+            self.izq.setFalseLbl(lblAndOr)
+            self.der.setFalseLbl(self.falseLbl)
 
         elif self.operacion.getTipo() == LogicType.NOT:
-            if self.izq.tipoDato.getTipo() == DataType.BOOLEAN:
-                if self.der.tipoDato.getTipo() == DataType.BOOLEAN:
-                    self.tipoDato = Type(DataType.BOOLEAN)
-                    return (not izq)
-                else: 
-                    return Exception("Semántico", "El operador '!' no puede ser aplicado al tipo '" + self.izq.tipoDato.getTipo() + "'", self.linea, self.columna)
-            else:
-                return Exception("Semántico", "El operador '!' no puede ser aplicado al tipo '" + self.izq.tipoDato.getTipo() + "'", self.linea, self.columna)
-            
-        else:
-            return Exception("Semántico", "El operador '" + self.operacion.getTipo() + "' no es válido", self.linea, self.columna)
+            self.izq.setFalseLbl(self.trueLbl)
+            self.izq.setTrueLbl(self.falseLbl)
+            lblNot =  self.izq.compilar(arbol,tabla)
+
+            lblTrue = lblNot.getTrueLbl()
+            lblFalse = lblNot.getFalseLbl()
+            lblNot.setTrueLbl(lblFalse)
+            lblNot.setFalseLbl(lblTrue)
+
+            self.tipoDato = Type(DataType.BOOLEAN)
+            return lblNot
+        
+        izq = self.izq.compilar(arbol,tabla)
+        if isinstance(izq,Exception): return izq
+        generador.putLabel(lblAndOr)
+
+        der = self.der.compilar(arbol,tabla)
+        if isinstance(der,Exception) : return der
+        
+        generador.addComment("FIN DE LA EXPRESION LOGICA")
+        generador.addSpace()
+
+        ret = Return(None,Type(DataType.BOOLEAN),False)
+        ret.setTrueLbl(self.trueLbl)
+        ret.setFalseLbl(self.falseLbl)
+        self.tipoDato = Type(DataType.BOOLEAN)
+        return ret
+
+    def checkLabels(self):
+        genAux = Generador()
+        generador = genAux.getInstance()
+
+        if self.trueLbl == '':
+            self.trueLbl = generador.newLabel()
+        if self.falseLbl == '':
+            self.falseLbl = generador.newLabel()

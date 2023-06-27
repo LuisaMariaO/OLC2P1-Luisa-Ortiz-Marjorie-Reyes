@@ -4,6 +4,7 @@ class Three:
         self.errores = []
         self.consola = ""
         self.tablaGlobal = None
+        self.funciones = {}
 
     def getConsola(self):
         return self.consola
@@ -34,3 +35,19 @@ class Three:
     
     def setTablaGlobal(self,tabla):
         self.tablaGlobal = tabla
+
+    def getFunciones(self):
+        return self.funciones
+    
+    def setFunciones(self, id, function):
+        if id in self.funciones.keys():
+            return 'error'
+        else:
+            self.funciones[id] = function
+
+    def getFuncion(self, ide):
+        actual = self
+        if actual!=None:
+            if ide in actual.funciones.keys():
+                return actual.funciones[ide]
+        return None

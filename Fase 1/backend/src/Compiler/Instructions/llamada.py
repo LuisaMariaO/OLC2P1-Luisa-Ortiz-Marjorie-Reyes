@@ -7,78 +7,116 @@ import copy
 from ..Expresions.returnIns import *
 from ..Instructions.breakIns import *
 from ..Instructions.continueIns import *
+from ..Symbol.generador import Generador
+from ..Exceptions.exception import Exception
+from ..Abstract.returnF2 import Return as Return2
+from ..Expresions.returnIns import Return
+
 
 class Llamada(Instruction):
     def __init__(self,id,parametros,linea,columna):
         self.id = id
         self.parametros = parametros
+        self.trueLbl = ''
+        self.falseLbl = ''
         super().__init__(linea,columna,Type(DataType.INDEFINIDO))
 
-    def interpretar(self, arbol, tabla):
-   
-        tablaActual = tabla
-        while (tablaActual!=None):
-            busqueda = tablaActual.getSimbolo(self.id)
-           
-            if busqueda!=None:
-                #Se encontró una función con ese nombre
-                simbolo = tablaActual.getSimbolo(self.id)
-                funcion = copy.deepcopy(simbolo.valor)
-               
-                parametrosDeclaracion = funcion.getParametros()
-                
-                instrucciones = funcion.getInstrucciones()
-                
-                #Acá comparo la longitud de las listas de parametros
-                if len(parametrosDeclaracion) != len(self.parametros):
-                    return Exception("Semántico","El número de parámetros recibidos no coincide con la función declarada",self.linea,self.columna)
-                
-                nuevaTabla = SymbolTable(tabla,"Función "+self.id)
-                
-                #Itero los parámetros de declaración y los recibidos para declarar las variables locales
-         
-                simbolos = []
-                for ide,tipo in parametrosDeclaracion.items():
-                    
-                    if tipo==None:
-                        tipo = DataType.NULL
-                    simbolos.append(Symbol(tipo,ide,None,"Parametro",nuevaTabla.ambito))
+    def compilar(self, arbol, tabla):
 
-                for (simbolo,valor) in zip(simbolos,self.parametros):
-                    
-                    nuevoValor = valor.interpretar(arbol,tabla)
-                    
-                    if valor.tipoDato.getTipo() == simbolo.getTipo():
-                        simbolo.setValor(nuevoValor)
-                        
-                        nuevaTabla.setValor(simbolo.identificador,simbolo)
+        genAux = Generador()
+        generador = genAux.getInstance()
+        funcion = arbol.getFuncion(self.id)
+       
+
+        if funcion != None:
+            generador.addComment(f'Llamada a la funcion {self.id}')
+            paramValues = []
+            temps = []
+            size = tabla.size
+
+            for parametros in self.parametros:
+                if isinstance(parametros, Llamada):
+                    self.guardarTemps(generador, tabla, temps)
+                    a = parametros.compilar(arbol, tabla)
+                    if isinstance(a, Exception): return a
+                    paramValues.append(a)
+                    self.recuperarTemps(generador, tabla, temps)
+                else:
+                    value = parametros.compilar(arbol, tabla)
+                    if isinstance(value, Exception):
+                        return value
+                    paramValues.append(value)
+                    temps.append(value.getValue())
+            
+            temp = generador.addTemp()
+
+            generador.addExp(temp,'P',size+1, '+')
+            aux = 0
+            if len(funcion.getParams()) == len(paramValues):
+                for param in paramValues:
+                    if list(funcion.parametros.values())[aux] == param.getTipo().getTipo():
+                        aux += 1
+                        generador.setStack(temp,param.getValue())
+                        if aux != len(paramValues):
+                            generador.addExp(temp,temp,1,'+')
                     else:
-                        return Exception("Semántico","No coinciden los tipos de los parámetros",self.linea,self.columna)
-                    
-                
-                for instruccion in instrucciones:
-                    
-                    
-                    if isinstance(instruccion,Break):
-                       
-                        arbol.updateErrores(Exception("Semántico","La instrucción break no es propia de las funciones",self.linea,self.columna))
-                        continue
-                    if isinstance(instruccion,Continue):
-                        arbol.updateErrores(Exception("Semántico","La instrucción continue no es propia de las funciones",self.linea,self.columna))
-                        continue
-                    
-                    returnValue = instruccion.interpretar(arbol, nuevaTabla)
-                    
-                    if type(instruccion)== Return or type(returnValue)==Return:
-                        
-                        self.tipoDato = instruccion.tipoDato
-                        return returnValue
-                    if type(returnValue)==Exception:
-                        arbol.updateErrores(returnValue)
-                return None
-                
-            tablaActual = tablaActual.getTablaAnterior()
+                        generador.addComment(f'Fin de la llamada a la funcion {self.id} por error, consulte la lista de errores')
+                        return Exception("Semantico", f"El tipo de dato de los parametros no coincide con la funcion {self.id}", self.linea, self.columna)
 
-        return Exception("Semántico","No se encontró la función <"+self.id,self.linea,self.columna)
+            generador.newEnv(size)
+            self.getFuncion(generator=generador) # Sirve para llamar a una funcion nativa
+            generador.callFun(funcion.id)
+            generador.getStack(temp,'P')
+            generador.retEnv(size)
+            generador.addComment(f'Fin de la llamada a la funcion {self.id}')
+            generador.addSpace()
+            self.tipoDato = funcion.getTipo()
+            if funcion.getTipo() != DataType.BOOLEAN:
 
+                return Return2(temp, funcion.getTipo(), True)
+            else:
+                generador.addComment('Recuperacion de booleano')
+                if self.trueLbl == '':
+                    self.trueLbl = generador.newLabel()
+                if self.falseLbl == '':
+                    self.falseLbl = generador.newLabel()
+                generador.addIf(temp,1,'==',self.trueLbl)
+                generador.addGoto(self.falseLbl)
+                ret = Return(temp, funcion.getTipo(), True)
+                ret.trueLbl = self.trueLbl
+                ret.falseLbl = self.falseLbl
+                generador.addComment('Fin de recuperacion de booleano')
+                return ret
+
+    def guardarTemps(self, generador, tabla, tmp2):
+        generador.addComment('Guardando temporales')
+        tmp = generador.addTemp()
+        for tmp1 in tmp2:
+            generador.addExp(tmp, 'P', tabla.size, '+')
+            generador.setStack(tmp, tmp1)
+            tabla.size += 1
+        generador.addComment('Fin de guardado de temporales')
+    
+    def recuperarTemps(self, generador, tabla, tmp2):
+        generador.addComment('Recuperando temporales')
+        tmp = generador.addTemp()
+        for tmp1 in tmp2:
+            tabla.size -= 1
+            generador.addExp(tmp, 'P', tabla.size, '+')
+            generador.getStack(tmp1, tmp)
+        generador.addComment('Fin de recuperacion de temporales')
+
+    def getFuncion(self, generator):
+        if self.id == 'length':
+            generator.fLength()
+        elif self.id == 'trunc':
+            generator.fTrunc()
+        elif self.id == 'float':
+            generator.fFloat()
+        elif self.id == 'uppercase':
+            generator.fUpperCase()
+        elif self.id == 'lowercase':
+            generator.fLowerCase()
+        return
+        
         

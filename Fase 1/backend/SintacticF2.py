@@ -131,7 +131,7 @@ def p_parametro(t):
 
 def p_parametro_vacio(t):
     'lista_parametros :'
-    t[0] = []
+    t[0] = {}
 
 def p_retorno(t):
     '''retorno : RETURN valor_retorno puntoycoma'''
@@ -473,7 +473,7 @@ def p_tipo_struct(t):
 
 def p_expresion_llamada(t):
     'expresion : llamada'
-    t[0] = Nativo(Type(DataType.LLAMADA),t[1],t.lineno(1),0)
+    t[0] = t[1]
 
 def p_error(t):
     erroresLexicos.append(Exception("Error sintactico", str(t.value), t.lexer.lineno, 0))

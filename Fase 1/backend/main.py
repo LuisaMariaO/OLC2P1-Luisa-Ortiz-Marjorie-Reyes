@@ -9,6 +9,8 @@ from src.Interpreter.Symbol.three import Three
 from src.Interpreter.Symbol.symbolTable import SymbolTable
 from src.Interpreter.Exceptions.exception import Exception
 from src.Interpreter.Instructions.funcion import Funcion
+from src.Interpreter.Exceptions.exception import Exception 
+
 #Fase 2
 from src.Compiler.Symbol.generador import *
 from src.Compiler.Symbol.three import Three as ThreeFase2
@@ -70,13 +72,14 @@ def compile():
             result = instr.compilar(ast,tabla)
             if type(result) == ExceptionFase2:
                 ast.updateErrores(result)
-        graficarErrores(ast.getErrores()+instrucciones[1])
-        treeGraph = ast.getTree()
-        graficarArbol(treeGraph)
-        graficarTabla(tabla)
+        #graficarErrores(ast.getErrores()+instrucciones[1])
+        #treeGraph = ast.getTree()
+        #graficarArbol(treeGraph)
+        #graficarTabla(tabla)
         #listToStr = ' '.join([str(elem) for elem in instrucciones])
         return jsonify({'ok':True, 'msg':'Data recibida', 'consola':generador.getCode()}),200
     except:
+        print(e)
         return jsonify({'ok':False, 'msg':'No es posible analizar la entrada', 'consola':'Error en el servidor :('}), 409
 
 def graficarArbol(graph):

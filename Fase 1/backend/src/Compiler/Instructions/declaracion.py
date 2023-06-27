@@ -91,7 +91,7 @@ class Declaracion(Instruction):
         else:
             generador.addComment('Error: Los tipos no concuerdan')
             generador.addSpace()
-            return Exception("Semantico", "Tipo de dato diferente declarado.", self.fila, self.columna)
+            return Exception("Semantico", "Tipo de dato diferente declarado.", self.linea, self.columna)
             
         
         tempPos = simbolo.posicion
