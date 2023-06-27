@@ -20,11 +20,7 @@ class Interface(Instruction):
             if busqueda!=None:
                 #Se encontró una funcion con ese nombre
                 return Exception("Error semántico","Ya existe una variable, función o interface con el nombre '"+self.id+"'",self.linea,self.columna)
-                 
-                
-              
+                  
             tablaActual = tablaActual.getTablaAnterior()
-             
-        
         tabla.setValor(self.id,Symbol(DataType.INTERFACE,self.id,self,"Interface",tabla.ambito,self.linea,self.columna))
         

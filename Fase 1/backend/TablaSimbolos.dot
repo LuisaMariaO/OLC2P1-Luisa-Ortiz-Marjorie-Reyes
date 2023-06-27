@@ -14,28 +14,28 @@ digraph {
             <td bgcolor="#512D38"> <font color="white">Columna</font></td>
             </tr>
 <tr>
-<td bgcolor="#FFE9F3">   Actor   </td>
-<td bgcolor="#FFE9F3">   interface   </td>
+<td bgcolor="#FFE9F3">   ackerman   </td>
+<td bgcolor="#FFE9F3">   None   </td>
 <td bgcolor="#FFE9F3">   Global   </td>
-<td bgcolor="#FFE9F3">   Interface   </td>
-<td bgcolor="#FFE9F3">   1   </td>
-<td bgcolor="#FFE9F3">   10   </td>
+<td bgcolor="#FFE9F3">   Función   </td>
+<td bgcolor="#FFE9F3">   262   </td>
+<td bgcolor="#FFE9F3">   9   </td>
 </tr>
 <tr>
-<td bgcolor="#F4BFDB">   Pelicula   </td>
-<td bgcolor="#F4BFDB">   interface   </td>
+<td bgcolor="#F4BFDB">   hanoi   </td>
+<td bgcolor="#F4BFDB">   None   </td>
 <td bgcolor="#F4BFDB">   Global   </td>
-<td bgcolor="#F4BFDB">   Interface   </td>
-<td bgcolor="#F4BFDB">   6   </td>
-<td bgcolor="#F4BFDB">   10   </td>
+<td bgcolor="#F4BFDB">   Función   </td>
+<td bgcolor="#F4BFDB">   272   </td>
+<td bgcolor="#F4BFDB">   9   </td>
 </tr>
 <tr>
-<td bgcolor="#FFE9F3">   Contrato   </td>
-<td bgcolor="#FFE9F3">   interface   </td>
+<td bgcolor="#FFE9F3">   factorial   </td>
+<td bgcolor="#FFE9F3">   None   </td>
 <td bgcolor="#FFE9F3">   Global   </td>
-<td bgcolor="#FFE9F3">   Interface   </td>
-<td bgcolor="#FFE9F3">   11   </td>
-<td bgcolor="#FFE9F3">   6   </td>
+<td bgcolor="#FFE9F3">   Función   </td>
+<td bgcolor="#FFE9F3">   282   </td>
+<td bgcolor="#FFE9F3">   8   </td>
 </tr>
 </table>
     >]

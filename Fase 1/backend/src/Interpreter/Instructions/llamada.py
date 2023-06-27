@@ -31,20 +31,20 @@ class Llamada(Instruction):
                 #Se crea una nueva tabla para las variables locales de la función
                 nuevaTabla = SymbolTable(tabla,"Función "+self.id)
                 simbolos = []
-                for ide,tipo in parametrosDeclaracion.items():    
-                    if tipo==None:
-                        tipo = DataType.NULL
-                    simbolos.append(Symbol(tipo,ide,None,"Parametro",nuevaTabla.ambito,self.linea,self.columna))
-                
-                for (simbolo,valor) in zip(simbolos,self.parametros):
-                    nuevoValor = valor.interpretar(arbol,tabla)
-                    if valor.tipoDato.getTipo() == DataType.VECTOR_ANY:
-                        simbolo.setTipo(DataType.VECTOR_ANY)
-                    if valor.tipoDato.getTipo() == simbolo.getTipo():
-                        simbolo.setValor(nuevoValor)
-                        nuevaTabla.setValor(simbolo.identificador,simbolo)
-                    else:
-                        return Exception("Error semántico","No coinciden los tipos de los parámetros",self.linea,self.columna)
+                if len(parametrosDeclaracion) > 0:
+                    for ide,tipo in parametrosDeclaracion.items():    
+                        if tipo==None:
+                            tipo = DataType.NULL
+                        simbolos.append(Symbol(tipo,ide,None,"Parametro",nuevaTabla.ambito,self.linea,self.columna))
+                    for (simbolo,valor) in zip(simbolos,self.parametros):
+                        nuevoValor = valor.interpretar(arbol,tabla)
+                        if valor.tipoDato.getTipo() == DataType.VECTOR_ANY:
+                            simbolo.setTipo(DataType.VECTOR_ANY)
+                        if valor.tipoDato.getTipo() == simbolo.getTipo():
+                            simbolo.setValor(nuevoValor)
+                            nuevaTabla.setValor(simbolo.identificador,simbolo)
+                        else:
+                            return Exception("Error semántico","No coinciden los tipos de los parámetros",self.linea,self.columna)
                     
                 #Después de declarar los parámetros se recorren las instrucciones
                 for instruccion in instrucciones:
@@ -57,6 +57,8 @@ class Llamada(Instruction):
                     
                     returnValue = instruccion.interpretar(arbol, nuevaTabla)
                     if isinstance(returnValue, Return):
+                        if type(funcion.tipo) == str:
+                            return {"valor" : returnValue.valor, "tipo": funcion.tipo}
                         self.tipoDato = returnValue.tipoDato
                         return returnValue.valor
                     '''if type(instruccion)== Return or type(returnValue)==Return:

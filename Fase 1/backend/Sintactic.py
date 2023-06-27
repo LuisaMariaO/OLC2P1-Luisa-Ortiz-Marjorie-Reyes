@@ -27,6 +27,7 @@ from src.Interpreter.Expresions.expArray import *
 from src.Interpreter.Exceptions.exception import *
 from src.Interpreter.Instructions.asignacionArray import *
 from src.Interpreter.Symbol.three import Nodo
+from src.Interpreter.Expresions.interfaz import *
 
 precedence = (
     ('left',  'OR'),
@@ -149,13 +150,13 @@ def p_asignacion_atr(t):
             "nodo" : Nodo("asignacion").setProduccion([t[1], ":", t[3], "=", t[5].get("nodo")])}
 
 def p_funciones(t): 
-    'funcion : FUNCTION ID PARABRE lista_parametros PARCIERRA LLAVEABRE instrucciones LLAVECIERRA puntoycoma'
-    if t[9] == ";":
-        t[0] = {"instruc": Funcion(t[2],t[4].get("instruc"),t[7].get("instruc"),t.lineno(1),find_column(entrada, t.lexer)),
-            "nodo": Nodo("funcion").setProduccion(["funcion", t[2], "(", t[4].get("nodo"), ")", "{", t[7].get("nodo"), "}", ";"])}
-    elif t[9] == None:
-        t[0] = {"instruc": Funcion(t[2],t[4].get("instruc"),t[7].get("instruc"),t.lineno(1),find_column(entrada, t.lexer)),
-            "nodo": Nodo("funcion").setProduccion(["funcion", t[2], "(", t[4].get("nodo"), ")", "{", t[7].get("nodo"), "}"])}
+    'funcion : FUNCTION ID PARABRE lista_parametros PARCIERRA tipar LLAVEABRE instrucciones LLAVECIERRA puntoycoma'
+    if t[10] == ";":
+        t[0] = {"instruc": Funcion(t[2],t[4].get("instruc"),t[8].get("instruc"),t[6].get("instruc"),t.lineno(1),find_column(entrada, t.lexer)),
+            "nodo": Nodo("funcion").setProduccion(["funcion", t[2], "(", t[4].get("nodo"), ")", "{", t[8].get("nodo"), "}", ";"])}
+    elif t[10] == None:
+        t[0] = {"instruc": Funcion(t[2],t[4].get("instruc"),t[8].get("instruc"),t[6].get("instruc"),t.lineno(1),find_column(entrada, t.lexer)),
+            "nodo": Nodo("funcion").setProduccion(["funcion", t[2], "(", t[4].get("nodo"), ")", "{", t[8].get("nodo"), "}"])}
 
 def p_lista_parametros(t):
     'lista_parametros : lista_parametros COMA ID tipar'
@@ -492,25 +493,34 @@ def p_identificador(t):
 
 def p_interface_expr(t):
     'expresion : LLAVEABRE atributos_valor LLAVECIERRA'
-    t[0] = {"instruc" : t[2].get("instruc"),
+    t[0] = {"instruc" : Interfaz(t[2].get("instruc"),t.lineno(1), find_column(entrada, t.lexer)),
             "nodo" : Nodo("expresion").setProduccion(["{", t[2].get("nodo"), "}"])}
 
 def p_atributos_valor(t):
-    'atributos_valor : atributos_valor COMA ID DOSPTOS expresion'
+    'atributos_valor : atributos_valor COMA ID ptoexp'
     if t[2]!="":
-        t[1].get("instruc")[t[3]]=t[5].get("instruc")
-        #t[1].append(t[3])
+        t[1].get("instruc")[t[3]]=t[4].get("instruc")
     t[0] = {"instruc" : t[1].get("instruc"),
-            "nodo" : Nodo("valor atributos").setProduccion([t[1].get("nodo"), ",", t[3], ":", t[5].get("nodo")])}
+            "nodo" : Nodo("valor atributos").setProduccion([t[1].get("nodo"), ",", t[3], ":", t[4].get("nodo")])}
 
 def p_atributo_valor(t):
-    'atributos_valor : ID DOSPTOS expresion'
+    'atributos_valor : ID ptoexp'
     if t[1]=="":
         t[0] = {"instruc" : {},
                 "nodo" : Nodo("valor atributos").setProduccion(["sin valor"])}
     else:
-        t[0] = {"instruc" : {t[1] : t[3].get("instruc")},
-                "nodo" : Nodo("valor atributos").setProduccion([t[1], ":", t[3].get("nodo")])}
+        t[0] = {"instruc" : {t[1] : t[2].get("instruc")},
+                "nodo" : Nodo("valor atributos").setProduccion([t[1], ":", t[2].get("nodo")])}
+
+def p_exp_atributo(t):
+    'ptoexp : DOSPTOS expresion'
+    t[0] = {"instruc" : t[2].get("instruc"),
+            "nodo" : Nodo("tipo").setProduccion([t[2].get("nodo")])}
+
+def p_noexp_atributo(t):
+    'ptoexp :'
+    t[0] = {"instruc" : DataType.ANY,
+            "nodo" : Nodo("valor").setProduccion(["sin valor"])}
 
 def p_atributos(t):
     'atributos : atributos ID tipar PTOCOMA'
@@ -524,7 +534,7 @@ def p_atributo(t):
     'atributos : ID tipar PTOCOMA'
     if t[1]=="":
         t[0] = {"instruc" : {},
-                "nodo" : Nodo("atributos").setProduccion("no hay atributos")}
+                "nodo" : Nodo("atributos").setProduccion(["no hay atributos"])}
     else:
         t[0] = {"instruc" : {t[1] : t[2].get("instruc")},
                 "nodo" : Nodo("atributos").setProduccion([t[1], t[2].get("nodo"), ";"])}

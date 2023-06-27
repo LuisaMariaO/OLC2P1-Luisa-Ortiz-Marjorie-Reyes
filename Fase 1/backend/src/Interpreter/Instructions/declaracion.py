@@ -12,6 +12,7 @@ class Declaracion(Instruction):
         super().__init__(linea,columna,Type(DataType.INDEFINIDO))
 
     def interpretar(self, arbol, tabla):
+        valor = self.valor.interpretar(arbol,tabla)
         #DECLARACION DE VARIABLES DE TIPO INTERFACE
         if type(self.tipo)==str:
             tablaActual = tabla
@@ -20,21 +21,14 @@ class Declaracion(Instruction):
                 #Si encontró una variable con ese nombre
                 if busqueda!=None:
                     if busqueda.getTipo() == DataType.INTERFACE:
-                        if len(self.valor) == len(busqueda.getValor().getParametros()):
+                        if len(valor) == len(busqueda.getValor().getParametros()):
                             atributos = copy.deepcopy(busqueda.getValor().getParametros())
-                            for atr,valor in self.valor.items():
-                                valorAtr = valor.interpretar(arbol,tabla)
-                                if type(valorAtr) == Exception:
-                                    return valorAtr
-                                
-                                if atributos.get(atr) ==  valor.tipoDato.getTipo():
-                                    atributos[atr] = valorAtr
-                                else:
-                                    return Exception("Error semántico: ","El valor del atributo '"+atr+"' no concuerda con el tipo asignado",self.linea,self.columna)
+                            for atr,val in valor.items():
+                                atributos[atr] = val
                         else:
                             return Exception("Error semántico: ","El número de atributos ingresado no es correcto",self.linea,self.columna)
-                        
-                        tabla.setValor(self.id,Symbol(self.tipo,self.id,atributos,"variable de tipo interface",tabla.ambito))
+
+                        tabla.setValor(self.id,Symbol(self.tipo,self.id,atributos,"variable de tipo interface",tabla.ambito,self.linea,self.columna))
                         return
                         #busqueda.setValor(valor)
                 
@@ -45,8 +39,32 @@ class Declaracion(Instruction):
 
             return Exception("Error semántico: ","No existe una variable o función con el nombre '"+self.id+"'",self.linea,self.columna)
         
+        elif type(valor) == dict:
+            self.tipo = valor.get("tipo")
+            self.valor = valor.get("valor")
+            tablaActual = tabla
+            while (tablaActual != None):
+                busqueda = tablaActual.getSimbolo(self.tipo)
+                #Si encontró una variable con ese nombre
+                if busqueda!=None:
+                    if busqueda.getTipo() == DataType.INTERFACE:
+                        if len(self.valor) == len(busqueda.getValor().getParametros()):
+                            atributos = copy.deepcopy(busqueda.getValor().getParametros())
+                            for atr,valor in self.valor.items():
+                                atributos[atr] = valor.getValor()
+                        else:
+                            return Exception("Error semántico: ","El número de atributos ingresado no es correcto",self.linea,self.columna)
+                        tabla.setValor(self.id,Symbol(self.tipo,self.id,atributos,"variable de tipo interface",tabla.ambito,self.linea,self.columna))
+                        return
+                    else:
+                        return Exception("Error semántico: ","El tipo de dato ingresado no corresponde a una interface",self.linea,self.columna)
+                    
+                tablaActual = tablaActual.getTablaAnterior()
+            return Exception("Error semántico: ","No existe una interfaz con el nombre '"+self.id+"'",self.linea,self.columna)
+        
+        
         #DECLARACION DE VARIABLES SIN VALOR Y SIN TIPO DE DATO
-        if self.valor == None:
+        elif self.valor == None:
             if self.tipo == None:
                 self.valor = ""
                 self.tipo = DataType.ANY
@@ -84,7 +102,6 @@ class Declaracion(Instruction):
         #DECLARACION DE VARIABLES DE TIPOS NATIVOS
         #DECLARACION DE VARIABLES DE ARREGLOS
         else: 
-            valor = self.valor.interpretar(arbol,tabla)
 
             if type(valor) == Exception:
                 return

@@ -12,13 +12,12 @@ class Atributo(Instruction):
         return self.valor
     
     def interpretar(self, arbol, tabla):
+
         tablaActual = tabla
-            
         while (tablaActual!=None):
             busqueda = tablaActual.getSimbolo(self.id.valor)
-              
             if busqueda!=None:
-                    #Se encontró una variable con ese nombre
+                #Se encontró una variable con ese nombre
                 if type(busqueda.getValor().get(self.atributo))==str:
                     self.tipoDato = Type(DataType.STRING)
                 elif type(busqueda.getValor().get(self.atributo))==bool:
@@ -29,5 +28,5 @@ class Atributo(Instruction):
                     #print(busqueda.getValor())
                 return busqueda.getValor().get(self.atributo)
             tablaActual = tablaActual.getTablaAnterior()
-            return Exception("Semántico","No existe una variable o función con el nombre: "+self.valor,self.linea,self.columna)
+        return Exception("Semántico","No existe una variable o función con el nombre: "+self.valor,self.linea,self.columna)
         
