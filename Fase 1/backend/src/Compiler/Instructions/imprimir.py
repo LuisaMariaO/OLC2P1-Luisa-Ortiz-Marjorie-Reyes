@@ -11,9 +11,10 @@ class Imprimir(Instruction):
     def compilar(self, arbol, tabla):
         genAux = Generador()
         generador = genAux.getInstance()
-       
+        
         for expresion in self.expresiones:
             result = expresion.compilar(arbol,tabla)
+            
             if type(result)== Exception:
                 return result
             if expresion.tipoDato.getTipo() == DataType.NUMBER:
