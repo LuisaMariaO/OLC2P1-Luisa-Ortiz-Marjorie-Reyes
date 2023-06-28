@@ -7,7 +7,6 @@ import Index from "./Pages/index";
 import Code from "./Pages/code";
 import Reports from "./Pages/reports";
 
-
 function App() {
   return (
     <BrowserRouter>

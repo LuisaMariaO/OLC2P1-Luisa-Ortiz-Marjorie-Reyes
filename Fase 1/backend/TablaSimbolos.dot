@@ -14,49 +14,22 @@ digraph {
             <td bgcolor="#512D38"> <font color="white">Columna</font></td>
             </tr>
 <tr>
-<td bgcolor="#FFE9F3">   array   </td>
-<td bgcolor="#FFE9F3">   array   </td>
+<td bgcolor="#FFE9F3">   potenciaNativa   </td>
+<td bgcolor="#FFE9F3">   None   </td>
 <td bgcolor="#FFE9F3">   Global   </td>
-<td bgcolor="#FFE9F3">   [32.0, 21.0, 7.0, 89.0, 56.0, 909.0, 109.0, 2.0]   </td>
-<td bgcolor="#FFE9F3">   Variable   </td>
-<td bgcolor="#FFE9F3">   160   </td>
-<td bgcolor="#FFE9F3">   46   </td>
+<td bgcolor="#FFE9F3">       </td>
+<td bgcolor="#FFE9F3">   Función   </td>
+<td bgcolor="#FFE9F3">   5   </td>
+<td bgcolor="#FFE9F3">   8   </td>
 </tr>
 <tr>
-<td bgcolor="#F4BFDB">   aux   </td>
-<td bgcolor="#F4BFDB">   number   </td>
+<td bgcolor="#F4BFDB">   sumarTodo   </td>
+<td bgcolor="#F4BFDB">   None   </td>
 <td bgcolor="#F4BFDB">   Global   </td>
-<td bgcolor="#F4BFDB">   10.0   </td>
-<td bgcolor="#F4BFDB">   Variable   </td>
-<td bgcolor="#F4BFDB">   178   </td>
-<td bgcolor="#F4BFDB">   21   </td>
-</tr>
-<tr>
-<td bgcolor="#FFE9F3">   index   </td>
-<td bgcolor="#FFE9F3">   number   </td>
-<td bgcolor="#FFE9F3">   Global   </td>
-<td bgcolor="#FFE9F3">   12.0   </td>
-<td bgcolor="#FFE9F3">   Variable   </td>
-<td bgcolor="#FFE9F3">   213   </td>
-<td bgcolor="#FFE9F3">   19   </td>
-</tr>
-<tr>
-<td bgcolor="#F4BFDB">   a   </td>
-<td bgcolor="#F4BFDB">   number   </td>
-<td bgcolor="#F4BFDB">   Global   </td>
-<td bgcolor="#F4BFDB">   5.0   </td>
-<td bgcolor="#F4BFDB">   Variable   </td>
-<td bgcolor="#F4BFDB">   258   </td>
-<td bgcolor="#F4BFDB">   19   </td>
-</tr>
-<tr>
-<td bgcolor="#FFE9F3">   arr   </td>
-<td bgcolor="#FFE9F3">   array   </td>
-<td bgcolor="#FFE9F3">   Global   </td>
-<td bgcolor="#FFE9F3">   [1.0, 2.0, 3.0, 4.0, 5.0, 6.0]   </td>
-<td bgcolor="#FFE9F3">   Variable   </td>
-<td bgcolor="#FFE9F3">   298   </td>
-<td bgcolor="#FFE9F3">   25   </td>
+<td bgcolor="#F4BFDB">       </td>
+<td bgcolor="#F4BFDB">   Función   </td>
+<td bgcolor="#F4BFDB">   18   </td>
+<td bgcolor="#F4BFDB">   8   </td>
 </tr>
 </table>
     >]

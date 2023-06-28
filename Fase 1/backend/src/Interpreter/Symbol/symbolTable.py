@@ -16,7 +16,7 @@ class SymbolTable:
     def setTablaAnterior(self,tabla):
         self.tablaAnterior = tabla
     
-    def setTabla(self,tabla):
+    def setTablaActual(self,tabla):
         self.tablaActual = tabla
 
     def getTabla(self):

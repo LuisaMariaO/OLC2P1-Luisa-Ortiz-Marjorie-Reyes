@@ -1,6 +1,7 @@
 import ply.yacc as yacc
 import ply.lex as lex
 from Lexic import tokens, lexer, erroresLexicos
+from LexicF2 import erroresLexicos
 
 from src.Interpreter.Expresions.nativo import Nativo
 from src.Interpreter.Instructions.imprimir import Imprimir
@@ -633,5 +634,4 @@ def parsear(input):
     entrada = input
     result = parser.parse(input)
     errores = erroresLexicos
-    
     return result, errores

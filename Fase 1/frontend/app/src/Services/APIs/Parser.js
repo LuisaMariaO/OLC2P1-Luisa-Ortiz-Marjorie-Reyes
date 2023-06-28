@@ -19,3 +19,18 @@ export const compile = async(value) =>{
     const { data } = await instance.post("/compile", { code: value })
     return data
 }
+
+export const symbtable = async() =>{
+    const {data} = await instance.get("/symbtable")
+    return data
+}
+
+export const errortable = async() =>{
+    const {data} = await instance.get("/errortable")
+    return data
+}
+
+export const sintacttree = async() =>{
+    const {data} = await instance.get("/sintacttree")
+    return data
+}
