@@ -10,8 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
+      - run: cd ../"Fase 1"/frontend
       - run: npm install
-      - run: CI='' ../"Fase 1"/frontend/npm run build
+      - run: CI='' npm run build
       - uses: jakejarvis/s3-sync-action@master
         with:
           args: --acl public-read --follow-symlinks --delete
