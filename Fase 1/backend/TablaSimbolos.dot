@@ -14,22 +14,31 @@ digraph {
             <td bgcolor="#512D38"> <font color="white">Columna</font></td>
             </tr>
 <tr>
-<td bgcolor="#FFE9F3">   potenciaNativa   </td>
+<td bgcolor="#FFE9F3">   ackerman   </td>
 <td bgcolor="#FFE9F3">   None   </td>
 <td bgcolor="#FFE9F3">   Global   </td>
 <td bgcolor="#FFE9F3">       </td>
 <td bgcolor="#FFE9F3">   Función   </td>
-<td bgcolor="#FFE9F3">   5   </td>
-<td bgcolor="#FFE9F3">   8   </td>
+<td bgcolor="#FFE9F3">   1   </td>
+<td bgcolor="#FFE9F3">   9   </td>
 </tr>
 <tr>
-<td bgcolor="#F4BFDB">   sumarTodo   </td>
+<td bgcolor="#F4BFDB">   hanoi   </td>
 <td bgcolor="#F4BFDB">   None   </td>
 <td bgcolor="#F4BFDB">   Global   </td>
 <td bgcolor="#F4BFDB">       </td>
 <td bgcolor="#F4BFDB">   Función   </td>
-<td bgcolor="#F4BFDB">   18   </td>
-<td bgcolor="#F4BFDB">   8   </td>
+<td bgcolor="#F4BFDB">   11   </td>
+<td bgcolor="#F4BFDB">   9   </td>
+</tr>
+<tr>
+<td bgcolor="#FFE9F3">   factorial   </td>
+<td bgcolor="#FFE9F3">   None   </td>
+<td bgcolor="#FFE9F3">   Global   </td>
+<td bgcolor="#FFE9F3">       </td>
+<td bgcolor="#FFE9F3">   Función   </td>
+<td bgcolor="#FFE9F3">   21   </td>
+<td bgcolor="#FFE9F3">   8   </td>
 </tr>
 </table>
     >]
