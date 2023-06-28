@@ -3,6 +3,8 @@ from ..Abstract.instruction import Instruction
 from ..Symbol.type import *
 from ..Symbol.generador import * 
 from ..Abstract.returnF2 import *
+from ..Instructions.llamada import Llamada
+from ..Exceptions.exception import Exception
 
 class Aritmetic:
     def __init__(self,operacion):
@@ -42,7 +44,15 @@ class Aritmetica(Instruction):
 
 
         izq = self.izq.compilar(arbol, tabla)
-        der = self.der.compilar(arbol, tabla)
+        if isinstance(izq,Exception): return izq
+        if isinstance(self.der,Llamada):
+            self.der.guardarTemps(generador,tabla,[izq.getValue()])
+            der = self.der.compilar(arbol,tabla)
+            if isinstance(der,Exception): return der
+            self.der.recuperarTemps(generador,tabla,[izq.getValue()])
+        else:
+            der = self.der.compilar(arbol, tabla)
+            if isinstance(der,Exception): return der
 
         if self.operacion.getTipo() == AritmeticType.SUMA:
             
@@ -110,7 +120,9 @@ class Aritmetica(Instruction):
             operador = '/'
             if self.izq.tipoDato.getTipo() == DataType.NUMBER:
                 if self.der.tipoDato.getTipo() == DataType.NUMBER:
-                    if der == 0:
+                    
+                    if int(der.getValue()) == 0:
+                        generador.addComment("ERROR: División dentro de 0")
                         return Exception("Semántico", "División sobre 0", self.linea, self.columna)
                     else:
                         self.tipoDato = Type(DataType.NUMBER)

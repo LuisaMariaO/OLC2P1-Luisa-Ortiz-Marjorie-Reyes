@@ -21,6 +21,9 @@ class Generador():
         #Lista de nativas
         self.printString = False
         self.compareString = False
+        self.upper = False
+        self.lower = False
+
         #Lista de imports
         self.imports = []
         self.imports2 = ['fmt','math'] #Imports quemados desde el inicio
@@ -42,6 +45,9 @@ class Generador():
         #Lista de nativas
         self.printString = False
         self.compareString = False
+        self.upper = False
+        self.lower = False
+
         #Lista de imports
         self.imports = []
         self.imports2 = ['fmt','math']
@@ -263,6 +269,96 @@ class Generador():
         self.putLabel(returnLbl)
         self.addEndFunc()
         self.inNatives = False
+
+    #############################
+    #UPPERCASE
+    #############################
+    def fUpperCase(self):
+        if self.upper:
+            return
+        self.upper = True
+        self.inNatives = True
+        
+        self.addBeginFunc('uppercase')
+        
+        t1 = self.addTemp()
+        t2 = self.addTemp()
+        t3 = self.addTemp()
+
+        Lbl0 = self.newLabel()
+        Lbl1 = self.newLabel()
+        Lbl2 = self.newLabel()
+
+        self.addAsignacion(t1, 'H')
+        self.addExp(t2, 'P', '1','+')
+        self.getStack(t2, t2)
+        self.putLabel(Lbl0)
+
+        self.getHeap(t3, t2)
+        self.addIf(t3, '-1', '==', Lbl2)
+        self.addIf(t3, '97', '<', Lbl1)
+        self.addIf(t3, '122', '>', Lbl1)
+        self.addExp(t3, t3,'32', '-')
+        self.putLabel(Lbl1)
+    
+        self.setHeap('H', t3)
+        self.nextHeap()
+        self.addExp(t2, t2, '1','+')
+        self.addGoto(Lbl0)
+
+        self.putLabel(Lbl2)
+        self.setHeap('H', '-1')
+        self.nextHeap()
+        self.setStack('P', t1)
+        self.addEndFunc()
+
+        self.inNatives = False
+
+    
+    ###############################
+    #LOWERCASE
+    ###############################
+    def fLowerCase(self):
+        if self.lower:
+            return
+        self.lower = True
+        self.inNatives = True
+        
+        self.addBeginFunc('lowercase')
+        
+        t1 = self.addTemp()
+        t2 = self.addTemp()
+        t3 = self.addTemp()
+
+        Lbl0 = self.newLabel()
+        Lbl1 = self.newLabel()
+        Lbl2 = self.newLabel()
+
+        self.addAsignacion(t1, 'H')
+        self.addExp(t2, 'P', '1','+')
+        self.getStack(t2, t2)
+        self.putLabel(Lbl0)
+
+        self.getHeap(t3, t2)
+        self.addIf(t3, '-1', '==', Lbl2)
+        self.addIf(t3, '65', '<', Lbl1)
+        self.addIf(t3, '90', '>', Lbl1)
+        self.addExp(t3, t3,'32', '+')
+        self.putLabel(Lbl1)
+    
+        self.setHeap('H', t3)
+        self.nextHeap()
+        self.addExp(t2, t2, '1','+')
+        self.addGoto(Lbl0)
+
+        self.putLabel(Lbl2)
+        self.setHeap('H', '-1')
+        self.nextHeap()
+        self.setStack('P', t1)
+        self.addEndFunc()
+
+        self.inNatives = False
+# console.log(4+5*6);
         
 
 

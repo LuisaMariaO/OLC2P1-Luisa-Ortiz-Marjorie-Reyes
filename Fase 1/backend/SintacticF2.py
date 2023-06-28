@@ -27,6 +27,8 @@ from src.Compiler.Expresions.expArray import *
 from src.Compiler.Exceptions.exception import *
 from src.Compiler.Instructions.asignacionArray import *
 
+from src.Compiler.Nativas.uppercase import UpperCase
+
 precedence = (
     ('left', 'OR'),
     ('left', 'AND'),
@@ -110,10 +112,10 @@ def p_asignacion_atr(t):
     t[0] = AsignacionAtributo(t[1],t[3],t[5],t.lineno(1),0)
 
 def p_funciones(t): 
-    'funcion : FUNCTION ID PARABRE lista_parametros PARCIERRA LLAVEABRE instrucciones LLAVECIERRA puntoycoma'
+    'funcion : FUNCTION ID PARABRE lista_parametros PARCIERRA tipar LLAVEABRE instrucciones LLAVECIERRA puntoycoma'
     #'funcion : FUNCTION ID PARABRE lista_parametros PARCIERRA LLAVEABRE lista_instrucciones #LLAVECIERRA retorno puntoycoma'
     print("Declaracion de funcion ",t[2])
-    t[0] = Funcion(t[2],t[4],t[7],t.lineno(1),0)
+    t[0] = Funcion(t[2],t[4],t[6],t[8],t.lineno(1),0)
 
 def p_lista_parametros(t):
     'lista_parametros : lista_parametros COMA ID tipar'
@@ -178,42 +180,26 @@ def p_parametro_l_vacio(t):
     'lista_parametros_l :'
     t[0] = []
 
-
-
 def p_if(t):
-    'if : IF PARABRE expresion PARCIERRA LLAVEABRE instrucciones LLAVECIERRA elseif else'
-    t[0] = If(t[3],t[6],t[8],t[9],t.lineno(1),0)
+    'if : IF condicional_if'
+    print("ifsito")
+    t[0] = t[2]
 
-def p_elif(t):
-    'elif : ELSEIF'
+def p_if_simple(t):   
+    'condicional_if : PARABRE expresion PARCIERRA LLAVEABRE instrucciones LLAVECIERRA'
+    print("ifsimple")
+    t[0] = If(t[2],t[5],None,None,t.lineno(1),0)
 
-def p_elseif_list(t):
-    'elseif : elseif elif PARABRE expresion PARCIERRA LLAVEABRE instrucciones LLAVECIERRA'
-    if t[2]!="":
-        t[1][t[4]]=t[7]
-        #t[1].append(t[3])
-    t[0] = t[1]
+def p_if_else(t):
+    'condicional_if : PARABRE expresion PARCIERRA LLAVEABRE instrucciones LLAVECIERRA ELSE LLAVEABRE instrucciones LLAVECIERRA'
+    print("ifelse")
+    t[0] = If(t[2],t[5],t[9],None,t.lineno(1),0)
 
+def p_else_if(t):
+    'condicional_if : PARABRE expresion PARCIERRA LLAVEABRE instrucciones LLAVECIERRA ELSEIF condicional_if'
+    print("elif")
+    t[0] = If(t[2],t[5],None,t[8],t.lineno(1),0)
 
-def p_elseif(t):
-    'elseif : elif PARABRE expresion PARCIERRA LLAVEABRE instrucciones LLAVECIERRA'
-    
-    if t[1]=="":
-        t[0] = {}
-    else:
-        t[0] = {t[3] : t[6]}
-
-def p_elseif_none(t):
-    'elseif :'
-    t[0] = None
-
-def p_else(t):
-    'else : ELSE LLAVEABRE instrucciones LLAVECIERRA'
-    t[0] = t[3]
-
-def p_else_none(t):
-    'else :'
-    t[0] = None
 
 def p_while(t):
     'while : WHILE PARABRE expresion PARCIERRA LLAVEABRE instrucciones LLAVECIERRA'
@@ -474,6 +460,8 @@ def p_tipo_struct(t):
 def p_expresion_llamada(t):
     'expresion : llamada'
     t[0] = t[1]
+
+
 
 def p_error(t):
     erroresLexicos.append(Exception("Error sintactico", str(t.value), t.lexer.lineno, 0))

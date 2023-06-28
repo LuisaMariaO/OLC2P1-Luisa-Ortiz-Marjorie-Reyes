@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "downloadjs": "^1.4.7",
     "graphviz": "^0.0.9"
   }
 }

@@ -26,7 +26,8 @@ class Llamada(Instruction):
         genAux = Generador()
         generador = genAux.getInstance()
         funcion = arbol.getFuncion(self.id)
-       
+        print(self.id)
+        print(funcion.id)
 
         if funcion != None:
             generador.addComment(f'Llamada a la funcion {self.id}')

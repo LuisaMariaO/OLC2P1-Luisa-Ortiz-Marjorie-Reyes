@@ -7,12 +7,14 @@ from ..Symbol.generador import Generador
 from typing import List
 
 class Funcion(Instruction):
-    def __init__(self,id,parametros,instrucciones,linea,columna):
+    def __init__(self,id,parametros,tipo,instrucciones,linea,columna):
         self.id = id
         self.instrucciones = instrucciones
         self.parametros = parametros
+        if tipo == None:
+            tipo = Type(DataType.INDEFINIDO)
         self.recTemp = True
-        super().__init__(linea,columna,Type(DataType.INDEFINIDO))
+        super().__init__(linea,columna,Type(tipo))
 
 
 

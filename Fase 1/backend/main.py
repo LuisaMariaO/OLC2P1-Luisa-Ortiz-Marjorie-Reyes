@@ -4,11 +4,12 @@ from os import system
 from flask_cors import CORS
 import base64
 
+
 import Sintactic
 import SintacticF2
 from src.Interpreter.Symbol.three import Three
 from src.Interpreter.Symbol.symbolTable import SymbolTable
-from src.Interpreter.Exceptions.exception import Exception as Exception1
+from src.Interpreter.Exceptions.exception import Exception
 from src.Interpreter.Instructions.funcion import Funcion
 #from src.Interpreter.Exceptions.exception import Exception  as Exception1
 
@@ -17,6 +18,10 @@ from src.Compiler.Symbol.generador import *
 from src.Compiler.Symbol.three import Three as ThreeFase2
 from src.Compiler.Symbol.symbolTable import SymbolTable as TableFase2
 from src.Compiler.Exceptions.exception import Exception as ExceptionFase2
+
+from src.Compiler.Nativas.lowercase import LowerCase
+from src.Compiler.Nativas.uppercase import UpperCase
+from src.Compiler.Symbol.type import *
 
 app = Flask(__name__)
 CORS(app)
@@ -67,7 +72,7 @@ def compile():
         ast = ThreeFase2(instrucciones[0])
         tabla = TableFase2(None,"Global")
         ast.setTablaGlobal = tabla
-        
+        agregarNativas(ast)
         
         for instr in ast.getInstrucciones():
             result = instr.compilar(ast,tabla)
@@ -80,6 +85,7 @@ def compile():
         #listToStr = ' '.join([str(elem) for elem in instrucciones])
         return jsonify({'ok':True, 'msg':'Data recibida', 'consola':generador.getCode()}),200
     except:
+        
         return jsonify({'ok':False, 'msg':'No es posible analizar la entrada', 'consola':'Error en el servidor :('}), 409
 
 @app.route('/symbtable',methods=['GET'])
@@ -190,6 +196,17 @@ def encodeImage(name):
     with open(name, "rb") as dotimg:
         encodedimg = base64.b64encode(dotimg.read())
         return encodedimg
+    
+def agregarNativas(ast):
+    nombre = "uppercase"
+    params = {nombre:DataType.STRING}
+    inst = []
+    upper = UpperCase("uppercase", params, DataType.STRING,inst, -1, -1)
+    lower = LowerCase("lowercase",params,DataType.STRING,inst,-1,-1)
+    ast.setFunciones('uppercase',upper)
+    ast.setFunciones('lowercase',lower)
+
+   
     
 if __name__=='__main__':
     app.run(host='localhost',debug=True)

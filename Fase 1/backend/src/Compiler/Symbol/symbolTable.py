@@ -88,12 +88,12 @@ class SymbolTable:
     #    self.tablaActual = tabla
 
     def getTabla(self, ide): 
-        tablaActual = self.tablaActual
+        tablaActual = self
         while tablaActual != None:
-            if ide in tablaActual:
-                return tablaActual[ide]
+            if ide in tablaActual.tablaActual:
+                return tablaActual.tablaActual[ide]
             else:
-                tablaActual = self.tablaAnterior
+                tablaActual = tablaActual.tablaAnterior
         return None
     
     def updateTabla(self, simbolo):

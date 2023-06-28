@@ -6,7 +6,7 @@ from ..Symbol.generador import Generador
 from ..Expresions.returnIns import Return
 
 class If(Instruction):
-    def __init__(self,condicion,instrucciones,elifIns,elseIns,linea,columna):
+    def __init__(self,condicion,instrucciones,elseIns,elifIns,linea,columna):
         self.condicion = condicion
         self.instrucciones = instrucciones
         self.elifIns = elifIns
@@ -60,7 +60,7 @@ class If(Instruction):
             generador.putLabel(condicion.getFalseLbl())
 
             if self.elseIns != None:
-                entorno = SymbolTable(tabla,"If")  #NUEVO ENTORNO - HIJO - Vacio
+                entorno = SymbolTable(tabla,"If else")  #NUEVO ENTORNO - HIJO - Vacio
                 for instruccion in self.elseIns:
                     entorno.breakLbl = tabla.breakLbl
                     entorno.continueLbl = tabla.continueLbl
@@ -82,7 +82,7 @@ class If(Instruction):
                             generador.addGoto(entorno.returnLbl)
                         generador.addComment('Fin del resultado a retornar en la funcion')
             elif self.elifIns != None:
-                result = self.bloqueElseif.compilar(arbol, tabla)
+                result = self.elifIns.compilar(arbol, tabla)
                 if isinstance(result, Exception): return result
             generador.putLabel(salir)
         generador.addComment('Fin de la compilacion de un if')

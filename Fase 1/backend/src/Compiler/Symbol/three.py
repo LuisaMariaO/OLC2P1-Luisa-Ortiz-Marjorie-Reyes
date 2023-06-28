@@ -46,8 +46,5 @@ class Three:
             self.funciones[id] = function
 
     def getFuncion(self, ide):
-        actual = self
-        if actual!=None:
-            if ide in actual.funciones.keys():
-                return actual.funciones[ide]
-        return None
+        
+        return self.funciones[ide]
