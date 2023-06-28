@@ -2,6 +2,7 @@ from flask import Flask, request
 from flask.json import jsonify
 from os import system
 from flask_cors import CORS
+import base64
 
 import Sintactic
 import SintacticF2
@@ -44,7 +45,7 @@ def parse():
         graficarErrores(ast.getErrores()+instrucciones[1])
         treeGraph = ast.getTree()
         graficarArbol(treeGraph)
-        graficarTabla(ast.getTablaGlobal())
+        graficarTabla(ast.getTablaGlobal().tablaActual)
        # listToStr = ' '.join([str(elem) for elem in instrucciones])
         return jsonify({'ok':True, 'msg':'Data recibida', 'consola':ast.getConsola()}),200
     except:
@@ -79,7 +80,30 @@ def compile():
         #listToStr = ' '.join([str(elem) for elem in instrucciones])
         return jsonify({'ok':True, 'msg':'Data recibida', 'consola':generador.getCode()}),200
     except:
-        print(e)
+        return jsonify({'ok':False, 'msg':'No es posible analizar la entrada', 'consola':'Error en el servidor :('}), 409
+
+@app.route('/symbtable',methods=['GET'])
+def symbtable():
+    try:
+        encoded = encodeImage("TablaSimbolos.png")
+        return encoded
+    except:
+        return jsonify({'ok':False, 'msg':'No es posible analizar la entrada', 'consola':'Error en el servidor :('}), 409
+    
+@app.route('/errortable',methods=['GET'])
+def errortable():
+    try:
+        encoded = encodeImage("TablaErrores.png")
+        return encoded
+    except:
+        return jsonify({'ok':False, 'msg':'No es posible analizar la entrada', 'consola':'Error en el servidor :('}), 409
+    
+@app.route('/sintacttree',methods=['GET'])
+def sintacttree():
+    try:
+        encoded = encodeImage("AST.png")
+        return encoded
+    except:
         return jsonify({'ok':False, 'msg':'No es posible analizar la entrada', 'consola':'Error en el servidor :('}), 409
 
 def graficarArbol(graph):
@@ -106,23 +130,24 @@ def graficarTabla(tabla):
             <td bgcolor=\"#512D38\"> <font color="white">Columna</font></td>
             </tr>\n'''
     color = "#FFE9F3"
-    for simbolo in tabla.tablaActual:
+    for simbolo in tabla:
         p1 += "<tr>\n"
-        p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla.tablaActual[simbolo].getIdentificador()) + '   </td>\n'
-        p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla.tablaActual[simbolo].translateTipo()) + '   </td>\n'
-        p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla.tablaActual[simbolo].getAmbito()) + '   </td>\n'
-        if isinstance(tabla.tablaActual[simbolo].getValor(), Funcion):
+        p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla[simbolo].getIdentificador()) + '   </td>\n'
+        p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla[simbolo].translateTipo()) + '   </td>\n'
+        p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla[simbolo].getAmbito()) + '   </td>\n'
+        if isinstance(tabla[simbolo].getValor(), Funcion):
             p1 += '<td bgcolor=\"' + color + '\">       </td>\n'
         else:
-            p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla.tablaActual[simbolo].getValor()) + '   </td>\n'
-        p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla.tablaActual[simbolo].getRol()) + '   </td>\n'
-        p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla.tablaActual[simbolo].getFila()) + '   </td>\n'
-        p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla.tablaActual[simbolo].getColumna()) + '   </td>\n'
+            p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla[simbolo].getValor()) + '   </td>\n'
+        p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla[simbolo].getRol()) + '   </td>\n'
+        p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla[simbolo].getFila()) + '   </td>\n'
+        p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla[simbolo].getColumna()) + '   </td>\n'
         p1 += "</tr>\n"
         if color == "#FFE9F3":
             color = "#F4BFDB"
         elif color == "#F4BFDB":
             color = "#FFE9F3"
+
     p1 += '''</table>
     >]
     }'''
@@ -161,5 +186,10 @@ def graficarErrores(errores):
     Archivo.close()
     system('dot -Tpng TablaErrores.dot -o TablaErrores.png')
 
+def encodeImage(name):
+    with open(name, "rb") as dotimg:
+        encodedimg = base64.b64encode(dotimg.read())
+        return encodedimg
+    
 if __name__=='__main__':
     app.run(host='localhost',debug=True)
