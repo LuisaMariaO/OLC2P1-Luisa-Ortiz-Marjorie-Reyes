@@ -143,6 +143,9 @@ class Generador():
         self.setImport('math')
         self.codeIn(f'{result} = math.Pow({base},{exponente});\n')
         
+    def addMod(self,result,izq,der):
+        self.setImport('math')
+        self.codeIn(f'{result} = math.Mod({izq},{der});\n')
 
     #**********************************************FUNCIONES*************************************
     def addBeginFunc(self,id):

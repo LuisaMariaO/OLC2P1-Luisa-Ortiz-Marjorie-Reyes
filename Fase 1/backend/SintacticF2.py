@@ -38,7 +38,7 @@ precedence = (
     ('right', 'POTENCIA'),
     ('left','PARABRE','PARCIERRA'),
     ('left','PTO','OF'),
-    #('right', 'UMENOS'),   
+    ('right', 'UMENOS'),   
  
 )
 
@@ -324,9 +324,9 @@ def p_expresiones_aritmeticas(t):
     elif t[1] == "(" and t[3] == ")":
         t[0] = t[2]
 
-#def p_expresion_unaria(t):
-#    'expresion : RESTA expresion %prec UMENOS'
-#    t[0] = Aritmetica(t[2],t[2],Aritmetic(AritmeticType.NEGACION),t.lineno(1),0)
+def p_expresion_unaria(t):
+    'expresion : RESTA expresion %prec UMENOS'
+    t[0] = Aritmetica(t[2],t[2],Aritmetic(AritmeticType.NEGACION),t.lineno(1),0)
 
 def p_expresiones_nativas(t):
     '''expresion : expr_punto nativas PARABRE parametro_nativa PARCIERRA'''

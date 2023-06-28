@@ -50,7 +50,7 @@ class Declaracion(Instruction):
                                 
                             
                         else:
-                            generador.addComment("Error: Eñ número de atrinutos ingresado no es correcto")
+                            generador.addComment("Error: El número de atrinutos ingresado no es correcto")
                             return Exception("Semántico","El número de atributos ingresado no es correcto",self.linea,self.columna)
                         
                         tabla.setValor(self.id,Symbol(self.tipo,self.id,atributos,"variable de tipo interface",tabla.ambito))
@@ -77,6 +77,7 @@ class Declaracion(Instruction):
         value = self.valor.compilar(arbol, tabla)
         if isinstance(value, Exception): return value # Analisis Semantico -> Error
         # Verificacion de tipos
+       
         if self.tipo == self.valor.tipoDato.getTipo():
             #Si el tipo a guardar es un struct o es una interface, inHeap es verdadero pues son tipos de dato que lo utilizan
             inHeap = value.getTipo().getTipo() == DataType.STRING or value.getTipo() == DataType.INTERFACE
@@ -97,7 +98,7 @@ class Declaracion(Instruction):
         tempPos = simbolo.posicion
         if not simbolo.isGlobal:
             tempPos = generador.addTemp()
-            generador.addExpression(tempPos, 'P', simbolo.pos, '+')
+            generador.addExp(tempPos, 'P', simbolo.posicion, '+')
 
 
         #Valores booleanos

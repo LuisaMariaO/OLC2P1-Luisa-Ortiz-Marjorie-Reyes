@@ -7,9 +7,9 @@ import Sintactic
 import SintacticF2
 from src.Interpreter.Symbol.three import Three
 from src.Interpreter.Symbol.symbolTable import SymbolTable
-from src.Interpreter.Exceptions.exception import Exception
+from src.Interpreter.Exceptions.exception import Exception as Exception1
 from src.Interpreter.Instructions.funcion import Funcion
-from src.Interpreter.Exceptions.exception import Exception 
+#from src.Interpreter.Exceptions.exception import Exception  as Exception1
 
 #Fase 2
 from src.Compiler.Symbol.generador import *
@@ -78,7 +78,7 @@ def compile():
         #graficarTabla(tabla)
         #listToStr = ' '.join([str(elem) for elem in instrucciones])
         return jsonify({'ok':True, 'msg':'Data recibida', 'consola':generador.getCode()}),200
-    except:
+    except Exception as e:
         print(e)
         return jsonify({'ok':False, 'msg':'No es posible analizar la entrada', 'consola':'Error en el servidor :('}), 409
 

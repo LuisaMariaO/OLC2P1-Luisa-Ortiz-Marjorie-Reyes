@@ -140,18 +140,27 @@ class Aritmetica(Instruction):
         elif self.operacion.getTipo() == AritmeticType.MODULO:
             #izq = self.izq.interpretar(arbol, tabla)
             #der = self.der.interpretar(arbol, tabla)
-            operador = '%'
             if self.izq.tipoDato.getTipo() == DataType.NUMBER:
                 if self.der.tipoDato.getTipo() == DataType.NUMBER:
                     self.tipoDato = Type(DataType.NUMBER)
                     temporal = generador.addTemp()
-                    generador.addExp(temporal,izq.getValue(),der.getValue(),operador)
+                    generador.addMod(temporal,izq.getValue(),der.getValue())
                     return Return(temporal,self.tipoDato,True)
                 else:
-                    return Exception("Semántico", "El operador '%' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
+                    return Exception("Semántico", "El operador '^' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
             else: 
-                return Exception("Semántico", "El operador '%' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
-        
+                return Exception("Semántico", "El operador '^' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
+        elif self.operacion.getTipo() == AritmeticType.NEGACION:
+            if self.izq.tipoDato.getTipo() == DataType.NUMBER:
+                operador = '-'
+                self.tipoDato = Type(DataType.NUMBER)
+                temporal = generador.addTemp()
+                generador.addExp(temporal,1,izq.getValue(),operador)
+                return Return(temporal,self.tipoDato,True)
+            else:
+                    return Exception("Semántico", "El operador '-' no puede ser aplicado a los tipos '" + self.izq.tipoDato.getTipo() + "' y '"  + self.der.tipoDato.getTipo() + "'", self.linea, self.columna)
+           
+
         else:
             return Exception("Semántico", "El operador '" + self.operacion.getTipo() + "' no es válido", self.linea, self.columna)
 

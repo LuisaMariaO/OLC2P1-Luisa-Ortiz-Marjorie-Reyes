@@ -1,5 +1,5 @@
 from .symbol import Symbol
-
+from ..Exceptions.exception import Exception
 
 class SymbolTable:
     def __init__(self,tablaAnterior,ambito):
@@ -95,5 +95,18 @@ class SymbolTable:
             else:
                 tablaActual = self.tablaAnterior
         return None
+    
+    def updateTabla(self, simbolo):
+        tablaActual = self
+        while tablaActual != None:
+            if simbolo.getId() in tablaActual.tablaActual:
+                tablaActual.tablaActual[simbolo.getId()].setValue(simbolo.getValue())
+                return None
+                # Si necesitan cambiar el tipo de dato
+                # tablaActual.tabla[simbolo.getID()].setTipo(simbolo.getTipo())
+            else:
+                tablaActual = tablaActual.tablaAnterior
+        return Exception("Semantico", "Variable no encontrada.", 0, 0)
+
 
 

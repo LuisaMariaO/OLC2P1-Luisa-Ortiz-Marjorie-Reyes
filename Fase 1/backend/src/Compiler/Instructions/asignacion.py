@@ -39,7 +39,7 @@ class Asignacion(Instruction):
         tempPos = simbolo.posicion
         if not simbolo.isGlobal:
             tempPos = generador.addTemp()
-            generador.addExpression(tempPos, 'P', simbolo.pos, '+')
+            generador.addExp(tempPos, 'P', simbolo.posicion, '+')
 
 
         #Valores booleanos

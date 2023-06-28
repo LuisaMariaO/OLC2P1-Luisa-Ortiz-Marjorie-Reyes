@@ -37,7 +37,7 @@ class Relacional(Instruction):
         generador.addComment("EXPRESION RELACIONAL")
         izq = self.izq.compilar(arbol, tabla)
         der = self.der.compilar(arbol, tabla)
-        
+    
         result = Return(None,Type(DataType.BOOLEAN),False)
 
         if self.izq.tipoDato.getTipo() == DataType.NUMBER and self.der.tipoDato.getTipo() == DataType.NUMBER:
