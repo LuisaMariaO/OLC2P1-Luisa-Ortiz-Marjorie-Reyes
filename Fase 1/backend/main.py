@@ -78,7 +78,9 @@ def compile():
             result = instr.compilar(ast,tabla)
             if type(result) == ExceptionFase2:
                 ast.updateErrores(result)
-        #graficarErrores(ast.getErrores()+instrucciones[1])
+
+        print(tabla.getTabla())
+        graficarErrores(ast.getErrores()+instrucciones[1])
         #treeGraph = ast.getTree()
         #graficarArbol(treeGraph)
         #graficarTabla(tabla)

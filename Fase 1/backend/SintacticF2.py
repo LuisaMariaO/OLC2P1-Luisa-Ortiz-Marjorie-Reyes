@@ -81,11 +81,6 @@ def p_puntoycoma(t):
     '''puntoycoma : PTOCOMA
                 |'''
 
-def p_puntoycoma_erro(t):
-    '''puntoycoma : error PTOCOMA
-                | error'''
-    erroresLexicos.append("Error sintáctico", "Error", 0,0)
-
 #*************************************INSTRUCCIONES**********************************************
 def p_imprimir(t):
     'imprimir : CONSOLE PTO LOG PARABRE lista_parametros_l PARCIERRA'
@@ -461,10 +456,16 @@ def p_expresion_llamada(t):
     'expresion : llamada'
     t[0] = t[1]
 
-
-
 def p_error(t):
-    erroresLexicos.append(Exception("Error sintactico", str(t.value), t.lexer.lineno, 0))
+    if t:
+        parser.errok()
+        erroresLexicos.append(Exception("Error sintáctico ", t.type, t.lineno, find_column(entrada, t)))
+    else:
+        erroresLexicos.append(Exception("Error sintáctico en ", "EOF", t.lineno, t.lexpos ))
+
+def find_column(input, token):
+    line_start = input.rfind('\n', 0, token.lexpos) + 1
+    return (token.lexpos - line_start) + 1
    
 def parsear(input):
     global errores
