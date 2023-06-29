@@ -11,6 +11,7 @@ from src.Interpreter.Symbol.three import Three
 from src.Interpreter.Symbol.symbolTable import SymbolTable
 from src.Interpreter.Exceptions.exception import Exception
 from src.Interpreter.Instructions.funcion import Funcion
+from src.Interpreter.Instructions.interface import Interface
 #from src.Interpreter.Exceptions.exception import Exception  as Exception1
 
 #Fase 2
@@ -143,7 +144,7 @@ def graficarTabla(tabla):
         p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla[simbolo].getIdentificador()) + '   </td>\n'
         p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla[simbolo].translateTipo()) + '   </td>\n'
         p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla[simbolo].getAmbito()) + '   </td>\n'
-        if isinstance(tabla[simbolo].getValor(), Funcion):
+        if isinstance(tabla[simbolo].getValor(), Funcion) or isinstance(tabla[simbolo].getValor(), Interface):
             p1 += '<td bgcolor=\"' + color + '\">       </td>\n'
         else:
             p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla[simbolo].getValor()) + '   </td>\n'

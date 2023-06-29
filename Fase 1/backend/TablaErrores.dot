@@ -11,6 +11,20 @@ digraph {
             <td bgcolor="#342E37"> <font color="white"> Columna </font> </td>
             <td bgcolor="#342E37"> <font color="white"> Fecha y hora </font> </td>
             </tr>
+<tr>
+<td bgcolor="#BCF4F5">1</td>
+<td bgcolor="#BCF4F5">   Error semántico: No existe una variable o función con el nombre 'contrato'</td> 
+ <td bgcolor="#BCF4F5">   111</td> 
+ <td bgcolor="#BCF4F5">   47</td> 
+ <td bgcolor="#BCF4F5">29/06/2023, 17:19:18</td> 
+</tr>
+<tr>
+<td bgcolor="#A4CCF4">2</td>
+<td bgcolor="#A4CCF4">   Error semántico: No existe una variable o función con el nombre 'contrato'</td> 
+ <td bgcolor="#A4CCF4">   111</td> 
+ <td bgcolor="#A4CCF4">   47</td> 
+ <td bgcolor="#A4CCF4">29/06/2023, 17:19:18</td> 
+</tr>
 </table>
     >]
     }
