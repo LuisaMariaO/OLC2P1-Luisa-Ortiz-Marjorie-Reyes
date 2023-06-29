@@ -208,8 +208,10 @@ def graficarTablaC3D(tabla):
             <td bgcolor=\"#512D38\"> <font color="white">Posicion</font></td>
             <td bgcolor=\"#512D38\"> <font color="white">Es global</font></td>
             <td bgcolor=\"#512D38\"> <font color="white">Está en heap</font></td>
+            <td bgcolor=\"#512D38\"> <font color="white">Valor</font></td>
+            <td bgcolor=\"#512D38\"> <font color="white">Length</font></td>
             <td bgcolor=\"#512D38\"> <font color="white">Referencia</font></td>
-            <td bgcolor=\"#512D38\"> <font color="white">Tipo aux</font></td>
+            <td bgcolor=\"#512D38\"> <font color="white">Parametros</font></td>
             </tr>\n'''
     color = "#FFE9F3"
     for simbolo in tabla:
@@ -219,8 +221,10 @@ def graficarTablaC3D(tabla):
         p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla[simbolo].posicion) + '   </td>\n'
         p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla[simbolo].isGlobal) + '   </td>\n'
         p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla[simbolo].inHeap) + '   </td>\n'
+        p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla[simbolo].value) + '   </td>\n'
+        p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla[simbolo].length) + '   </td>\n'
         p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla[simbolo].referencia) + '   </td>\n'
-        p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla[simbolo].tipoAux) + '   </td>\n'
+        p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla[simbolo].params) + '   </td>\n'
         p1 += "</tr>\n"
         if color == "#FFE9F3":
             color = "#F4BFDB"

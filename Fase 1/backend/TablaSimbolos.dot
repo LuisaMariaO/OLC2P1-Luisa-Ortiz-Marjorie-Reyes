@@ -10,27 +10,11 @@ digraph {
             <td bgcolor="#512D38"> <font color="white">Posicion</font></td>
             <td bgcolor="#512D38"> <font color="white">Es global</font></td>
             <td bgcolor="#512D38"> <font color="white">Está en heap</font></td>
+            <td bgcolor="#512D38"> <font color="white">Valor</font></td>
+            <td bgcolor="#512D38"> <font color="white">Length</font></td>
             <td bgcolor="#512D38"> <font color="white">Referencia</font></td>
-            <td bgcolor="#512D38"> <font color="white">Tipo aux</font></td>
+            <td bgcolor="#512D38"> <font color="white">Parametros</font></td>
             </tr>
-<tr>
-<td bgcolor="#FFE9F3">   vari   </td>
-<td bgcolor="#FFE9F3">   string   </td>
-<td bgcolor="#FFE9F3">   0   </td>
-<td bgcolor="#FFE9F3">   True   </td>
-<td bgcolor="#FFE9F3">   True   </td>
-<td bgcolor="#FFE9F3">   False   </td>
-<td bgcolor="#FFE9F3">      </td>
-</tr>
-<tr>
-<td bgcolor="#F4BFDB">   vari3   </td>
-<td bgcolor="#F4BFDB">   number   </td>
-<td bgcolor="#F4BFDB">   1   </td>
-<td bgcolor="#F4BFDB">   True   </td>
-<td bgcolor="#F4BFDB">   False   </td>
-<td bgcolor="#F4BFDB">   False   </td>
-<td bgcolor="#F4BFDB">      </td>
-</tr>
 </table>
     >]
     }
