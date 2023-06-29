@@ -323,7 +323,9 @@ def p_nativas(t):
                 | TOLOWER
                 | TOUPPER
                 | SPLIT
-                | CONCAT'''
+                | CONCAT
+                | TYPEOF
+                | LENGTH'''
     if t[1] == 'toFixed':
         t[0] = Native(NativeFunc.FIXED)
     elif t[1] == 'toExponential':
@@ -338,7 +340,11 @@ def p_nativas(t):
         t[0] = Native(NativeFunc.SPLIT)
     elif t[1] == 'concat':
         t[0] = Native(NativeFunc.CONCAT)
-
+    elif t[1] == 'typeOf':
+        t[0] = Native(NativeFunc.TYPEOF)
+    elif t[1] == 'length':
+        t[0] = Native(NativeFunc.LENGTH)
+        
 def p_parametro_nativa(t):
     'parametro_nativa : expresion'
     t[0] = t[1]

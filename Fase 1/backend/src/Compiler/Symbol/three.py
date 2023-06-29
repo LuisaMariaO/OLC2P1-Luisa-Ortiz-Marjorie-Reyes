@@ -33,7 +33,7 @@ class Three:
     def getTablaGlobal(self):
         return self.tablaGlobal
     
-    def setTablaGlobal(self,tabla):
+    def setTablaGlobal(self, tabla):
         self.tablaGlobal = tabla
 
     def getFunciones(self):

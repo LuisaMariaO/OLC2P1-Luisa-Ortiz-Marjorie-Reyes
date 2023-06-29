@@ -71,7 +71,7 @@ def compile():
         instrucciones = SintacticF2.parsear(data.get('code'))
         ast = ThreeFase2(instrucciones[0])
         tabla = TableFase2(None,"Global")
-        ast.setTablaGlobal = tabla
+        ast.setTablaGlobal(tabla)
         agregarNativas(ast)
         
         for instr in ast.getInstrucciones():
@@ -79,8 +79,8 @@ def compile():
             if type(result) == ExceptionFase2:
                 ast.updateErrores(result)
 
-        print(tabla.getTabla())
         graficarErrores(ast.getErrores()+instrucciones[1])
+        graficarTablaC3D(ast.tablaGlobal.tablaActual)
         #treeGraph = ast.getTree()
         #graficarArbol(treeGraph)
         #graficarTabla(tabla)
@@ -193,6 +193,46 @@ def graficarErrores(errores):
     Archivo.write(p1)
     Archivo.close()
     system('dot -Tpng TablaErrores.dot -o TablaErrores.png')
+
+def graficarTablaC3D(tabla):
+    Archivo = open("TablaSimbolos.dot", "w", encoding="UTF-8")
+    p1 = '''digraph {
+            fontname="Arial"
+            label = "Tabla de símbolos"
+            node[shape=none]
+            n1[label=<
+            <table BORDER=\"0\" CELLBORDER=\"1\" CELLSPACING=\"0\" CELLPADDING=\"4\">]
+            <tr>
+            <td bgcolor=\"#512D38\"> <font color="white"> Id </font></td>
+            <td bgcolor=\"#512D38\"> <font color="white">Tipo</font></td>
+            <td bgcolor=\"#512D38\"> <font color="white">Posicion</font></td>
+            <td bgcolor=\"#512D38\"> <font color="white">Es global</font></td>
+            <td bgcolor=\"#512D38\"> <font color="white">Está en heap</font></td>
+            <td bgcolor=\"#512D38\"> <font color="white">Referencia</font></td>
+            <td bgcolor=\"#512D38\"> <font color="white">Tipo aux</font></td>
+            </tr>\n'''
+    color = "#FFE9F3"
+    for simbolo in tabla:
+        p1 += "<tr>\n"
+        p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla[simbolo].identificador) + '   </td>\n'
+        p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla[simbolo].translateTipo()) + '   </td>\n'
+        p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla[simbolo].posicion) + '   </td>\n'
+        p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla[simbolo].isGlobal) + '   </td>\n'
+        p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla[simbolo].inHeap) + '   </td>\n'
+        p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla[simbolo].referencia) + '   </td>\n'
+        p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla[simbolo].tipoAux) + '   </td>\n'
+        p1 += "</tr>\n"
+        if color == "#FFE9F3":
+            color = "#F4BFDB"
+        elif color == "#F4BFDB":
+            color = "#FFE9F3"
+
+    p1 += '''</table>
+    >]
+    }'''
+    Archivo.write(p1)
+    Archivo.close()
+    system('dot -Tpng TablaSimbolos.dot -o TablaSimbolos.png')
 
 def encodeImage(name):
     with open(name, "rb") as dotimg:

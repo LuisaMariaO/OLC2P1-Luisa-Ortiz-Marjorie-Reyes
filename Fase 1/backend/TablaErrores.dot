@@ -11,6 +11,27 @@ digraph {
             <td bgcolor="#342E37"> <font color="white"> Columna </font> </td>
             <td bgcolor="#342E37"> <font color="white"> Fecha y hora </font> </td>
             </tr>
+<tr>
+<td bgcolor="#BCF4F5">1</td>
+<td bgcolor="#BCF4F5">   Error léxico: Caracter inválido: ☻</td> 
+ <td bgcolor="#BCF4F5">   1</td> 
+ <td bgcolor="#BCF4F5">   0</td> 
+ <td bgcolor="#BCF4F5">29/06/2023, 01:01:38</td> 
+</tr>
+<tr>
+<td bgcolor="#A4CCF4">2</td>
+<td bgcolor="#A4CCF4">   Error léxico: Caracter inválido: ◘</td> 
+ <td bgcolor="#A4CCF4">   4</td> 
+ <td bgcolor="#A4CCF4">   46</td> 
+ <td bgcolor="#A4CCF4">29/06/2023, 01:01:38</td> 
+</tr>
+<tr>
+<td bgcolor="#BCF4F5">3</td>
+<td bgcolor="#BCF4F5">   Error léxico: Caracter inválido: ○</td> 
+ <td bgcolor="#BCF4F5">   5</td> 
+ <td bgcolor="#BCF4F5">   48</td> 
+ <td bgcolor="#BCF4F5">29/06/2023, 01:01:38</td> 
+</tr>
 </table>
     >]
     }

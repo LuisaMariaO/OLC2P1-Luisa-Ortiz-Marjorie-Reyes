@@ -5,40 +5,31 @@ digraph {
             n1[label=<
             <table BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">]
             <tr>
-            <td bgcolor="#512D38"> <font color="white">Nombre </font></td>
+            <td bgcolor="#512D38"> <font color="white"> Id </font></td>
             <td bgcolor="#512D38"> <font color="white">Tipo</font></td>
-            <td bgcolor="#512D38"> <font color="white">Ámbito</font></td>
-            <td bgcolor="#512D38"> <font color="white">Valor</font></td>
-            <td bgcolor="#512D38"> <font color="white">Rol</font></td>
-            <td bgcolor="#512D38"> <font color="white">Fila</font></td>
-            <td bgcolor="#512D38"> <font color="white">Columna</font></td>
+            <td bgcolor="#512D38"> <font color="white">Posicion</font></td>
+            <td bgcolor="#512D38"> <font color="white">Es global</font></td>
+            <td bgcolor="#512D38"> <font color="white">Está en heap</font></td>
+            <td bgcolor="#512D38"> <font color="white">Referencia</font></td>
+            <td bgcolor="#512D38"> <font color="white">Tipo aux</font></td>
             </tr>
 <tr>
-<td bgcolor="#FFE9F3">   ackerman   </td>
-<td bgcolor="#FFE9F3">   None   </td>
-<td bgcolor="#FFE9F3">   Global   </td>
-<td bgcolor="#FFE9F3">       </td>
-<td bgcolor="#FFE9F3">   Función   </td>
-<td bgcolor="#FFE9F3">   1   </td>
-<td bgcolor="#FFE9F3">   9   </td>
+<td bgcolor="#FFE9F3">   vari   </td>
+<td bgcolor="#FFE9F3">   string   </td>
+<td bgcolor="#FFE9F3">   0   </td>
+<td bgcolor="#FFE9F3">   True   </td>
+<td bgcolor="#FFE9F3">   True   </td>
+<td bgcolor="#FFE9F3">   False   </td>
+<td bgcolor="#FFE9F3">      </td>
 </tr>
 <tr>
-<td bgcolor="#F4BFDB">   hanoi   </td>
-<td bgcolor="#F4BFDB">   None   </td>
-<td bgcolor="#F4BFDB">   Global   </td>
-<td bgcolor="#F4BFDB">       </td>
-<td bgcolor="#F4BFDB">   Función   </td>
-<td bgcolor="#F4BFDB">   11   </td>
-<td bgcolor="#F4BFDB">   9   </td>
-</tr>
-<tr>
-<td bgcolor="#FFE9F3">   factorial   </td>
-<td bgcolor="#FFE9F3">   None   </td>
-<td bgcolor="#FFE9F3">   Global   </td>
-<td bgcolor="#FFE9F3">       </td>
-<td bgcolor="#FFE9F3">   Función   </td>
-<td bgcolor="#FFE9F3">   21   </td>
-<td bgcolor="#FFE9F3">   8   </td>
+<td bgcolor="#F4BFDB">   vari3   </td>
+<td bgcolor="#F4BFDB">   number   </td>
+<td bgcolor="#F4BFDB">   1   </td>
+<td bgcolor="#F4BFDB">   True   </td>
+<td bgcolor="#F4BFDB">   False   </td>
+<td bgcolor="#F4BFDB">   False   </td>
+<td bgcolor="#F4BFDB">      </td>
 </tr>
 </table>
     >]

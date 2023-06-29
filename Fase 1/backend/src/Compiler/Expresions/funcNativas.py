@@ -20,6 +20,8 @@ class NativeFunc(Enum):
     UPPER = 5
     SPLIT = 6
     CONCAT = 7
+    TYPEOF = 8
+    LENGTH = 9
 
 class FuncionNativa(Instruction):
     def __init__(self, op, func, parametro, linea, columna):

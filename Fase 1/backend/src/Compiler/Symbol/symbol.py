@@ -1,3 +1,4 @@
+from src.Compiler.Symbol.type import DataType
 class Symbol:
     def __init__(self, identificador,tipo,posicion,globalVar,inHeap):
         self.tipo = tipo
@@ -57,3 +58,19 @@ class Symbol:
         return self.value
     def setValue(self, value):
         self.value = value
+
+    def translateTipo(self):
+        if self.tipo == DataType.NUMBER:
+            return "number"
+        elif self.tipo == DataType.STRING:
+            return "string"
+        elif self.tipo == DataType.BOOLEAN:
+            return "boolean"
+        elif self.tipo == DataType.ANY:
+            return "any"
+        elif self.tipo == DataType.NULL:
+            return "null"
+        elif self.tipo == DataType.VECTOR_ANY:
+            return "array"
+        elif self.tipo == DataType.INTERFACE:
+            return "interface"
