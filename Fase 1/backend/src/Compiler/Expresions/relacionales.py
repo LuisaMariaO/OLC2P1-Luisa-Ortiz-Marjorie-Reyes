@@ -79,10 +79,15 @@ class Relacional(Instruction):
 
                
             else:
+                print("No era ")
                 generador.addComment("Error: Operación relacional incompatible con el tipo de dato string")
                 return Exception("Semántico","Operación relacional incompatible con el tipo de dato string",self.linea,self.columna)
             
         else:
+            print("si era")
+            print(self.izq.tipoDato.getTipo())
+            print(self.der.tipoDato.getTipo())
+            print(self.operacion.getTipo())
             generador.addComment("Error: Operación relacional incompatible con el tipo de dato")
             return Exception("Semántico","Operación relacional incompatible con el tipo de dato",self.linea,self.columna)
         

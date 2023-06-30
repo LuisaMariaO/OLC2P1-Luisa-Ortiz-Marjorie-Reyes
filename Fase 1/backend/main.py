@@ -9,7 +9,7 @@ import Sintactic
 import SintacticF2
 from src.Interpreter.Symbol.three import Three
 from src.Interpreter.Symbol.symbolTable import SymbolTable
-from src.Interpreter.Exceptions.exception import Exception
+from src.Interpreter.Exceptions.exception import Exception as Excepcion1
 from src.Interpreter.Instructions.funcion import Funcion
 #from src.Interpreter.Exceptions.exception import Exception  as Exception1
 
@@ -79,15 +79,17 @@ def compile():
             if type(result) == ExceptionFase2:
                 ast.updateErrores(result)
 
-        graficarErrores(ast.getErrores()+instrucciones[1])
+        #graficarErrores(ast.getErrores()+instrucciones[1])
+
         graficarTablaC3D(ast.tablaGlobal.tablaActual)
+
         #treeGraph = ast.getTree()
         #graficarArbol(treeGraph)
         #graficarTabla(tabla)
         #listToStr = ' '.join([str(elem) for elem in instrucciones])
         return jsonify({'ok':True, 'msg':'Data recibida', 'consola':generador.getCode()}),200
-    except:
-        
+    except Exception as e:
+        print(e)
         return jsonify({'ok':False, 'msg':'No es posible analizar la entrada', 'consola':'Error en el servidor :('}), 409
 
 @app.route('/symbtable',methods=['GET'])
@@ -195,6 +197,7 @@ def graficarErrores(errores):
     system('dot -Tpng TablaErrores.dot -o TablaErrores.png')
 
 def graficarTablaC3D(tabla):
+    
     Archivo = open("TablaSimbolos.dot", "w", encoding="UTF-8")
     p1 = '''digraph {
             fontname="Arial"
@@ -213,6 +216,7 @@ def graficarTablaC3D(tabla):
             </tr>\n'''
     color = "#FFE9F3"
     for simbolo in tabla:
+        
         p1 += "<tr>\n"
         p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla[simbolo].identificador) + '   </td>\n'
         p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla[simbolo].translateTipo()) + '   </td>\n'
@@ -230,6 +234,7 @@ def graficarTablaC3D(tabla):
     p1 += '''</table>
     >]
     }'''
+
     Archivo.write(p1)
     Archivo.close()
     system('dot -Tpng TablaSimbolos.dot -o TablaSimbolos.png')

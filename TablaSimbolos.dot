@@ -1,0 +1,18 @@
+digraph {
+            fontname="Arial"
+            label = "Tabla de símbolos"
+            node[shape=none]
+            n1[label=<
+            <table BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">]
+            <tr>
+            <td bgcolor="#512D38"> <font color="white"> Id </font></td>
+            <td bgcolor="#512D38"> <font color="white">Tipo</font></td>
+            <td bgcolor="#512D38"> <font color="white">Posicion</font></td>
+            <td bgcolor="#512D38"> <font color="white">Es global</font></td>
+            <td bgcolor="#512D38"> <font color="white">Está en heap</font></td>
+            <td bgcolor="#512D38"> <font color="white">Referencia</font></td>
+            <td bgcolor="#512D38"> <font color="white">Tipo aux</font></td>
+            </tr>
+</table>
+    >]
+    }

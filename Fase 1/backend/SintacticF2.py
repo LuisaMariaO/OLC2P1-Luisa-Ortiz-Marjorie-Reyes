@@ -303,6 +303,7 @@ def p_expresiones_aritmeticas(t):
     elif t[2] == '%':
         t[0] = Aritmetica(t[1], t[3], Aritmetic(AritmeticType.MODULO), t.lineno(1), 9)
     elif t[1] == "(" and t[3] == ")":
+      
         t[0] = t[2]
 
 def p_expresion_unaria(t):

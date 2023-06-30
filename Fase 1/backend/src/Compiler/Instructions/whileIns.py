@@ -6,6 +6,7 @@ import copy
 from ..Instructions.continueIns import *
 from ..Instructions.breakIns import *
 from ..Expresions.returnIns import *
+from ..Symbol.generador import Generador
 
 class While(Instruction):
     def __init__(self,condicion,instrucciones,linea,columna):
@@ -14,38 +15,56 @@ class While(Instruction):
 
         super().__init__(linea,columna,Type(DataType.INDEFINIDO)) 
 
-    def interpretar(self, arbol, tabla):
-        condicionCopy = copy.deepcopy(self.condicion)
-        condition = condicionCopy.interpretar(arbol,tabla)
+    def compilar(self, arbol, tabla):
+        genAux = Generador()
+        generator = genAux.getInstance()
+        generator.addComment("Inicia Loop While")
+        while True:
+            # bandera = False #Nos servira para el break, o el continue
+            if self.getTipo():
+                
+                Lbl0 = generator.newLabel()
+                generator.putLabel(Lbl0)
+                condicion = self.condicion.compilar(arbol, tabla)
+                if isinstance(condicion, Excepcion): 
+                    tree.setExcepciones(condicion)
+                generator.putLabel(condicion.getTrueLbl())
 
-       
-        if condicionCopy.tipoDato.getTipo()!=DataType.BOOLEAN:
-            return Exception("Semántico","La condición debe ser una expresión booleana",self.linea,self.columna)
-        if type(condition)==Exception: return condition
-        tablaNueva = SymbolTable(tabla,"While")
-        while(condition):
-            parar = False
-            instruccionesLocales = copy.deepcopy(self.instrucciones)
-            for instruccion in instruccionesLocales:
-                if type(instruccion)==Break:
-                    parar = True
-                    break
-                if isinstance(instruccion,Continue):
-                    break
-                if isinstance(instruccion,Return):
-                    arbol.updateErrores(Exception("Semántico","La instrucción return no es propia de la instrucción for",self.linea,self.columna))
-                    continue
-                result = instruccion.interpretar(arbol,tablaNueva)
-                if type(result)==Exception:
-                    arbol.updateErrores(result)
-            if parar:
-                break
-            condicionCopy = copy.deepcopy(self.condicion)
-            condition = condicionCopy.interpretar(arbol,tabla)
-       
-            if condicionCopy.tipoDato.getTipo()!=DataType.BOOLEAN:
-                return Exception("Semántico","La condición debe ser una expresión booleana",self.linea,self.columna)
-            if type(condition)==Exception: return condition
+                table.breakLbl = condicion.getFalseLbl()
+                table.continueLbl = Lbl0
+                
+                for instruccion in self.instrucciones:
+                    entorno = Tabla_Simbolo(table)
+                    entorno.breakLbl = condicion.getFalseLbl()
+                    entorno.continueLbl = Lbl0
+                    entorno.returnLbl = table.returnLbl
+                    value = instruccion.compilar(tree, entorno)
+                    if isinstance(value, Excepcion): 
+                        tree.setExcepciones(condicion)
+                    if isinstance(value, Break):
+                        generator.addGoto(condicion.getFalseLbl())
+                    if isinstance(value, Continue):
+                        generator.addGoto(Lbl0)
+                    if isinstance(value, ReturnE):
+                        if entorno.returnLbl != '':
+                            if value.getTrueLbl() == '':
+                                generator.addComment('Resultado a retornar en la funcion')
+                                generator.setStack('P',value.getValor())
+                                generator.addGoto(entorno.returnLbl)
+                                generator.addComment('Fin del resultado a retornar')
+                            else:
+                                generator.addComment('Resultado a retornar en la funcion')
+                                generator.putLabel(value.getTrueLbl())
+                                generator.setStack('P', '1')
+                                generator.addGoto(entorno.returnLbl)
+                                generator.putLabel(value.getFalseLbl())
+                                generator.setStack('P', '0')
+                                generator.addGoto(entorno.returnLbl)
+                                generator.addComment('Fin del resultado a retornar')
+                table.breakLbl = ''
+                table.continueLbl = ''
 
-
-
+                generator.addGoto(Lbl0)
+                generator.putLabel(condicion.getFalseLbl())
+                generator.addComment("Finaliza Loop While")
+            break
