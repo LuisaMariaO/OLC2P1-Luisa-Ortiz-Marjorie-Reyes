@@ -13,24 +13,17 @@ digraph {
             </tr>
 <tr>
 <td bgcolor="#BCF4F5">1</td>
-<td bgcolor="#BCF4F5">   Error léxico: Caracter inválido: ☻</td> 
- <td bgcolor="#BCF4F5">   1</td> 
- <td bgcolor="#BCF4F5">   0</td> 
- <td bgcolor="#BCF4F5">29/06/2023, 01:01:38</td> 
+<td bgcolor="#BCF4F5">   Error semántico: No existe una variable o función con el nombre 'contrato'</td> 
+ <td bgcolor="#BCF4F5">   111</td> 
+ <td bgcolor="#BCF4F5">   47</td> 
+ <td bgcolor="#BCF4F5">29/06/2023, 17:19:18</td> 
 </tr>
 <tr>
 <td bgcolor="#A4CCF4">2</td>
-<td bgcolor="#A4CCF4">   Error léxico: Caracter inválido: ◘</td> 
- <td bgcolor="#A4CCF4">   4</td> 
- <td bgcolor="#A4CCF4">   46</td> 
- <td bgcolor="#A4CCF4">29/06/2023, 01:01:38</td> 
-</tr>
-<tr>
-<td bgcolor="#BCF4F5">3</td>
-<td bgcolor="#BCF4F5">   Error léxico: Caracter inválido: ○</td> 
- <td bgcolor="#BCF4F5">   5</td> 
- <td bgcolor="#BCF4F5">   48</td> 
- <td bgcolor="#BCF4F5">29/06/2023, 01:01:38</td> 
+<td bgcolor="#A4CCF4">   Error semántico: No existe una variable o función con el nombre 'contrato'</td> 
+ <td bgcolor="#A4CCF4">   111</td> 
+ <td bgcolor="#A4CCF4">   47</td> 
+ <td bgcolor="#A4CCF4">29/06/2023, 17:19:18</td> 
 </tr>
 </table>
     >]

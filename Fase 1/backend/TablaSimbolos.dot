@@ -5,31 +5,103 @@ digraph {
             n1[label=<
             <table BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">]
             <tr>
-            <td bgcolor="#512D38"> <font color="white"> Id </font></td>
+            <td bgcolor="#512D38"> <font color="white">Nombre </font></td>
             <td bgcolor="#512D38"> <font color="white">Tipo</font></td>
-            <td bgcolor="#512D38"> <font color="white">Posicion</font></td>
-            <td bgcolor="#512D38"> <font color="white">Es global</font></td>
-            <td bgcolor="#512D38"> <font color="white">Está en heap</font></td>
-            <td bgcolor="#512D38"> <font color="white">Referencia</font></td>
-            <td bgcolor="#512D38"> <font color="white">Tipo aux</font></td>
+            <td bgcolor="#512D38"> <font color="white">Ámbito</font></td>
+            <td bgcolor="#512D38"> <font color="white">Valor</font></td>
+            <td bgcolor="#512D38"> <font color="white">Rol</font></td>
+            <td bgcolor="#512D38"> <font color="white">Fila</font></td>
+            <td bgcolor="#512D38"> <font color="white">Columna</font></td>
             </tr>
 <tr>
-<td bgcolor="#FFE9F3">   vari   </td>
-<td bgcolor="#FFE9F3">   string   </td>
-<td bgcolor="#FFE9F3">   0   </td>
-<td bgcolor="#FFE9F3">   True   </td>
-<td bgcolor="#FFE9F3">   True   </td>
-<td bgcolor="#FFE9F3">   False   </td>
-<td bgcolor="#FFE9F3">      </td>
+<td bgcolor="#FFE9F3">   Actor   </td>
+<td bgcolor="#FFE9F3">   interface   </td>
+<td bgcolor="#FFE9F3">   Global   </td>
+<td bgcolor="#FFE9F3">       </td>
+<td bgcolor="#FFE9F3">   Interface   </td>
+<td bgcolor="#FFE9F3">   59   </td>
+<td bgcolor="#FFE9F3">   10   </td>
 </tr>
 <tr>
-<td bgcolor="#F4BFDB">   vari3   </td>
-<td bgcolor="#F4BFDB">   number   </td>
-<td bgcolor="#F4BFDB">   1   </td>
-<td bgcolor="#F4BFDB">   True   </td>
-<td bgcolor="#F4BFDB">   False   </td>
-<td bgcolor="#F4BFDB">   False   </td>
-<td bgcolor="#F4BFDB">      </td>
+<td bgcolor="#F4BFDB">   Pelicula   </td>
+<td bgcolor="#F4BFDB">   interface   </td>
+<td bgcolor="#F4BFDB">   Global   </td>
+<td bgcolor="#F4BFDB">       </td>
+<td bgcolor="#F4BFDB">   Interface   </td>
+<td bgcolor="#F4BFDB">   64   </td>
+<td bgcolor="#F4BFDB">   10   </td>
+</tr>
+<tr>
+<td bgcolor="#FFE9F3">   Contrato   </td>
+<td bgcolor="#FFE9F3">   interface   </td>
+<td bgcolor="#FFE9F3">   Global   </td>
+<td bgcolor="#FFE9F3">       </td>
+<td bgcolor="#FFE9F3">   Interface   </td>
+<td bgcolor="#FFE9F3">   69   </td>
+<td bgcolor="#FFE9F3">   4   </td>
+</tr>
+<tr>
+<td bgcolor="#F4BFDB">   actores   </td>
+<td bgcolor="#F4BFDB">   array   </td>
+<td bgcolor="#F4BFDB">   Global   </td>
+<td bgcolor="#F4BFDB">   ['Elizabeth Olsen', 'Adam Sandler', 'Christian Bale', 'Jennifer Aniston']   </td>
+<td bgcolor="#F4BFDB">   Variable   </td>
+<td bgcolor="#F4BFDB">   74   </td>
+<td bgcolor="#F4BFDB">   89   </td>
+</tr>
+<tr>
+<td bgcolor="#FFE9F3">   peliculas   </td>
+<td bgcolor="#FFE9F3">   array   </td>
+<td bgcolor="#FFE9F3">   Global   </td>
+<td bgcolor="#FFE9F3">   ['Avengers: Age of Ultron', 'Mr. Deeds', 'Batman: The Dark Knight', 'Marley and Me']   </td>
+<td bgcolor="#FFE9F3">   Variable   </td>
+<td bgcolor="#FFE9F3">   75   </td>
+<td bgcolor="#FFE9F3">   102   </td>
+</tr>
+<tr>
+<td bgcolor="#F4BFDB">   contratar   </td>
+<td bgcolor="#F4BFDB">   None   </td>
+<td bgcolor="#F4BFDB">   Global   </td>
+<td bgcolor="#F4BFDB">       </td>
+<td bgcolor="#F4BFDB">   Función   </td>
+<td bgcolor="#F4BFDB">   77   </td>
+<td bgcolor="#F4BFDB">   9   </td>
+</tr>
+<tr>
+<td bgcolor="#FFE9F3">   crearActor   </td>
+<td bgcolor="#FFE9F3">   None   </td>
+<td bgcolor="#FFE9F3">   Global   </td>
+<td bgcolor="#FFE9F3">       </td>
+<td bgcolor="#FFE9F3">   Función   </td>
+<td bgcolor="#FFE9F3">   84   </td>
+<td bgcolor="#FFE9F3">   9   </td>
+</tr>
+<tr>
+<td bgcolor="#F4BFDB">   crearPelicula   </td>
+<td bgcolor="#F4BFDB">   None   </td>
+<td bgcolor="#F4BFDB">   Global   </td>
+<td bgcolor="#F4BFDB">       </td>
+<td bgcolor="#F4BFDB">   Función   </td>
+<td bgcolor="#F4BFDB">   91   </td>
+<td bgcolor="#F4BFDB">   9   </td>
+</tr>
+<tr>
+<td bgcolor="#FFE9F3">   imprimir   </td>
+<td bgcolor="#FFE9F3">   None   </td>
+<td bgcolor="#FFE9F3">   Global   </td>
+<td bgcolor="#FFE9F3">       </td>
+<td bgcolor="#FFE9F3">   Función   </td>
+<td bgcolor="#FFE9F3">   97   </td>
+<td bgcolor="#FFE9F3">   9   </td>
+</tr>
+<tr>
+<td bgcolor="#F4BFDB">   contratos   </td>
+<td bgcolor="#F4BFDB">   None   </td>
+<td bgcolor="#F4BFDB">   Global   </td>
+<td bgcolor="#F4BFDB">       </td>
+<td bgcolor="#F4BFDB">   Función   </td>
+<td bgcolor="#F4BFDB">   102   </td>
+<td bgcolor="#F4BFDB">   10   </td>
 </tr>
 </table>
     >]

@@ -11,6 +11,7 @@ from src.Interpreter.Symbol.three import Three
 from src.Interpreter.Symbol.symbolTable import SymbolTable
 from src.Interpreter.Exceptions.exception import Exception as Excepcion1
 from src.Interpreter.Instructions.funcion import Funcion
+from src.Interpreter.Instructions.interface import Interface
 #from src.Interpreter.Exceptions.exception import Exception  as Exception1
 
 #Fase 2
@@ -145,7 +146,7 @@ def graficarTabla(tabla):
         p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla[simbolo].getIdentificador()) + '   </td>\n'
         p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla[simbolo].translateTipo()) + '   </td>\n'
         p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla[simbolo].getAmbito()) + '   </td>\n'
-        if isinstance(tabla[simbolo].getValor(), Funcion):
+        if isinstance(tabla[simbolo].getValor(), Funcion) or isinstance(tabla[simbolo].getValor(), Interface):
             p1 += '<td bgcolor=\"' + color + '\">       </td>\n'
         else:
             p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla[simbolo].getValor()) + '   </td>\n'
@@ -211,8 +212,10 @@ def graficarTablaC3D(tabla):
             <td bgcolor=\"#512D38\"> <font color="white">Posicion</font></td>
             <td bgcolor=\"#512D38\"> <font color="white">Es global</font></td>
             <td bgcolor=\"#512D38\"> <font color="white">Está en heap</font></td>
+            <td bgcolor=\"#512D38\"> <font color="white">Valor</font></td>
+            <td bgcolor=\"#512D38\"> <font color="white">Length</font></td>
             <td bgcolor=\"#512D38\"> <font color="white">Referencia</font></td>
-            <td bgcolor=\"#512D38\"> <font color="white">Tipo aux</font></td>
+            <td bgcolor=\"#512D38\"> <font color="white">Parametros</font></td>
             </tr>\n'''
     color = "#FFE9F3"
     for simbolo in tabla:
@@ -223,8 +226,10 @@ def graficarTablaC3D(tabla):
         p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla[simbolo].posicion) + '   </td>\n'
         p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla[simbolo].isGlobal) + '   </td>\n'
         p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla[simbolo].inHeap) + '   </td>\n'
+        p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla[simbolo].value) + '   </td>\n'
+        p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla[simbolo].length) + '   </td>\n'
         p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla[simbolo].referencia) + '   </td>\n'
-        p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla[simbolo].tipoAux) + '   </td>\n'
+        p1 += '<td bgcolor=\"' + color + '\">   ' + str(tabla[simbolo].params) + '   </td>\n'
         p1 += "</tr>\n"
         if color == "#FFE9F3":
             color = "#F4BFDB"

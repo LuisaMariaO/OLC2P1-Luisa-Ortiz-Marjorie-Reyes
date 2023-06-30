@@ -22,6 +22,7 @@ class NativeFunc(Enum):
     CONCAT = 7
     TYPEOF = 8
     LENGTH = 9
+    PUSH = 10
 
 class FuncionNativa(Instruction):
     def __init__(self, op, func, parametro, linea, columna):
@@ -31,9 +32,11 @@ class FuncionNativa(Instruction):
         super().__init__(linea,columna,Type(DataType.INDEFINIDO))
     
     def interpretar(self, arbol, tabla):
-        op = self.op.interpretar(arbol, tabla)
-        if type(op) == Exception:
-            return op
+        if type(self.op) != str:
+            op = self.op.interpretar(arbol, tabla)
+
+            if type(op) == Exception:
+                return op
         
         if self.func.getTipo() == NativeFunc.FIXED:
             if self.op.tipoDato.getTipo() == DataType.NUMBER:
@@ -142,5 +145,27 @@ class FuncionNativa(Instruction):
                     return Exception("Error semántico: ", "Tipo de dato no válido para función length",self.linea, self.columna)
             else:
                 return Exception("Error semántico: ", "Tipo de dato no válido para función length",self.linea, self.columna)
+        elif self.func.getTipo() == NativeFunc.PUSH:
+            # Si es id.push()
+            if type(self.op) == str:
+                tablaActual = tabla
+                while (tablaActual!=None):
+                    busqueda = tablaActual.getSimbolo(self.op)
+                    if busqueda != None:
+                        if busqueda.getTipo() == DataType.VECTOR_ANY:
+                            if type(busqueda.valor) == list:
+                                if self.parametro != None:
+                                    param = self.parametro.interpretar(arbol, tabla)
+                                    if type(param) == list and self.parametro.tipoDato.getTipo() == DataType.VECTOR_ANY:
+                                        busqueda.valor.append(param)
+                                return
+                            else:
+                                return Exception("Error semántico","El tipo de dato de la expresión no coincide con el tipo de dato de la variable", self.linea, self.columna)
+                        else: 
+                            return Exception("Error semántico","El tipo de dato de la expresión no coincide con el tipo de dato de la variable", self.linea, self.columna)
                         
+                    tablaActual = tablaActual.getTablaAnterior()
+
+                return Exception("Error semántico","No existe una variable con el nombre '" + self.id + "'", self.linea, self.columna)
+                    
 

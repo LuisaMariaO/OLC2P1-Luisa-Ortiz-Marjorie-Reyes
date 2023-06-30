@@ -29,6 +29,7 @@ from src.Interpreter.Exceptions.exception import *
 from src.Interpreter.Instructions.asignacionArray import *
 from src.Interpreter.Symbol.three import Nodo
 from src.Interpreter.Expresions.interfaz import *
+from src.Interpreter.Instructions.push import Push
 
 precedence = (
     ('left',  'OR'),
@@ -84,7 +85,8 @@ def p_instruccion_global(t):
                 | continue
                 | retorno
                 | struct
-                | asignacion_array'''
+                | asignacion_array
+                | push'''
     t[0] = {"instruc" : t[1].get("instruc"),
             "nodo" : t[1].get("nodo")}
 
@@ -409,6 +411,25 @@ def p_expresion_unaria(t):
     t[0] = {"instruc" : Aritmetica(t[2].get("instruc"),t[2].get("instruc"),Aritmetic(AritmeticType.NEGACION),t.lineno(1),find_column(entrada, t.lexer)),
             "nodo" : Nodo("expresion").setProduccion(["-", t[2].get("nodo")])}
 
+def p_instruc_push(t):
+    '''push : ID PTO PUSH PARABRE parametro_nativa PARCIERRA
+            | ID dimensiones PTO PUSH PARABRE parametro_nativa PARCIERRA'''
+    if t[2] == ".":
+        if t[5].get("instruc") == None:
+            t[0] = {"instruc" : FuncionNativa(t[1], Native(NativeFunc.PUSH), None, t.lineno(1), find_column(entrada, t.lexer)),
+                    "nodo" : Nodo("expresion").setProduccion([t[1], ".", "push", "(", ")"])}
+        else: 
+            t[0] = {"instruc" : FuncionNativa(t[1], Native(NativeFunc.PUSH), t[5].get("instruc"), t.lineno(1), find_column(entrada, t.lexer)),
+                    "nodo" : Nodo("expresion").setProduccion([t[1], ".", "push", "(", t[5].get("nodo"), ")"])}
+    else:
+        print("sí llegué")
+        if t[6].get("instruc") == None:
+            t[0] = {"instruc" : Push(t[1], t[2].get("instruc"), None, t.lineno(1), find_column(entrada, t.lexer)),
+                    "nodo" : Nodo("expresion").setProduccion([t[1], t[2].get("nodo"), ".", "push", "(", ")"])}
+        else: 
+            t[0] = {"instruc" : Push(t[1], t[2].get("instruc"), t[6].get("instruc"), t.lineno(1), find_column(entrada, t.lexer)),
+                    "nodo" : Nodo("expresion").setProduccion([t[1], t[2].get("nodo"), ".", "push", "(", t[6].get("nodo"), ")"])}   
+        print("salí")
 def p_expresiones_nativas(t):
     '''expresion : expr_punto nativas PARABRE parametro_nativa PARCIERRA'''
     if t[4].get("instruc") == None:

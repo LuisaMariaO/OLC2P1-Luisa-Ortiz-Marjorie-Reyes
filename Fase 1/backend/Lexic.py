@@ -36,6 +36,7 @@ reservedWords = {
     'concat'        : 'CONCAT',
     'typeOf'        : 'TYPEOF',
     'length'        : 'LENGTH',
+    'push'          : 'PUSH',
 }
 
 tokens = [
