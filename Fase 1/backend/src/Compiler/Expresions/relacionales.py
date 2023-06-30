@@ -83,6 +83,46 @@ class Relacional(Instruction):
                 generador.addComment("Error: Operación relacional incompatible con el tipo de dato string")
                 return Exception("Semántico","Operación relacional incompatible con el tipo de dato string",self.linea,self.columna)
             
+        elif self.izq.tipoDato.getTipo() == DataType.BOOLEAN and self.der.tipoDato.getTipo() == DataType.BOOLEAN:
+            gotoR = generador.newLabel()
+            leftTmp  = generador.addTemp()
+
+            generador.putLabel(izq.getTrueLbl()) 
+            generador.addExp(leftTmp, '1', '','')
+            generador.addGoto(gotoR)
+
+            generador.putLabel(izq.getFalseLbl())
+            generador.addExp(leftTmp, '0', '','')
+
+            generador.putLabel(gotoR)
+            
+            #right = self.right.compilar(tree, table)
+            #if right.type != Tipo.BOOL:
+            #    print("Error, no se pueden comparar")
+            #    return Excepcion("Semantico","No se pueden comparar", self.fila, self.colum)
+            
+            gotoEnd = generador.newLabel()
+            rightTemp = generador.addTemp()
+
+            generador.putLabel(der.trueLbl)
+            
+            generador.addExp(rightTemp, '1', '', '')
+            generador.addGoto(gotoEnd)
+
+            generador.putLabel(der.getFalseLbl())
+            generador.addExp(rightTemp, '0', '', '')
+
+            generador.putLabel(gotoEnd)
+
+            self.checkLabels()
+            if self.operacion.getTipo() == RelationalType.IGUAL:
+                operador = "=="
+            else:
+                operador = '!='
+            generador.addIf(leftTmp, rightTemp, operador, self.trueLbl)
+            generador.addGoto(self.falseLbl)
+
+        
         else:
             print("si era")
             print(self.izq.tipoDato.getTipo())

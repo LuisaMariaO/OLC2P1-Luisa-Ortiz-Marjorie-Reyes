@@ -3,13 +3,13 @@ from flask.json import jsonify
 from os import system
 from flask_cors import CORS
 import base64
-
+import sys,os
 
 import Sintactic
 import SintacticF2
 from src.Interpreter.Symbol.three import Three
 from src.Interpreter.Symbol.symbolTable import SymbolTable
-from src.Interpreter.Exceptions.exception import Exception as Excepcion1
+from src.Interpreter.Exceptions.exception import Exception
 from src.Interpreter.Instructions.funcion import Funcion
 from src.Interpreter.Instructions.interface import Interface
 #from src.Interpreter.Exceptions.exception import Exception  as Exception1
@@ -80,7 +80,7 @@ def compile():
             if type(result) == ExceptionFase2:
                 ast.updateErrores(result)
 
-        #graficarErrores(ast.getErrores()+instrucciones[1])
+        graficarErrores(ast.getErrores()+instrucciones[1])
 
         graficarTablaC3D(ast.tablaGlobal.tablaActual)
 
@@ -89,8 +89,7 @@ def compile():
         #graficarTabla(tabla)
         #listToStr = ' '.join([str(elem) for elem in instrucciones])
         return jsonify({'ok':True, 'msg':'Data recibida', 'consola':generador.getCode()}),200
-    except Exception as e:
-        print(e)
+    except:
         return jsonify({'ok':False, 'msg':'No es posible analizar la entrada', 'consola':'Error en el servidor :('}), 409
 
 @app.route('/symbtable',methods=['GET'])
